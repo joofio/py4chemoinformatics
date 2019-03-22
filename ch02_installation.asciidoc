@@ -1,32 +1,34 @@
-== 2章: ケモインフォマティクスのための環境を整えよう
+== Chapter 2: Prepare the Environment for Chemoinformatics
 :imagesdir: images
 
-本書に必要な環境構築を行います。
+We will build the environment required for this document.
 
-=== Anacondaとは
+=== About Anaconda
 
-Anacondaは機械学習を行うための準備を楽にするためのパッケージです。また、後ほど説明するRDKitを簡単にインストールできます。
+Anaconda is a package to ease preparation for doing machine learning. You can also easily install RDKit, which will be explained later.
+
 
 ==== Q&A
 
-なぜAnacondaを利用するのか？::
-  プログラミング言語Pythonは比較的多くの標準ライブラリが用意されていますが、ケモインフォマティクス用のライブラリは自分でインストールする必要があります。この作業は慣れれば大した問題ではないですが、初学者にとっては面倒くさいでしょう。この手間を軽減するのが理由です。
+Why use Anaconda?::
+The programming language Python has a relatively large number of standard libraries, but you need to install the libraries for chemoinformatics yourself. This is not a big deal if you get used to it, but it will be troublesome for beginners. The reason is to reduce this effort.
 
-Pythonには大きく2.x系のバージョンと3.x系のバージョンとがありますが？::
-  link:https://pythonclock.org/[2.x系はサポートが2020年に終了する]ため、新しく学ぶ方は2.x系を使う必要はありません。
 
-=== Anacondaのインストール方法
+There are two major versions of Python: 2.x and 3.x.::
+  link:https://pythonclock.org/[Support for 2.x will end in 2020], so new learners do not need to use 2.x.
 
-では早速Anacondaをインストールしましょう。link:https://www.anaconda.com/[公式サイト]にアクセスして、ご自身の環境にあったPython3系インストーラーをダウンロードします。OSがLinux/MacであればGUI/CUIのインストーラーを選べるのでPython3.7の64-Bit Command Line Installerをダウンロードします。
+=== How to install Anaconda
+
+Now let's install Anaconda. Visit the link:https://www.anaconda.com/[official site] and download the Python 3 installer for your environment. If the OS is Linux / Mac, you can select the installer of GUI / CUI, so download Python 3.7 64-bit command line installer.
 
 image::ch02/anaconda01.png[APX+RVX, width=600, pdfwidth=60%]
 
 [source, bash]
 ----
-$ bash ~/Downloads/Anaconda3-4.1.0-Linux-x86_64.sh #インストーラー名は適宜変更してください
+$ bash ~/Downloads/Anaconda3-4.1.0-Linux-x86_64.sh # Please change the installer name accordingly
 ----
 
-Enterを押します
+Press Enter
 
 [source, bash]
 ----
@@ -38,7 +40,7 @@ Please, press ENTER to continue
 >>> 
 ----
 
-Enterを押し続けてYes,Noでyesを入力します
+Continue to press Enter and enter yes with yes, no
 
 [source, bash]
 ----
@@ -46,7 +48,7 @@ Do you accept the license terms? [yes|no]
 [no] >>> 
 ----
 
-インストール先を聞かれるのですがデフォルトで問題ないのでリターンを押します
+I am asked where to install, but because there is no problem by default, press Return
 
 [source, bash]
 ----
@@ -58,7 +60,7 @@ Anaconda3 will now be installed into this location:
   - Or specify a different location below
 ----
 
-インストール後にVSCodeをさらにインストールするかを聞かれるのでNoを押します。
+You will be asked if you want to install more VSCode after installation, so press No.
 
 [source, bash]
 ----
@@ -80,12 +82,11 @@ Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]
 >>> 
 ----
 
-Anacondaのインストールが完了すると、コマンドプロンプトまたはターミナルから'conda'コマンドが使えるようなにります。
+Once the Anaconda installation is complete, you will be able to use the 'conda' command from a command prompt or terminal.
 
-=== 仮想環境の構築とパッケージのインストール
+=== Build a Virtual Environment and Install a Package
 
-AnacondaでインストールされるPythonは3.7ですが、本書執筆時点で配布されている最新のRDKitはPython3.6を必要とします。そのためcondaで仮想環境を構築し、必要なバージョンのPythonをインストールします。コマンドの-nの後ろは"py4chemoinformatics"としていますが皆さんの好きな名前でも構いません。
-仮想環境構築後、本章以降で利用するパッケージをインストールします。
+Python installed with Anaconda is 3.7, but the latest RDKit distributed at the time of this writing requires Python 3.6. So build a virtual environment with conda and install the required version of Python. After the -n of the command is "py4chemoinformatics", but you can use any name you like. After creating the virtual environment, install the packages used in this chapter and later.
 
 [source, bash]
 ----
@@ -100,11 +101,11 @@ $ conda install -c conda-forge ggplot
 $ conda install -c conda-forge git
 ----
 
-=== インストールしたパッケージの説明
+=== Description of installed package
 
 ==== RDKit
 
-RDKitはケモインフォマティクスの分野で最近よく用いられるツールキットの一つです。オープンソースソフトウェア(OSS)と呼ばれるものの一つで、無償で利用することが可能です。詳しくはlink:ch01_introduction.asciidoc[はじめに]を参照してください。
+RDKit is one of the most commonly used toolkits in the field of chemoinformatics. One of the so-called open source software (OSS), which can be used free of charge. For more information Please refer to link:ch01_introduction.asciidoc[Introduction].
 
 ==== seaborn
 
