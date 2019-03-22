@@ -140,7 +140,7 @@ $ conda create -n <Name-of-virtual-environment> python = <version>　# Create vi
 $ conda info -e  # Display virtual environment list created 
 $ conda remove -n <environment-name> # Virtual environment deletion 
 $ source activate <environment-name> # Using virtual environment (mac / linux) 
-$ activate <environment-name> # 仮想環境を使う(Windows)
+$ activate <environment-name> # Using virtual environment (Windows)
 $ source deactivate # leaving virtual environment 
 $ conda list # Display a list of libraries installed in the virtual environment you are using now
 ----
