@@ -1,11 +1,11 @@
-= AI創薬のための ケモインフォマティクス入門
+= Introduction to chemoinformatics for AI drug discovery
 @fmkz___, @iwatobipen
 v0.40002(Draft) 2019/03/20
 :toc:
 :toc-title: 目次
-:lang: ja
+:lang: en
 :doctype: book
-:docname: AI創薬のためのケモインフォマティクス入門
+:docname: Introduction to chemoinformatics for AI drug discovery
 :imagesdir: ./images
 :pdf-fontsdir: fonts
 :pdf-style: py4c-theme.yml
