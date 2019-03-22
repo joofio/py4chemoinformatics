@@ -1,6 +1,8 @@
 = Table of Contents
 :imagesdir: images
 
+*Update 03_2019:* forked and tried to translate to english. Corrections are welcome.
+
 I added a little (2018.12.12). Since the web interface is likely to be beyond the scope of introductory, I will consider how to do it.
 
 - https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#formatted-text[AsciiDoc Syntax Quick Reference]
