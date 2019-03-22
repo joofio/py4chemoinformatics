@@ -1,77 +1,77 @@
-= 目次
+= Table of Contents
 :imagesdir: images
 
-ちょっと追加した(2018.12.12)。web interfaceは入門の範囲を超えそうなのでどうするかは考える。
+I added a little (2018.12.12). Since the web interface is likely to be beyond the scope of introductory, I will consider how to do it.
 
 - https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#formatted-text[AsciiDoc Syntax Quick Reference]
 
 image::python_for_ci.png[py4chemoinformatics, width=250]
 
-== link:ch01_introduction.asciidoc[01 はじめに]
+== link:ch01_introduction.asciidoc[01 Introduction]
 
-- ケモインフォマティクスとは？
-- RDKitとは？
-- 対象読者
-- 謝辞
+- What is chemoinformatics?
+- What is RDKit?
+- Target audience
+- Acknowledgment
 - License
 
-== link:ch02_installation.asciidoc[02 ケモインフォマティクスのための環境を整えよう]
+== link:ch02_installation.asciidoc[02 Let's prepare the environment for chemoinformatics]
 
 - Anaconda(Python, Jupyter, scikit-learn)
 - RDKit
 
-== link:ch03_python.asciidoc[03 Pythonプログラミングの基礎]
+== link:ch03_python.asciidoc[03 Basics of Python programming]
 
-- Pythonの基礎
-- Jupyter notebookで便利に使おう
-- Pythonで機械学習をするために
+- Python basics
+- Let's use it conveniently with Jupyter notebook
+- To do machine learning with Python
 
-== link:ch04_database.asciidoc[04 ケモインフォマティクスのための公開データベース]
+== link:ch04_database.asciidoc[04 Public database for chemoinformatics]
 
 - ChEMBL
 - PubChem
-- ChEMBLで欲しい情報を検索する
+- Search for the information you want on ChEMBL
 
-== link:ch05_rdkit.asciidoc[05 RDKitで構造情報を取り扱う]
+== link:ch05_rdkit.asciidoc[05 Handling Structural Information with RDKit]
 
-- SMILESとは？
-- 構造を描画してみよう
-- 複数の化合物を一度に取り扱うには？
+- What is SMILES?
+- Let's draw the structure
+- How to handle multiple compounds at once?
 
-== link:ch06_similarity.asciidoc[06 化合物の類似性を評価してみる]
+== link:ch06_similarity.asciidoc[06 Try to evaluate the similarity of compounds]
 
-- 記述子、フィンガープリント
-- 類似度を計算する
-- バーチャルスクリーニング
+- Descriptor, fingerprint
+- Calculate similarity
+- Virtual screening
 
-== link:ch07_graph.asciidoc[07 グラフ構造を利用した類似性の評価]
+== link:ch07_graph.asciidoc[07 valuation of similarity using graph structure]
 
-- 主要な骨格による分類(MCS)
-- Matched Molecular Pairによる化合物ネットワーク
-- Cytoscapeを使ってMMPネットワークを可視化する
+- Classification by major skeleton (MCS)
+- Compound Network by Matched Molecular Pair
+- Visualize MMP networks using Cytoscape
 
-== link:ch08_visualization.asciidoc[08 沢山の化合物を一度にみたい]
+== link:ch08_visualization.asciidoc[08 I want to have many compounds at once]
 
 - Chemical Spaceとは
-- tSNEをつかったマッピング
+- Mapping using tSNE
 
-== link:ch09_qsar.asciidoc[09 構造活性相関（QSAR）の基礎]
+== link:ch09_qsar.asciidoc[09 Basics of Quantitative Structure-Activity Relationship (QSAR)]
 
-- 効果ありなしの原因を考えてみる（分類問題）
-- 薬の効き目を予測しよう（回帰問題）
-- モデルの適用範囲(applicability domain)
+- Consider the cause of the effect (Classification problem)
+- Predict the efficacy of drugs (regression problem)
+- Model applicability (applicability domain)
 
-== link:ch10_deeplearning.asciidoc[10 ディープラーニング入門]
+== link:ch10_deeplearning.asciidoc[10 Introduction to Deep-Learning]
 
-- TensorFlowとKerasについて
+- About TensorFlow and Keras
 - Google colab
-- インストールしてみよう
+- Let's install
 
-== link:ch11_dlqsar.asciidoc[11 ディープラーニングを利用した構造活性相関]
+== link:ch11_dlqsar.asciidoc[11 Structure-activity relationship using deep-learning]
 
-- DNNを利用した予測モデル構築
-- 記述子を工夫してみる(neural fingerprint)
+- Predictive model construction using DNN
+- I will devise a descriptor (neural fingerprint)
 
-== link:ch12_generativemodels.asciidoc[12 コンピューターに化学構造を考えさせる]
+== link:ch12_generativemodels.asciidoc[12 Let the computer think about chemical structure]
 
-- Recurrent Neural Networkを利用した構造生成
+- Structure generation using Recurrent Neural Network
