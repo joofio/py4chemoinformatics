@@ -136,11 +136,11 @@ In this document, only one virtual environment is prepared for this document, bu
 [source, bash]
 ----
 $ conda install <package name>　# install package
-$ conda create -n _<Name-of-virtual-environment>_ python=<version>　# Create virtual environment. 
+$ conda create -n <Name-of-virtual-environment> python = <version>　# Create virtual environment. 
 $ conda info -e  # Display virtual environment list created 
-$ conda remove -n _<environment-name>_ # Virtual environment deletion 
-$ source activate _<environment-name>_ # Using virtual environment (mac / linux) 
-$ activate _<environment-name>_ # 仮想環境を使う(Windows)
+$ conda remove -n <environment-name> # Virtual environment deletion 
+$ source activate <environment-name> # Using virtual environment (mac / linux) 
+$ activate <environment-name> # 仮想環境を使う(Windows)
 $ source deactivate # leaving virtual environment 
 $ conda list # Display a list of libraries installed in the virtual environment you are using now
 ----
