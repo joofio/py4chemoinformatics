@@ -108,18 +108,17 @@ $ conda install -c conda-forge git
 RDKit is one of the most commonly used toolkits in the field of chemoinformatics. One of the so-called open source software (OSS), which can be used free of charge. For more information Please refer to link:ch01_introduction.asciidoc[Introduction].
 
 ==== seaborn
-
-link:https://seaborn.pydata.org/[統計データの視覚化のためのパッケージ]の一つです。
+It is one of the packages for link:https://seaborn.pydata.org/[visualizing statistical data].
 
 ==== ggplot
 
-グラフ描画パッケージの一つで**一貫性のある文法で合理的に描ける**ことが特徴です。もともとはRという統計解析言語のために開発されましたが、yhatという会社によりlink:http://ggplot.yhathq.com/[Pythonに移植]されました。
+One of the graph drawing packages is that it can draw rationally with a consistent grammar . Originally developed for the statistical analysis language R, it was ported to Python by the company link:http://ggplot.yhathq.com/[yhat] .
 
 ==== Git
 
-バージョン管理システムです。本書ではGitについては説明しませんのでもしGitについて全然知らないという方はlink:https://backlog.com/ja/git-tutorial/[サルでもわかるGit入門]でも読みましょう。
+It is a version control system. I will not explain Git in this book, but if you do not know Git at all , read even link:https://backlog.com/ja/git-tutorial/[Git Primer], which can be understood by monkeys .
 
-「はじめに」でも説明しましたが、以下のコマンドでpdfを含む全てのデータがダウンロードされますので必要に応じてダウンロードしてください。
+As explained in "Introduction", all data including pdf will be downloaded by the following command, so please download it as necessary.
 
 [source, bash]
 ----
