@@ -1,91 +1,87 @@
-== 1章: はじめに
+== Chapter 1: Introduction
 :imagesdir: ./images
 
-ケモインフォマティクス(Chemoinformatics)とは、主に化学に関連するデータをコンピュータを用いて解析し、様々な課題を解くために用いる方法論のことです。ケモインフォマティクスという言葉は1990年代終わりから2000年代はじめに定義され、現在では製薬業界や薬学系のアカデミアにおいて、薬剤の効果と化合物特性の関連性を解析したり、大量の化合物情報の可視化、化合物の類似性に基づいたクラスタリングなど、多岐にわたるプロセスで利用されています。
+Chemoinformatics is a methodology that is used to analyze mainly chemical-related data using a computer and solve various problems. The term chemoinformatics was defined in the late 1990s and early 2000s, and in the pharmaceutical industry and pharmaceutical academia, the relationship between drug effects and compound characteristics is analyzed, large amounts of compound information are visualized, and compound similarity It is used in a wide variety of processes, including gender-based clustering.
 
-近年、ディープラーニング(Deep Learning)の創薬応用が模索されていますが、活性や物性を予測するQSAR（構造活性相関）だけではなく、**新規デザイン提案**や**合成経路提案**といった従来のケモインフォマティクスではあまり扱わなかった領域への応用研究も盛んに行われています。
+In recent years, drug discovery applications for deep learning have been explored, but not only in conventional chemoinformatics such as **new design proposals** and **synthetic route proposals**, as well as QSAR (structure-activity relationship) for predicting activity and physical properties. Applied research to areas that were not being conducted is also actively conducted.
 
-.化合物デザインはイノベーティブ
+
+Compound design is innovative
 ****
-そもそも**どのような化合物を作るべきか？、またそれをどのように合成するか？**を考えるプロセスは背景知識と想像力が求められる領域であり、従来は人以外が担うのは難しい領域であると認識されていましたが、このような領域に対してもAIと呼ばれるものの進出がここ数年(2017-2019)で急速に進みました。
+What kind of compound should we make in the first place? And how to synthesize it? The process of thinking about the background is an area where background knowledge and imagination are required, and conventionally it has been recognized that it is a difficult area for people other than to bear, but the advancement of what is also called AI to such areas is here It progressed rapidly in several years (2017-2019).
 ****
 
-ケモインフォマティクスはすでに様々な場面で利用されていますが関連情報はあまりありませんでした。この理由として考えられることはいくつかありますが、オープンソースのツールキットが存在しなかった、公開データベースが存在しなかった、という二点が最も大きな原因なのは間違いありません。しかし、RDKitというオープンソースのケモインフォマティクスツールキットとChEMBLという公開データベースの登場により、この点は解消しました。
+Cheminformatics has already been used in various situations, but there was not much relevant information. There are several possible reasons for this, but there is no doubt that the two main reasons are that there were no open source toolkits and no public databases. However, with the advent of RDKit, an open source chemoinformatics toolkit called ChKit and a public database called ChEMBL, this has been resolved.
 
-近年では、ケモインフォマティクスもバイオインフォマティクス同様、ウェブで検索すれば多くの情報がすぐに得られ、自己学習することは十分可能となっていますが、最初の一歩を踏み出すためのまとまった情報として、「ケモインフォマティクスに関する基礎を学び、それらを応用できるようになるコンテンツ」を用意することにしました。近年のAI創薬ブームを考慮して後半の章では「AI創薬」の文脈で用いられるディープラーニングを利用した化合物の活性予測と化合物提案の章を収録していますので、一通り学習することで、最近のトレンドについていけるようになっているはずです。
+In recent years, as with bioinformatics in chemoinformatics, a lot of information can be obtained immediately by searching on the web, and it is possible to learn by yourself, but as a set of information to take a first step, We decided to prepare "the content that could learn the basics of chemoinformatics and apply them". Considering the recent AI drug discovery boom, the latter chapter contains chapters on compound activity prediction and compound proposal using deep learning used in the context of “AI drug discovery”, so one-stop learning So you should be able to keep up with the recent trends.
 
 <<<
 
-=== RDKitとは
+=== What is RDKit
 
-warning:: ここは@iwatobipenがRDKitについて熱く語るサブセクションです。下書き段階での「申し上げる」とか「踏まえて」等の言い回しをそのまま生かし、自称が「拙者」で「ござる」調の＠iwatobipen風文体です。
+warning:: Here is a subsection of @ iwatobipen's hot talk about RDKit. At the draft stage, the words such as "I will say" or "based on" are used as they are, and the self-proclaimed is a "comprehensive" @ iwatobipen-style style of "gozuru" tone.
 
-拙者、本書の一部を執筆する＠iwatobipenと申す。ここではRDKitに関して熱く語ってみようと思うでござる。
+My name is @iwatobipen, who writes a part of this book. I'm going to talk hot about RDKit here.
 
-RDKitのRDはなんなのか？実は**Rational Discovery**の略称であり現在のオープンソースの前身となるフレームワークは2000年に開発されたでござる。随分と古いでござるね。その後、2006年にコードがオープンソースになりsourceforgeから公開されたでござる。PythonのケモインフォマティクスツールキットはRDKit以外にOpenBabelもあるぞと思われる読者もござろう。OpenBabelは2005年に最初のリリースがなされておる。いずれも、もう10年以上の歴史があるツールキットでござる。拙者がこの辺りに興味を持ち始めた2012年ころはどちらかというとOpenBabelの方がメジャーだったように記憶しておる。当時、日本語の記事はほぼ皆無であり、拙者は本書共著者であり業界のパイオニアでもある@fmkz___殿のlink:https://kzfm.hatenablog.com/archive[ケモインフォクックブック]などを参考にRDKitのコードを書いて試行錯誤していたでござるよ。なお、ケモインフォ関連のヒストリを追いたい御仁はこちらのlink:http://blog.kzfmix.com/entry/1542711744[記事]を一読されるとよかろう。
+What is the RD of RDKit? Actually, it is an abbreviation of **Rational Discovery** , and a framework that is the predecessor of the current open source was developed in 2000. It's so old and old. Then, in 2006, the code became open source and was released from sourceforge. Readers who think that Python's chemoinformatics toolkit includes OpenBabel besides RDKit will also be welcome. OpenBabel was first released in 2005. All come with a toolkit that has more than 10 years of history. I remember that OpenBabel was the major in around 2012, when the deaf people began to be interested in this area. At that time, there were almost no articles in Japanese, and the person who wrote this link:https://kzfm.hatenablog.com/archive[book] was a trial and error writing the code of RDKit referring to the link:https://kzfm.hatenablog.com/archive[chemo info] cookbook of @fmkz___ who is a co-
+author of this book and a pioneer in the industry Oh. If you want to keep track of chemiinfo related history, you should read this link:http://blog.kzfmix.com/entry/1542711744[article].
 
-おっと話が横道に逸れてしまった。本題に戻ろう。
 
-開発者のGreg Landorum氏いわく
+Developer Greg Landorum says
 
 [quote, Greg Landorum]
-RDKitはケモインフォマティクスにおけるSwiss Army Knifeであり、様々な機能ピースの集合体である
+RDKit is the Swiss Army Knife in chemoinformatics and is a collection of various functional pieces
 
-これはまさに的を得た表現でござる。link:https://www.rdkit.org/docs/[公式ドキュメント]を見ればわかるでござろうが、既に色々な機能が用意されておるのだ。
-化合物情報の読み込み、書き込みに始まり、構造の描画、３次元構造配座発生、Rグループ分解、記述子、フィンガープリント計算、ファーマコフォア算出などなど、挙げればきりがないほどの機能が実装されておる。解析から可視化まで幅広い範囲をカバーできるのだ。
-さらにContributerらがRDKitを利用して開発したツール群がその熱い想いとともにlink:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib]フォルダーに詰められておるのだ。どうじゃ使ってみたくならんか？。拙者はもう書きながらも早くRDKitに触りたくなってきたでござる。
+This is exactly the expression which got the target. As you can see if you look at the link:link:https://www.rdkit.org/docs/[official document] , it already has various features. Starting with reading and writing of compound information, drawing of structure, 3D structure conformation generation, R group decomposition, descriptor, fingerprint calculation, pharmacophore calculation etc. Oh. It can cover a wide range from analysis to visualization. Furthermore, the tools developed by Contributor and others using RDKit are packed in the link:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib] folder along with their hot feelings . How do you want to use it? . The deaf people are getting tired of touching RDKit as soon as possible.
 
-NOTE: @iwatobipenももちろんContributerの1人で、link:https://github.com/rdkit/rdkit/tree/master/Contrib/Fastcluster[Fastcluster]という大量の化合物ライブラリを高速にクラスタリングするコードを提供しています。(by @fmkz___)
+NOTE: @iwatobipen is, of course, one of the contributors, and provides code to quickly cluster a large number of compound libraries called link:https://github.com/rdkit/rdkit/tree/master/Contrib/Fastcluster[Fastcluster] . (by @fmkz___)
 
-RDKitは開発やユーザーコミュニティの活動も活発で、どんどん機能追加がされておる。世界中の有能な研究者が全体で盛り上げ開発していくスタイルはオープンソースの強みであり、魅力であろう。もしチャンスがあれば毎年開催されるRDKit User Group Meetingへの参加を検討するのもよかろう。Face2Faceでユーザー同士議論ができるのは何事にも代え難いものがあるでござる。
-また、先ほど拙者が使い始めた当時は日本語の情報ほぼ皆無であったと申したが、近年は非常に良質な日本語記事もたくさん増えておる。下記に何個か例を挙げたでござる。Qiitaにも多くの記事が掲載されているでござるよ。
+RDKit is also active in the development and user community, with more features being added. The style in which talented researchers from all over the world build up and develop as a whole is the strength and attraction of open source. If you have a chance, consider joining the annual RDKit User Group Meeting. It is hard to replace anything with Face2Face that users can discuss each other. In addition, I said that there was almost no information on Japanese at the time when the deaf began to use it, but in recent years there have been a lot of very good Japanese articles. Here are a few examples: There are many articles posted on Qiita.
 
-また、有志によるlink:http://rdkit-users.jp/[RDKit-users-jp]も立ち上がっておる。英語での質問がちょっと、、、と思われる御仁はこちらに質問を投げかけるとよかろう。また、最新版のRDKitのリポジトリには日本語のドキュメントもマージされておる。こちらも参考になるであろう。
-本書ではRDKitの一部の機能しか使わん。それでも非常に多くのことができると感じていただけるはずじゃ。興味持ちはじめの一歩を踏み出したら後はどんどん自分の興味、意欲のままに足を進めていけばよかろう。何かわからないことがあれば上記のコミュニティに問いかけ、本書のリポジトリへIssueとして投稿してみるのもよかろう。
-**さあそれでは始めよう！**
+In addition, link:http://rdkit-users.jp/[RDKit-users-jp] by volunteers has also been launched. If your question in English seems to be a bit ..., I would like to ask a question here. Also, Japanese documents are merged into the latest version of RDKit's repository. This will also be helpful. This document only uses some of RDKit's features. You should still feel that you can do a lot of things. Once you have taken the first step of interest, you should go ahead with your own interest and motivation. If you do not understand something, ask the above community and post it to the repository of this book as an issue. **Well then let's get started!**
 
-==== 主な日本語解説サイト
+==== Main Japanese Commentary Site
 
 - link:http://rdkit-users.jp/[rdkit-users.jp]
 - link:https://magattaca.github.io/RDKit_unofficial_translation_JP/[RDKitドキュメンテーション非公式日本語版サイト]
 - link:https://future-chem.com/[化学の新しいカタチ]
 
-=== 対象読者
+=== Target audience
 
-次のような方々を読者として想定しています。
+The following people are assumed as readers.
 
-- 医学薬学系の大学院生及び薬学系のデータ解析を行いたいポスドク
-- 製薬企業の薬理研究者で自分のデータを自分で解析したい人
-- 創薬化学者でケモインフォマティクスの必要性を感じている方や謎の力により突然アサインされた方
-- ケモインフォマティクスを学んでみようと考えているバイオインフォマティシャン
-- AI創薬に興味があるがなにからはじめたらいいかわからない人
+- Postdoctoral student who wants to do data analysis of graduate students in pharmacy and medicine and pharmacy
+- Pharmacist at a pharmaceutical company who wants to analyze his own data
+- Those who feel the need for chemoinformatics in drug discovery chemists and those who are assigned suddenly due to the power of mystery
+- Bioinformaticians who are thinking of learning chemoinformatics
+- People who are interested in AI drug discovery but do not know what to start with
 
-=== 本書のコードについて
+=== About the code of this book
 
-本書で使用したプログラミングコードは全てlink:https://github.com/Mishima-syk/py4chemoinformatics[Mishima.sykのpy4chemoinformaticsリポジトリ]のnotebooksディレクトリに置いてありますので利用してください。またそれぞれの章の最初のimage:jupyter.png[width="20"]にその章のJupyter notebookへのリンクを張っていますので適宜参照してください。
+All of the programming code used in this book is located in the notebooks directory of the link:https://github.com/Mishima-syk/py4chemoinformatics[py4cheminformatics repository of Mishima.syk]. The first one of each of the image:jupyter.png[width="20"] chapter please see properly because it stretched a link to the chapter of Jupyter notebook to.
 
-2章のインストールを行うとgitコマンドが使えるようになりますので、以下のコマンドでpdfを含む本書の全てのデータがダウンロードできます
+The installation of Chapter 2 will enable you to use git commands, so you can download all the data in this manual including pdf with the following command
 
 [source, bash]
 ----
 $ git clone https://github.com/Mishima-syk/py4chemoinformatics.git
 ----
 
-
-=== おまけ
+=== bonus
 
 .Chemoinformatics or Cheminformatics?
 ****
-もともとはBioに対してChemoと語感を合わせて登場してきたように記憶しているが、link:https://jcheminf.biomedcentral.com/[Journal of Cheminformatics]の創刊により一時期Chemに大きく離されていました。
+Chemoinformatics or Cheminformatics?
+Originally I remember that Bio and the combination of the word “Chemo” appeared, but it was widely separated from Chem for a while by the launch of the link:https://jcheminf.biomedcentral.com/[Journal of Cheminformatics].
 
-最近のlink:https://trends.google.co.jp/trends/explore?date=all&q=chemoinformatics,cheminformatics[Google trend]によるとどちらでもいいようですが個人的にはRhymeを重視したほうが良いと思うので本書ではChemoの方を使うことにします。
+According to the recent link:https://trends.google.co.jp/trends/explore?date=all&q=chemoinformatics,cheminformatics[Google trend], it seems either way, but personally I think that it is better to put emphasis on Rhyme, so I will use Chemo in this book.
 ****
 
 <<<
 
-=== 謝辞
+=== Acknowledgment
 
-本書を執筆するにあたり、バグフィックスや改善のための助言をしてくれた以下の方々に感謝いたします。
+We would like to thank the following people for their bug fixes and suggestions for improvement when writing this document:
 
 link:https://twitter.com/antiplastics[@antiplastics],
 link:https://twitter.com/bonohu[@bonohu],
@@ -95,7 +91,7 @@ link:https://twitter.com/torusengoku[@torusengoku],
 link:https://twitter.com/yamasaKit_[@yamasaKit_]
 
 
-ここから先は(Nujabes - reflection eternalを聴きながら書きました　by @fmkz___ 2019/03/03)
+From here onwards I wrote while listening to Nujabes-reflection eternal by @fmkz___ 20/03/20
 
 まず、本書を書くきっかけとなったlink:https://twitter.com/bonohu[@bonohu]に感謝したいと思います。@bonohuのlink:https://www.amazon.co.jp/dp/4895929019[Dr. Bonoの生命科学データ解析]の出版後のMishima.sykのミーティングで「Bono本のChemoinformatics版あったらいいよね」という話がどこからともなくでた際に、「書けばええんちゃう、むしろなんで書かんの？」と言ってくれたことが本書を執筆するきっかけであることは間違いありません。またlink:https://twitter.com/souyakuchan[@souyakuchan]のlink:https://adventar.org/calendars/3041[創薬 Advent Calendar 2018]も執筆のいい刺激になりました。というより、ここで章立てしなかったら具体的に動き出さなかったと思います。
 
