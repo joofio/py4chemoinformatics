@@ -50,17 +50,14 @@ The cycle will make the document better and everybody will be happy ;)
 py4chemoinformaticsのissuesに質問していただければお答えします。わかりにくい場合だったら修正しますので、よりよくなってみんなハッピー。
 ////
 
-https://qiita.com/[Qiita]::
-Mostly you can find answers by searching Qiita.
 ////
+https://qiita.com/[Qiita]::
 Qiitaで探せば大抵答えが見つかるはずです。
+Qiita is communitie for Japanease. All documents are written in Japanese
 ////
 
 https://stackoverflow.com/[stackoverflow]::
-If you can't find the answer you should search in SOF and ask the community.
-////
-それでも答えが見つからなかったらsofで探すか質問しましょう
-////
+Stackover flow is good community. You should search in SOF at first and ask the community.
 
 http://mishima-syk.github.io/[Mishima.syk]::
 Mishima.syk is the community where people who write the book gathered. Topics is not limited for python but there many presentations about python now. Discussion level is high but the community is also familier for biginners. We planed hands-on sessions and they had an establised reputatoin. The community members be able to answer your questions. 
