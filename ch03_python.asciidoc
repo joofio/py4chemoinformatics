@@ -63,7 +63,7 @@ If you can't find the answer you should search in SOF and ask the community.
 ////
 
 http://mishima-syk.github.io/[Mishima.syk]::
-Mishima.syk is the community where people who writes the book gathered. Topics is not limited for python but there many presentations about python now. Discussion level is high but the community is also familier for biginners. We plans many handson and they have an establised reputatoin. The community member be able to answer your questions. 
+Mishima.syk is the community where people who writes the book gathered. Topics is not limited for python but there many presentations about python now. Discussion level is high but the community is also familier for biginners. We plans many hands-on and they have an establised reputatoin. The community member be able to answer your questions. 
 ////
 本書を書いている人たちが集まるコミュニティです。特に話題をPythonに限定していませんが、Pythonを使ったネタが多めです。かなりガチですが、初心者対応も万全でハンズオンに定評があります。質問されれば大体答えられます。
 ////
@@ -101,7 +101,7 @@ link:http://shop.oreilly.com/product/0636920030515.do[Introduction to Machine Le
 You can learn basics of machine learning with python. It is easy to read because less mathmatical representations. 
 
 link:https://github.com/Mishima-syk/sklearn-tutorial[sklearn-tutorial]::
-Sklearn tutorial hanson by @y-sama. Written in jupyter notebook.
+Sklearn tutorial hands-on by @y-sama. Written in jupyter notebook.
 
 ////
 ケモインフォマティクスに限らず、インフォマティクスを学ぶにあたり、機械学習は外せません。本書でもある程度の機械学習の知識があることを前提に進めていきます。Pythonで機械学習をするにはlink:https://scikit-learn.org/stable/[Scikit-learn]というライブラリを利用するのが定番であり、本書でも特に説明せずに利用していきますが、初学者のために参考となる書籍などをすすめておきます。
