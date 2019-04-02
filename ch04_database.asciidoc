@@ -65,31 +65,42 @@ At first, go to link:https://www.ebi.ac.uk/chembl/[ChEMBL] and click the link 'C
 
 image::ch04/chembl01.png[ChEMBL]
 
-Mainly ChEMBL has 4 data categories and each data has an unique id and has relation to other categories. Brief introductions are below.
+Mainly ChEMBL has 4 data categories and each data has an unique id and has relations to other categories. Brief introductions are below.
 
 Targets::
-
+The category has assay and reported journal informations of target molecules.
 Compounds::
-
+The category has basic physico chemical properties of molecules such as Molecular Weight, whether the molecule passes Lipinksy's Rule of 5 or not. And other information about the molecule such as clinical, relatated assays which are stored in ChEMBL and summary of journals.
 Assays::
-
+The category has relationship between assay information and original journal and link for the compounds which was assayed.
 Documents::
+The category has journal name, title, abstruct and link to related journals and link to data of the comounds which are used in the journal.
 
 
+==== If you want to find compounds which are related to a specific target.
 
-==== あるターゲットの関連化合物を探したい場合
-
+////
 ある創薬ターゲット分子がどのくらい研究開発されているかを知るために、それをターゲットとしてどのくらいの化合物が合成されたのか？さらに骨格のバリエーションはどのくらい存在するのかを調べたい場合がよくあります。ChEMBLを利用するとターゲット名で探索して関連化合物をダウンロードすることができます。
 
 ここでは抗がん剤のターゲットとして知られているTopoisomerase2を検索します。画面上部のフォームにtopoisomeraseと入力して検索するとスクリーンショットのように表示されるはずです。
+////
+It is very common that we want to know how long a target has been studied, how many compounds are synthesized and how kinds of scaffolds are there.
+
+In this section, let's search Topoisomerase2 which is known popular target of cancer chemocerapy treatments. When you input the word **topoisomerase** in to the form which is located on top of the screen and search you can see the result as below.
 
 image::ch04/chembl02.png[ChEMBL]
 
+////
 サジェスト機能による絞り込みでいくつか候補をリスト表示してくるのでTOP2Bを選んでください。画面をスクロールするとAssociated Compoundsセクションがありますのでグラフのタイトル(Associated Compounds for Target CHEMBL3396)をクリックすると関連化合物一覧画面が開きます。
+////
+The system provides candidates list with suggest feature. So you should select TOP2B. You can find section of 'Associated Comounds' when you scroll the screen, you shoud click the title of graph named **Associated Compounds for Target CHEMBL3396** then related compounds list display will appear.
 
 image::ch04/chembl03.png[ChEMBL]
 
+////
 259化合物存在することがわかります。スクロールすると全体をみることができます。画面右のアイコンをクリックするとそれぞれCSV(カンマ区切りテキスト),TSV(タブ区切りテキスト),SDF(5章で説明しています)の形式でダウンロードできます。
+////
+There are 259 compounds in the result. All data can see by scrolling the screen. And data can be downloaded as CSV, TSV and SDF format when you click the icon which is located on top right side of the screen. (TSV: tab separated, CSV: camma separated)
 
 image::ch04/chembl04.png[ChEMBL]
 
