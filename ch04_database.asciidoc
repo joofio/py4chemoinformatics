@@ -37,7 +37,7 @@ You can check more ditails of the data source from current link:https://pubchem.
 Especially pubchem has large amount of an eary stage screening data, so it will be useful when user would like to analyze or mining it.
 
 Which database should I use ChEMBL or PubChem?::
-We think ChEMBL is preffred for QSAR analysis because ChEMBL provides many dose response data such as IC50 and user can access to original journal for QSAR model interpretation
+We think ChEMBL is preffred for QSAR analysis because ChEMBL provides many data such as IC50 and user can access to original journal for QSAR model interpretation.
 
 === Search Data which you want in ChEMBL
 
@@ -77,7 +77,7 @@ Documents::
 The category has journal name, title, abstruct and link to related journals and link to data of the comounds which are used in the journal.
 
 
-==== If you want to find compounds which are related to a specific target.
+==== If you want to find compounds which are related to a specific target
 
 ////
 ある創薬ターゲット分子がどのくらい研究開発されているかを知るために、それをターゲットとしてどのくらいの化合物が合成されたのか？さらに骨格のバリエーションはどのくらい存在するのかを調べたい場合がよくあります。ChEMBLを利用するとターゲット名で探索して関連化合物をダウンロードすることができます。
@@ -100,12 +100,14 @@ image::ch04/chembl03.png[ChEMBL]
 ////
 259化合物存在することがわかります。スクロールすると全体をみることができます。画面右のアイコンをクリックするとそれぞれCSV(カンマ区切りテキスト),TSV(タブ区切りテキスト),SDF(5章で説明しています)の形式でダウンロードできます。
 ////
-There are 259 compounds in the result. All data can see by scrolling the screen. And data can be downloaded as CSV, TSV and SDF format when you click the icon which is located on top right side of the screen. (TSV: tab separated, CSV: camma separated)
+There are 259 compounds in the result. All data can see by scrolling the screen. And data can be downloaded as CSV, TSV and SDF format when you click the icon which is located on top right side of the screen.
+TIPS:: TSV means tab separated value, CSV means camma separated value
 
 image::ch04/chembl04.png[ChEMBL]
 
-==== あるアッセイの活性値と化合物が欲しい場合
+==== If you want to retrieve comound structures and assays data from ChEMBL
 
+////
 QSARモデルを作る場合、アッセイの活性値と対応する化合物の構造情報が必要です。ChEMBLの場合アッセイのページからダウンロードすることでQSARモデル作成のためのデータを得ることができます。
 
 大体次のような手順を辿ることがおおいです。
@@ -126,13 +128,37 @@ image::ch04/chembl06.png[ChEMBL]
 論文由来で最もアッセイ数の多いCHEMBL829152を選んでクリックしてアッセイページを開きます。Activity chartの円グラフをクリックすると詳細画面が開くのでSelect allで全選択してTSV形式でダウンロードします。
 
 image::ch04/chembl07.png[ChEMBL]
+////
+It is needed the structures and activity details for compounds when you would like to build QSAR model. You can download the data for QSAR from **Assay** page in ChEMBL.
+
+Common work flow will be below.
+
+- Search journal data and the  retrieve assay data which is related to the journal.
+- Search the target which you want to use and retrieve assay data which is related to the target.
+
+In the section, let's try the second approach, retrieve data from the target. We supporse that we would like to build QSAR model for hERG inhibition, hERG, Kv11.1 channel is best known for its contribution to the electrical activity of the heart. The hERG blocker will have risk of cardiotoxicity.
+
+Input **hERG** to search form and push **Search hERG for all assays**. You will can get 361 or more hits.
+
+image::ch04/chembl05.png[ChEMBL]
+
+Sort data ascending order by amount of the record to get data for modeling. Click **Compounds** on the header to do it.
+
+image::ch04/chembl06.png[ChEMBL]
+
+Click CHEMBL829152 which has largest data in the results the assay page will open. Click pi chart of acitivity then details of the data will be shown then select all and download the data as TSV format.
+
+image::ch04/chembl07.png[ChEMBL]
+
 
 NOTE::
 ****
-ダウンロードしたファイルをエディタで開くと\^@C^@h\^@E^@M\^@B^@L^@と文字化けすることがあります。これはutf-16-leでエンコードしているためです(こうしないとExcelで問題が発生するようです)。
+The data might be garbled when you open the data on text editer like \^@C^@h\^@E^@M\^@B^@L^@. This reason is that the data encoded as utf-16-le. (Because the encoding is preferred for Excel)
 
-viの場合':e ++enc=utf16le'と打てばきちんと表示されるようになります。
+If you are using vi, you can fix the issue just typing ':e ++enc=utf16le'.
 ****
+
+
 
 === その他有用なデータベース
 
