@@ -131,7 +131,7 @@ image::ch04/chembl07.png[ChEMBL]
 ////
 It is needed the structures and activity details for compounds when you would like to build QSAR model. You can download the data for QSAR from **Assay** page in ChEMBL.
 
-Common work flow will be below.
+You can follow the steps outlined below.
 
 - Search journal data and the  retrieve assay data which is related to the journal.
 - Search the target which you want to use and retrieve assay data which is related to the target.
@@ -142,7 +142,7 @@ Input **hERG** to search form and push **Search hERG for all assays**. You will 
 
 image::ch04/chembl05.png[ChEMBL]
 
-Sort data ascending order by amount of the record to get data for modeling. Click **Compounds** on the header to do it.
+Sort in descending order of number of data for modeling. Click **Compounds** on the header to do it.
 
 image::ch04/chembl06.png[ChEMBL]
 
@@ -150,38 +150,50 @@ Click CHEMBL829152 which has largest data in the results the assay page will ope
 
 image::ch04/chembl07.png[ChEMBL]
 
-
 NOTE::
 ****
 The data might be garbled when you open the data on text editer like \^@C^@h\^@E^@M\^@B^@L^@. This reason is that the data encoded as utf-16-le. (Because the encoding is preferred for Excel)
 
-If you are using vi, you can fix the issue just typing ':e ++enc=utf16le'.
+If you are using vi, you can fix the issue by just typing ':e ++enc=utf16le'.
 ****
 
-
-
-=== その他有用なデータベース
+=== Other useful datbases
 
 ==== link:http://zinc15.docking.org/[ZINC]
 
+////
 ZINCは購入可能な試薬をコレクションしたデータベースです。現在のバージョンは15で約7億5000万の構造が収載されています。
 もともとがドッキングシミュレーションでの利用を想定して開発されているため、三次元化したデータをダウンロードすることも可能です。ZINCのデータでバーチャルスクリーニング(6章で説明します)を行い、ヒットした化合物を購入し実際のアッセイに供するというのが主な使い方だと思います。
 
 データのダウンロード方法は上部のTranchesタブをクリックすると次の画面に縦軸にLogP横軸に分子量の大きさで分類されそれぞれの区画にいくつの化合物が収載されているかの表が表示されます。
+////
+ZINC is a database which collected commercial available reagents. Current version is 15 and about 750 million comounds are recorded.
+User can download 3D molecular structure data because originally the data base is developed for assuming docking simulation. I think that conduct virtual screening with data from ZINC, purchase hit comounds and assay these compounds is the main usage.
+
+How to download data?
+Click Tranches tab, then you can see on the next screen, the table which is devided the vertical axis shows LogP the horizontal axis shows molecular weight display a table of how many compounds are listed.
 
 image::ch04/zinc01.png[ChEMBL]
 
+////
 ここから必要なデータセットを選んでダウンロードボタンを押すと、実際にデータセットのURLが列挙されたテキストファイルが得られますのでそれぞれにアクセスしてデータをダウンロードします。
+////
+Select dataset which you want and click down load button, you can get text file which listed URL of the dataset. The data can get with accessing the URL. 
 
-==== link:http://togotv.dbcls.jp/[統合TV]
+==== link:http://togotv.dbcls.jp/[統合TV:Togo TV]
 
+////
 統合TVは生命科学分野の有用なデータベースやツールの使い方を動画で紹介するサイトで、link:https://dbcls.rois.ac.jp/[ライフサイエンス統合データベースセンター(DBCLS)]により管理、運用されています。その名の通りバイオインフォマティクス関連の動画が多いですが、ケモインフォマティクスを紹介した動画もいくつかありますので参考にしてみてください。link:http://togotv.dbcls.jp/information.html[文献・辞書・プログラミング]のカテゴリも役に立つはずです。
+////
+Togo TV is a video site which describes useful database and tools and is managed and maintaind by link:https://dbcls.rois.ac.jp/[Database Center for Life Science(DBCLS)]. As its name suggests that there are many videos about bioinformatics, but there are some chemoinformatics videos are provided. Please reffer the site. link:http://togotv.dbcls.jp/information.html[journal・dictionary・programminc] might be useful.
+**Language of TogoTV is Japanese**
 
-- link:https://doi.org/10.7875/togotv.2017.121[PubChemを利用して化学物質やアッセイの結果を調べる 2017]
-- link:https://doi.org/10.7875/togotv.2014.014[ChEMBLを使って医薬品候補となる化合物について調べる]
+- link:https://doi.org/10.7875/togotv.2017.121[PubChemを利用して化学物質やアッセイの結果を調べる 2017/Search compound and assay data by using PubChem 2017]
+- link:https://doi.org/10.7875/togotv.2014.014[ChEMBLを使って医薬品候補となる化合物について調べる/Search drug candidate comounds with ChEMBL]
 
-NOTE: link:https://www.amazon.co.jp/dp/4815701431/[生命科学データベース・ウェブツール 図解と動画で使い方がわかる! 研究がはかどる定番18選]という書籍も出版されています。
-
+////
 NOTE:: これ以外にもケモインフォマティクスに有用なデータベースがあればお知らせください。IssueやPRでも受け付けてます。
+////
+NOTE:: If reader know other useful databases for chemoinformatics please inform us. Issue or Pull requests are also appreciated.
 
 <<<
