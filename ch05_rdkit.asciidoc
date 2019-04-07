@@ -1,18 +1,28 @@
-== 5章: RDKitで構造情報を取り扱う
+== Chapter 5: Handling Structural Information with RDKit
 :imagesdir: images
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch05_rdkit.ipynb"]
 
+////
 この章ではRDKitを使って分子の読み込みの基本を覚えます。
+////
+In this chapter we will learn the basics of reading molecules with RDKit.
 
-=== SMILESとは
+=== What is SMILES?
 
+////
 Simplified molecular input line entry system(SMILES)とは化学構造を文字列で表現するための表記方法です。
 詳しくはlink:http://www.daylight.com/meetings/summerschool98/course/dave/smiles-intro.html#TOC[SMILES Tutorial]で説明されていますが、例えばc1ccccc1は6つの芳香族炭素が最初と最後をつないでループになっている構造、つまりベンゼンを表現していることになります。
+////
+Simplified molecular input line entry system(SMILES) is a specification in the form of a line notation for describing the structure of chemical species using short ASCII strings. More detials are described in link:http://www.daylight.com/meetings/summerschool98/course/dave/smiles-intro.html#TOC[SMILES Tutorial]. For example **c1ccccc1** means that there are six aromatic carbon atoms and has a loop structure which is connected with start and end, you know it means benzene. 
 
-=== 構造を描画してみよう
+=== Let's draw chemical strcutre with SMILES :)
 
+////
 SMILESで分子を表現することがわかったので、SMILESを読み込んで分子を描画させてみましょう。まずはRDKitのライブラリからChemクラスを読み込みます。二行目はJupyter Notebook上で構造を描画するための設定です。
+////
+We could understand SMILES can represent molecules, so let's read SMILES and draw molecule. At first import Chem class from RDKit to do that. And the function in the second line  named 'IPythonConsole' is read for drawing molecules on Notebook.
+ **The majority of the basic molecular functionality is found in module rdkit.Chem**
 
 [source, python]
 ----
@@ -21,31 +31,43 @@ from rdkit.Chem.Draw import IPythonConsole
 from rdkit.Chem import Draw
 ----
 
+////
 RDKitにはSMILES文字列を読み込むためにMolFromSmilesというメソッドが用意されていますので、これを使い分子を読み込みます。
+////
+RDKit has MolFromSmiles method which reads SMILES. RDKit mol object can be constructed from SMILES with the function like below. 
 
 [source, python]
 ----
 mol = Chem.MolFromSmiles("c1ccccc1")
 ----
 
+////
 続いて構造を描画しますが、単純にmolを評価するだけで構造が表示されます。
+////
+Next we draws molecular structure. It is very simple, just evaluate mol object.
 
 [source, python]
 ----
 mol
 ----
 
+////
 図のように構造が表示されているはずです。
+////
+Molecular structure will be drawn like following figure.
 
 image::ch05/ch05_01.png[Depict benzene]
 
+////
 上のように原子を線でつなぎ構造を表現する方法（構造式）と、SMILES表記はどちらも同じものを表現しています。構造式は人が見てわかりやすいですが、SMILESはASCII文字列で表現されるのでより少ないデータ量で表現できるというメリットがあります。
 
 NOTE: 文字列で表現できるということは、文字列生成アルゴリズムを応用することで新規な化学構造を生成することも可能ということです。この内容に関しては12章で詳しく説明します。
+////
+Both methods connect atoms with bonds(2D Structure) and SMILES can represent same molecule. 2D structure is easy to understand for us and SMILES is not. But SMILES can define molecule as ASCII strings so SMILES can store molecule in low data volume.
 
+=== How to handle multiple molecules at once？
 
-=== 複数の化合物を一度に取り扱うには？
-
+////
 複数の化合物を一つのファイルに格納する方法にはいくつかありますが、sdfというファイル形式を利用するのが一般的です。
 
 .sdfフォーマットとは？
@@ -54,37 +76,66 @@ MDL社で開発された分子表現のためのフォーマットにMOL形式�
 
 MOL形式は分子の三次元座標を格納することができ二次元だけでなく立体構造を表現できる点はSMILESとの大きな違いです。
 ****
+////
+There are several ways to store multiple molecules in a file but SDF format file is common.
 
-==== sdfファイルをChEMBLからダウンロードする
+.What's sdf format?
+****
+There is MOL format which was developed by MDL. SDF format is an extension of this MOL format. In particular multiple compounds are delimited by lines consisting of four dollar signs ($$$$). A feature of the SDF format is its ability to include associated data. 
 
+Huge differnce between MOL format and SMILES format is that MOL format can store 3d geometry information of molecule so MOL format can describe not only 2D but also stereo chemistry.
+****
+
+==== Download sdf file from ChEMBL
+
+////
 4章を参考にlink:https://www.ebi.ac.uk/chembl/beta/[ChEMBL]のトポイソメラーゼII阻害試験(CHEMBL669726)の構造データをsdfファイル形式でダウンロードします。
 
 NOTE::
 ****
 具体的な手順はリンクのページを開いて、検索フォームにCHEMBL669726を入力すると検索結果が表示されるので、Compoundsタブをクリックします。その後、全選択してSDFでダウンロードするとgzip圧縮されたsdfがダウンロードされるので、gunzipコマンドまたは適当な解凍ソフトで解凍してください。それをch05_compounds.sdfという名前で保存します。
 ****
+////
+Refer to chapter 4, down load Topoisomerase II inhibitor data(CHEMBL669726) from link:https://www.ebi.ac.uk/chembl/beta/[ChEMBL] as sdf file format.
 
-==== RDKitでsdfを取り扱う
+NOTE::
+****
+Specially, open the link page and input 'CHEMBL66926' to search form then search results will be appeared. Then click compounds tab, select all and down load as SDF. File download will start and get file as compressed gzip format. Extract the file with guzip command or using an appropriate soft then rename the file to ch05_compounds.sdf.
+****
 
+==== Handling sdf with RDKit
+
+////
 RDKitでsdfファイルを読み込むにはSDMolSupplierというメソッドを利用します。複数の化合物を取り扱うことになるのでmolではなくmolsという変数に格納していることに注意してください。どういう変数を使うかの決まりはありませんが、見てわかりやすい変数名をつけることで余計なミスを減らすことは心がけるとよいでしょう。
+////
+SDMolSupplier method is used as sdf file reader of RDKit. Please note that we use mols variable instead of mol because we handle multiple molecules. There isn't a rule for variables naming but you should use variables name which is easy to understand in order to reduce the unnecessary mistakes.
 
 [source, python]
 ----
 mols = Chem.SDMolSupplier("ch05_compounds.sdf")
 ----
 
+////
 何件の分子が読み込まれたのか確認します。数を数えるにはlenを使います。
+////
+Check how many coumpounds are read. len method is used to count number.
 
 [source, python]
 ----
 len(mols)
 ----
 
+////
 34件でした。
+////
+Total 34 molecules are read.
 
-==== 分子の構造を描画する
+==== Draw moleculear structures
 
+////
 forループを使って、ひとつずつ分子を描画してもいいですが、RDKitには複数の分子を一度に並べて描画するメソッドが用意されているので、今回はそちらのMolsToGridImageメソッドを使います。なお一行に並べる分子の数を変更するにはmolsPerRowオプションで指定します
+////
+You can draw molecule one by one with for loop but it is redundant. RDKit has method which can draw multiple molecules at once, so try to use the function named MolsToGridImage method. For your information the function has molsPerRow option which can change number of molecules per row.
 
 [source, python]
 ----
@@ -93,8 +144,11 @@ Draw.MolsToGridImage(mols)
 
 image::ch05/ch05_04.png[MolsToGridImage]
 
-===== (おまけ)
+===== (bonus)
+////
 参考までにループを回すやりかたも載せておきます。
+////
+Following code shows draw molecule one by one with loop for your information.
 
 [source, python]
 ----
@@ -103,10 +157,11 @@ for mol in mols:
     display(mol)
 ----
 
-=== ヘテロシャッフリングをしてみる
+=== Let's try to do hetero shuffling
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch05_hetero_shuffle.ipynb"]
 
+////
 創薬の化合物最適化ブロジェクトで、分子の形を変更しないで化合物の特性を変えたいということがあります。このような場合、芳香環を形成する炭素、窒素、硫黄、酸素などの原子種を入れ替えることでより良い特性の化合物が得られることがありますがこのようにヘテロ原子(水素以外の原子)を入れ替えるアプローチをヘテロシャッフリングといいます。
 
 ヘテロシャッフリングを行うことで、活性を維持したまま物性を変化させて動態を良くする、活性そのものを向上させる、特許クレームの回避といった効果が期待できます。
@@ -119,6 +174,18 @@ image::ch05/ch05_08.png[check structures]
 
 上記の画像を生成するコードを示します。単にDraw.MolsToGridImageを適用するのではなく
 Core構造をベースにアライメントしていることとDraw.MolToGridImageのオプションにlegendsを与え、分子名を表示していることに注意してください。
+////
+At the leard optimization satage of drug discovery, it often happens that researchers would like to improve molecular properties without changing molecular shape. In this case medicinal chemists of chage atoms such as carbon, nitrogen, sulphur and oxygen which in aromatic rings and it generats good profile molecules sometime. The approach which exchange aromatic atoms (except hydrogen) is called heteroshuffling.
+
+The heteroshuffling strategy is expected to improve physchem properties keeping potency, improve potency and claim avoidance.
+
+Pfizer's link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL192/[Sildenafil] and GSK's link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL1520/[Vardinafil] are well-known examples where small structural differences can affect selectivity and pharmacokinetics.
+
+The two structures are very similar except that the arrangement of the nitrogen atoms in the central ring structure is different. Both two molecules inhibt same target protein but link:https://www.nature.com/articles/3901525[their biological activities and pharmacokenetics] are different.
+
+image::ch05/ch05_08.png[check structures]
+
+Following code shows how to generate image described above. Please note that the code is not just using Draw.MolsToGridImage but align to core structure and add legends option to draw molecular's name.
 
 [source, python]
 ----
@@ -145,99 +212,187 @@ TemplateAlign.AlignMolToTemplate2D(vardenafil, MCS)
 Draw.MolsToGridImage([sildenafil, vardenafil], legends=['sildenafil', 'vardenafil'])
 ----
 
-RDKitで再帰的にヘテロシャッフルした分子を生成するコードが以下です。
-replace_atom関数で芳香環を形成する原子のインデックスを取得し、総当たりでC, N, S, Oに変更します。変更後の分子が芳香環を形成している正しい分子になっているかどうかをSanitizeMolによりチェックします。
+////
+ヘテロシャッフルした分子を生成するためにHeteroShuffleというクラスを定義します。オブジェクトの生成にはシャッフルしたい分子と変換したい部分構造（Core）を与えます。クラス内のコードではまず、分子をCoreで切断し、Coreとそれ以外に分けます。CoreのAromatic原子で、置換基がついてない原子のみが置換候補になります。。シャッフル後のCoreとCore以外のパーツを再結合するための反応オブジェクトを生成するメソッドがmake_connectorです。このメソッドで作られた反応オブジェクトを利用してre_construct_molで分子を再構築しています。
+
+考えられる原子の組み合わせを構築するために、itertools.productに、候補原子（C, S, N, O）の原子番号と、環を構成する原子数target_atomic_numsを与えます。その後に分子として生成できないものは排除するのでここでは考えられる全部の組み合わせを出します。
+////
+HeteroShuffle class is defined to generate hetero shuffled molecules. To generate the objects, it is needed to input the molecule which would like to do hetero shuffle and core structure to shuffle. The target atoms are aromatic atoms in the core and atoms which has no substituent. The function named make_connector generates reaction objects to construct molecules from shuffled core and substituents. The function named re_construct_mol reconstruct molecules with the reaction objects.
+
+To generate possible combinations of atoms, the code pass candidates of atomic numbers (C, S, N, O) and number of atoms which constructs target ring. Invalid molecule will be removed after possible combinations is generated.
 
 [source, python]
 ----
-def replace_atom(mol):
-    res = []
-    aro_idxs = [atom.GetIdx() for atom in mol.GetAromaticAtoms() if atom.GetDegree() < 3]
-    for atm_num in [6, 7, 8, 16]:
-        for idx in aro_idxs:
-            cp_mol = copy.deepcopy(mol)
-            cp_mol.GetAtomWithIdx(idx).SetAtomicNum(atm_num)
-            p = Chem.MolFromSmarts("nnn")
-            if cp_mol.HasSubstructMatch(p) != True:
-                try:
-                    smi = Chem.MolToSmiles(cp_mol)
-                    smi.replace("[sH]", "s")
-                    cp_mol = Chem.MolFromSmiles(smi)
-                    Chem.SanitizeMol(cp_mol)
-                    res.append(cp_mol)
-                except:
-                    pass
-    return res
+class HeteroShuffle():
+    
+    def __init__(self, mol, query):
+        self.mol = mol
+        self.query = query
+        self.subs = Chem.ReplaceCore(self.mol, self.query)
+        self.core = Chem.ReplaceSidechains(self.mol, self.query)
+        self.target_atomic_nums = [6, 7, 8, 16]
+    
+    
+    def make_connectors(self):
+        n = len(Chem.MolToSmiles(self.subs).split('.'))
+        map_no = n+1
+        self.rxn_dict = {}
+        for i in range(n):
+            self.rxn_dict[i+1] = AllChem.ReactionFromSmarts('[{0}*][*:{1}].[{0}*][*:{2}]>>[*:{1}][*:{2}]'.format(i+1, map_no, map_no+1))
+        return self.rxn_dict
+
+    def re_construct_mol(self, core):
+        '''
+        re construct mols from given substructures and core
+        '''
+        keys = self.rxn_dict.keys()
+        ps = [[core]]
+        for key in keys:
+            ps = self.rxn_dict[key].RunReactants([ps[0][0], self.subs])
+        mol = ps[0][0]
+        try:
+            smi = Chem.MolToSmiles(mol)
+            mol = Chem.MolFromSmiles(smi)
+            Chem.SanitizeMol(mol)
+            return mol
+        except:
+            return None
+
+    def get_target_atoms(self):
+        '''
+        get target atoms for replace
+        target atoms means atoms which don't have anyatom(*) in neighbors
+        '''
+        atoms = []
+        for atom in self.core.GetAromaticAtoms():
+            neighbors = [a.GetSymbol() for a in atom.GetNeighbors()]
+            if '*' not in neighbors and atom.GetSymbol() !='*':
+                atoms.append(atom)
+        print(len(atoms))
+        return atoms
+    
+    def generate_mols(self):
+        atoms = self.get_target_atoms()
+        idxs = [atom.GetIdx() for atom in atoms]
+        combinations = itertools.product(self.target_atomic_nums, repeat=len(idxs))
+        smiles_set = set()
+        self.make_connectors()
+        for combination in combinations:
+            target = copy.deepcopy(self.core)
+            #print(Chem.MolToSmiles(target))
+            for i, idx in enumerate(idxs):
+                target.GetAtomWithIdx(idx).SetAtomicNum(combination[i])
+            smi = Chem.MolToSmiles(target)
+            #smi = smi.replace('sH','s').replace('oH','o').replace('cH3','c')
+            #print('rep '+smi)
+            target = Chem.MolFromSmiles(smi)
+            if target != None:
+                n_attachment = len([atom for atom in target.GetAtoms() if atom.GetAtomicNum() == 0])
+                n_aromatic_atoms = len(list(target.GetAromaticAtoms()))
+                if target.GetNumAtoms() - n_attachment == n_aromatic_atoms:
+                    try:
+                        mol = self.re_construct_mol(target)  
+                        if checkmol(mol):
+                            smiles_set.add(Chem.MolToSmiles(mol))
+                    except:
+                        pass
+        mols = [Chem.MolFromSmiles(smi) for smi in smiles_set]
+        return mols
 ----
 
-recursive_replaceという関数では再帰的に原子を入れ替えます。thresは閾値で、入力分子内の芳香環を形成する原子に対する芳香環を形成する窒素原子の数の割合です。閾値を設定することで芳香環の原子が全て炭素以外の原子になってしまうことを防いでいます。
+////
+上のコードで使われているcheckmolという関数はc1coooo1のような６員環の構造もAromaticだと判定されてしまうのでそれを避けるために使っています。O, Sが許容されるのは５員環のヘテロ芳香環のみにしました。
+////
+The checkmol function which is used to avoid molecule such as c1coooo1 is defied as aromatic. I defined molecule which is allowd contain O, S is only five menbered hetero aromatic rings.
 
 [source, python]
 ----
-def recursive_replace(mols, check=set([]), thres=0.4):
-    before_n = len(check)
-    print(before_n)
-    for mol in mols:
-        replaced_mols = replace_atom(mol)
-        for mol_conv in replaced_mols:
-            aro_n = Fragments.fr_Ar_N(mol)
-            aro_a = len(mol.GetAromaticAtoms())
-            ratio = float(aro_n) / float(aro_a)
-            if ratio < thres:
-                smi = Chem.MolToSmiles(mol_conv)
-                check.add(smi)
-    after_n = len(check)
-    print(before_n, after_n)
-    if before_n < after_n:
-        mols = [Chem.MolFromSmiles(mol) for mol in check]
-        recursive_replace(mols, check=check)
-    return [Chem.MolFromSmiles(smi) for smi in check]
+def checkmol(mol):
+    arom_atoms = mol.GetAromaticAtoms()
+    symbols = [atom.GetSymbol() for atom in arom_atoms if not atom.IsInRingSize(5)]
+    if symbols == []:
+        return True
+    elif 'O' in symbols or 'S' in symbols:
+        return False
+    else:
+        return True
 ----
 
+////
 実際に使ってみます。
+////
+Use the function.
 
 [source, python]
 ----
 # Gefitinib
 mol1 = Chem.MolFromSmiles('COC1=C(C=C2C(=C1)N=CN=C2NC3=CC(=C(C=C3)F)Cl)OCCCN4CCOCC4')
+core1 = Chem.MolFromSmiles('c1ccc2c(c1)cncn2')
 #  Oxaprozin
-mol2 = Chem.MolFromSmiles('C1=CC=C(C=C1)C2=C(OC(=N2)CCC(=O)O)C3=CC=CC=C3')
-Draw.MolsToGridImage([mol1, mol2])
+mol2 = Chem.MolFromSmiles('OC(=O)CCC1=NC(=C(O1)C1=CC=CC=C1)C1=CC=CC=C1')
+core2 =  Chem.MolFromSmiles('c1cnco1')
 ----
 
+////
 元の分子
+////
+Original molecule.
 
 image::ch05/ch05_05.png[query]
 
 [source, python]
 ----
-res = recursive_replace([mol1])
+ht=HeteroSuffle(mol1, core1)
+res=ht.generate_mols()
+print(len(res))
 Draw.MolsToGridImage(res, molsPerRow=5)
 ----
 
+////
 Gefitinibを入力とした場合の変換結果の一部です。芳香環を形成する原子が元の化合物から変化した分子が出力されています。
+また、Coreで指定したキナゾリン部分のみが変換されています。
+////
+The image is part of the results Gefitinib as input. The molecules which is different from original molecule are generated. And quinazoline part is changed because I set quinazoline as core.
 
 image::ch05/ch05_06.png[res1]
 
 [source, python]
 ----
-res = recursive_replace([mol2])
+ht=HeteroSuffle(mol2, core2)
+res=ht.generate_mols()
+print(len(res))
 Draw.MolsToGridImage(res, molsPerRow=5)
 ----
 
-Oxaprozinを入力とした場合の変換結果の一部です。こちらは中心に、link:https://en.wikipedia.org/wiki/Oxazole[オキサゾール]と呼ばれる5員環構造を有しております。５員環を形成する芳香環にはチオフェン、フランなどのように窒素や酸素を含むものもあります。以下の例でもS、Oが5員環の構成原子に含まれている分子が出力されています。
+////
+Oxaprozinを入力とした場合の変換結果です。こちらは中心に、link:https://en.wikipedia.org/wiki/Oxazole[オキサゾール]と呼ばれる5員環構造を有してます。５員環を形成する芳香環にはチオフェン、フランなどのように窒素や酸素を含むものもあります。以下の例でもS、Oが5員環の構成原子に含まれている分子が出力されています。
+////
+This is the result of Oxaprozin is used as input. This molecul has ink:https://en.wikipedia.org/wiki/Oxazole[oxazole] which is five menbered ring as core. There are several hetero aromatic rings that conatin oxygen, sulphur such as thiophen furan.
 
 image::ch05/ch05_07.png[res2]
 
+////
 どうでしょうか。二つの分子の例を示しました。一つ目の例、Gefitinibは、分子を構成する芳香環が、link:https://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%8A%E3%82%BE%E3%83%AA%E3%83%B3[キナゾリン]とベンゼンでした。キナゾリンは、ベンゼンとピリミジンという二つの６員環が縮環した構造です。６員環をベースに構成される芳香環を形成する原子の候補は炭素と窒素になります。（ピリリウムイオンなど電荷を持つものも考慮すれば酸素や硫黄も候補になりますが、通常このような構造をDrug Designで使うことは少ないので今回の説明からは外しています。link:https://ja.wikipedia.org/wiki/%E8%A4%87%E7%B4%A0%E7%92%B0%E5%BC%8F%E5%8C%96%E5%90%88%E7%89%A9[複素環式化合物の説明]）
 Oxaprozinはオキサゾールを有しています。５員環の芳香環を形成する原子の候補は炭素、窒素、硫黄、酸素が挙げられます。このような分子の場合の例として紹介しました。
 いずれのケースでも上記のコードでヘテロ原子がシャッフルされたものが生成されています
+////
+What's on your mind? Two examples were shown. The first one is a case of aromatic rings are quinazoline and benzene. Qunazoline is the ring which is fused ring of benzene and pyrimidine. The candidates atoms for six membered aromatic rings will be carbon and nitrogen atoms. (Of cource if we consider for pyririum ion, oxygen will be candidate of atoms but these charged substructure is not common for drug discovery. So we ommited the atom.)
+Oxaprozin has an oxazole rings. The candidates of atoms for five membered aromatic rings will be carbon, nitrogen, sulphur and oxygen. The second one is introduced as an example of five membered hetero aromatic rings.
+HeteroShuffled molecules are generated in the both case.
 
+////
 .ヘテロシャッフリングについてもう少し詳しく
 ****
 link:https://pubs.acs.org/doi/10.1021/jm3001289[J. Med. Chem. 2012,  55, 11, 5151-5164]ではPIM-1キナーゼ阻害剤におけるNシャッフリングの効果をFragment Molecular Orbital法という量子化学的なアプローチを使って検証しています。さらにlink:https://pubs.acs.org/doi/10.1021/acs.jcim.8b00563[J. Chem. Inf. Model. 2019,  59, 1, 149-158]ではAsp–Arg塩橋とヘテロ環のスタッキングのメカニズムを量子化学計算により探っており、置換デザインの指標になりそうです。
 
 また、バイオアベイラビリティ改善のためにヘテロシャッフリングを行った例としてはlink:https://dx.doi.org/10.1021/jm101027s[J. Med. Chem. 2011,  54, 8, 3076-3080]があります。
+****
+////
+.Describes about hetero shuffling more
+****
+In the article link:https://pubs.acs.org/doi/10.1021/jm3001289[J. Med. Chem. 2012,  55, 11, 5151-5164] analyzed the effect of nitrogen shuffling for PIM-1 kinase inhibitor project with Fragment Molecular Orbital method which is a method of quantum chemistry. And another article link:https://pubs.acs.org/doi/10.1021/acs.jcim.8b00563[J. Chem. Inf. Model. 2019,  59, 1, 149-158] described mechanism of the stackibng between Asp-Arg salt bridge and hetero rings with quantum chemistry calclation. The approach seems to be good indicator for substituents design.
+
+Also, an example of hetero shuffling for improving the bio availability is ink:https://dx.doi.org/10.1021/jm101027s[J. Med. Chem. 2011,  54, 8, 3076-3080]
 ****
 
 <<<
