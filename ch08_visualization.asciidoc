@@ -144,6 +144,6 @@ g
 
 image::ch08/tsne01.png[PCA, size=500]
 
-今回紹介したPCA,tSNEの他にも色々な描画方法があるので調べてみるとよいでしょう。
+There are many other drawing methods besides PCA and tSNE introduced this time, so it is good to check.
 
 <<<
