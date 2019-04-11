@@ -1,63 +1,106 @@
-== 3章: Pythonプログラミングの基礎
+== Chapter 3: Basics of Python programming
 
-=== Pythonの基礎
+=== Python basics
 
+This chapter introduces web sites and books **for effective learning** for python beginners.
+If you have something that is not understood in the following chapter, these information will help you.
+////
 この章ではPythonに触れたことのない読者のために**効率的に勉強するため**のサイトや本などを紹介します。
 もしこれ以降の章でわからないことなどがあったら、この章のサイトや本を参考に学んでみてください。
+////
 
-==== Pythonを本で学びたい
+==== Would like to learn Python from books
 
 https://www.amazon.co.jp/dp/4774196436/[Pythonスタートブック増補改訂版]::
-プログラミング自体が初心者であればこの本が良いでしょう。
+We recommend the book if you are biginner of programming.
 
 https://www.amazon.co.jp/dp/B01NCOIC2P/[みんなのPython 第4版]::
+If you have any experiences of programming such as Javascript and/or Java, and would like to learn python from now, this book is recommended.
+////
 JavascriptやJavaなどのなにかプログラミングを少しかじっていて、これからPythonを覚えたいのであればこちらの本をおすすめします。
+////
 
-==== Pythonを本以外で学びたい
+==== Would like to learn Python from any sources
 
-https://www.pycon.jp/support/bootcamp.html[Python Boot Camp(初心者向けPythonチュートリアル)]::
+https://www.pycon.jp/support/bootcamp.html[Python Boot Camp(tutorial for python biginners)]::
+This is a python tutorial event for biginner held by　PyconJP. The events held on all the places of Japan. How about join the event when it take place neignbor?
+////
 一般社団法人PyCon JPが開催している初心者向けPythonチュートリアルイベントです。全国各地で行われているので近くで開催される場合には参加するとよいでしょう
+////
 
-https://connpass.com/category/Python/[その他ローカルコミュニティなど]::
+https://connpass.com/category/Python/[local communities]::
+It seems good to increase your motivation to join study workshops for biginers or for professionals. You can find many works shops in connpass site. 
+////
 あちこちで入門者向けからガチのヒト向けまでの勉強会やコミュニティなどもあるので、そういうのに参加してモチベーションを高めるのもよい方法です。
+////
 
 https://www.udemy.com/topic/python/[udemy/python]::
+It is effective way to learn programming with on line learning service but we have never tried. You should ask a reputation around. And also there are many resources in You Tube.
+////
 オンライン学習サービスを利用するのも効果的な手段のひとつですが、筆者は試したことがないのでわかりません。
 周りの評判を聞いてみても良いでしょう。YouTubeを探すのもありです。
+////
 
-==== 本書でわからないことがあったら
+==== If you have something that is not understood in this book
 
 https://github.com/Mishima-syk/py4chemoinformatics/issues[py4chemoinformaticsのissues]::
+We are happy to answer your question if you put questions in the issue of py4chemoinformatics. If there are something that is difficult to understand we will correct them.
+The cycle will make the document better and everybody will be happy ;)
+////
 py4chemoinformaticsのissuesに質問していただければお答えします。わかりにくい場合だったら修正しますので、よりよくなってみんなハッピー。
+////
 
+////
 https://qiita.com/[Qiita]::
 Qiitaで探せば大抵答えが見つかるはずです。
+Qiita is communitie for Japanease. All documents are written in Japanese
+////
 
 https://stackoverflow.com/[stackoverflow]::
-それでも答えが見つからなかったらsofで探すか質問しましょう
+Stackover flow is good community. You should search in SOF at first and ask the community.
 
 http://mishima-syk.github.io/[Mishima.syk]::
+Mishima.syk is the community where people who write the book gathered. Topics is not limited for python but there many presentations about python now. Discussion level is high but the community is also familier for biginners. We planed hands-on sessions and they had an establised reputatoin. The community members be able to answer your questions. 
+////
 本書を書いている人たちが集まるコミュニティです。特に話題をPythonに限定していませんが、Pythonを使ったネタが多めです。かなりガチですが、初心者対応も万全でハンズオンに定評があります。質問されれば大体答えられます。
+////
 
-=== Jupyter notebookで便利に使おう
-
+=== Let's use it conveniently with Jupyter notebook
+By using link:https://jupyter.org/[Jupyter notebook], it is easy to write code and check the results.
+////
 link:https://jupyter.org/[Jupyter notebook]を利用すると、コードを書いて結果を確認するということがとても簡単にできるようになります。
+////
 
+The Jupyter Notebook is an open-source web application that allows you to embed code, ritch text, math equation and etc. And it is easy to make high quarity visualizations of the resluts. It will be nice platform for chemoinformatics because Jupyter Notebook can run code and draw chemical structures and many kinds of plots. Also it has many features which improve programing productivity such as syntax highlight, auto indent. We recommend to use Jupyter especially programming biginers.
+////
 Jupyter notebookはWebブラウザーベースのツールで、コードだけではなくリッチテキスト、数式、なども同時にノートブックに埋め込めます。また結果を非常に綺麗な図として可視化することも容易にできます。つまり、化学構造やグラフも描画できるため、ケモインフォマティクスのためのプラットフォームとして使いやすいです。さらに、プログラミングの生産性を上げるような、ブラウザ上でコードを書くとシンタックスハイライトや、インデント挿入を自動で行ってくれたりという便利な機能もついているので、特に初学者は積極的に使うべきでしょう。
+////
 
-==== 使い方
+==== How to use?
 
-terminal(Windowsではanaconda prompt)から
+from terminal(in Windows, anaconda prompt)
 
 [source, bash]
 ----
 $ jupyter notebook
 ----
 
+After type the command above, Jupyter Notebook will be launched. In this book, all code is run on Jupyter Notebook when we don't have any specific reason.
+////
 と打てばJupyter Notebookが立ち上がります。本書ではこれ以降特に断らない限りJupyter Notebook上でのコードを実行することとします。
+////
 
-=== Pythonで機械学習をするために
+=== For machine learning with Python
 
+**Machine learning** is a must for learing informatics not only chemoinformatics. Some background knowledge of machine learning is required following sessions. link:https://scikit-learn.org/stable/[Scikit-learn] is used for machine learning with python. Scikit-kearn is de facto standard for machin learning library for python. We use the package without any descriptions but we would like to share some links for beginners.
+
+link:http://shop.oreilly.com/product/0636920030515.do[Introduction to Machine Learning with Python]::
+You can learn basics of machine learning with python. It is easy to read because less mathmatical representations. 
+
+link:https://github.com/Mishima-syk/sklearn-tutorial[sklearn-tutorial]::
+Sklearn tutorial hands-on by @y-sama. Written in jupyter notebook.
+
+////
 ケモインフォマティクスに限らず、インフォマティクスを学ぶにあたり、機械学習は外せません。本書でもある程度の機械学習の知識があることを前提に進めていきます。Pythonで機械学習をするにはlink:https://scikit-learn.org/stable/[Scikit-learn]というライブラリを利用するのが定番であり、本書でも特に説明せずに利用していきますが、初学者のために参考となる書籍などをすすめておきます。
 
 link:https://www.amazon.co.jp/dp/4873117984/[Pythonではじめる機械学習 ―scikit-learnで学ぶ特徴量エンジニアリングと機械学習の基礎]::
@@ -65,5 +108,6 @@ Pythonで機械学習をやるための基礎を学べます。数学的な表�
 
 link:https://github.com/Mishima-syk/sklearn-tutorial[sklearn-tutorial]::
 y-samaによるsklearnのチュートリアルハンズオンのjupyter notebookです。
+////
 
 <<<
