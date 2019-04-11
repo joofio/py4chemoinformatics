@@ -1,16 +1,16 @@
-== 9章: 構造活性相関（QSAR）の基礎
+== Chapter 9: Basics of Quantitative Structure-Activity Relationship (QSAR)
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch09_qsar.ipynb"]
 
-化学構造と生物学的活性における相関関係をStructure Activity Relationship(SAR)またはQuantative SAR(QSAR)と呼びます。一般的には**似たような化合物は似たような生物学的活性を示す**ことが知られており、この相関関係を理解しドラッグデザインに活かすことが創薬研究において大変重要です。
+The correlation between chemical structure and biological activity is called Structure Activity Relationship (SAR) or Quantitative SAR (QSAR). In general, **similar compounds** are known to exhibit **similar biological activities**, and it is very important in drug discovery research to understand this correlation and apply it to drug design.
 
-また、このような問題には細胞の生死、毒性の有無といった化合物がどのクラスに入るのかを推定する分類問題と阻害率（%inhibition）といった連続値を推定する回帰問題の2つがあります。
+In addition, there are two types of problems such as classification problems to estimate which class a compound belongs to, such as cell death or toxicity, or toxicity, and regression problems to estimate continuous values such as % inhibition.
 
-=== 効果ありなしの原因を考えてみる（分類問題）
+=== Consider the cause of no effect (classification problem)
 
-ChEMBLからlink:https://www.ebi.ac.uk/chembl/assay/inspect/CHEMBL829152[hERG阻害アッセイ]の73データを用いてIC50が1uM未満のものをhERG阻害あり、それ以外をhERG阻害なしとラベルします。
+Label the ones with an IC50 less than 1 uM with hERG inhibition and the others with no hERG inhibition using 73 data from ChEMBL link:https://www.ebi.ac.uk/chembl/assay/inspect/CHEMBL829152[hERG inhibition assay].
 
-まずは必要なライブラリをインポートします。
+First, import the necessary libraries.
 
 [source, python]
 ----
@@ -23,7 +23,7 @@ from sklearn.metrics import confusion_matrix, f1_score
 from sklearn.ensemble import RandomForestClassifier
 ----
 
-ChEMBLでダウンロードしたタブ区切りテキストの処理は8章とほぼ同じですが、今回は活性データが欲しいのでSTANDARD_VALUEという列を探して数値を取り出します。この値が1000nM未満であればPOSというラベルを、そうでなければNEGというラベルを振ります。最後にラベルをnumpy arrayにしておきます。
+Processing of tab-delimited text downloaded with ChEMBL is almost the same as in Chapter 8, but this time I want liveness data, so I search for the column **STANDARD_VALUE** and retrieve the numerical value. If this value is less than 1000 nM, label it as POS, otherwise label it as NEG. At the end, I will make the label numpy array.
 
 [source, python]
 ----
@@ -50,7 +50,7 @@ with open("ch09_compounds.txt") as f:
 labels = np.array(labels)
 ----
 
-続いてmolオブジェクトをフィンガープリントに変換します。このフィンガープリントからhERG阻害の有無を予測するモデルを作成します。
+Then convert the mol object into a fingerprint. From this fingerprint, create a model to predict the presence or absence of hERG inhibition.
 
 [source, python]
 ----
@@ -63,14 +63,14 @@ for mol in mols:
 fps = np.array(fps)
 ----
 
-データセットを訓練セットテストセットの2つに分けます。テストセットは作成した予測モデルの精度を評価するためにあとで使います。
+Divide the data set into two of the training set test set. The test set will be used later to evaluate the accuracy of the created prediction model.
 
 [source, python]
 ----
 x_train, x_test, y_train, y_test = train_test_split(fps, labels)
 ----
 
-予測モデルを作成するにはインスタンスを作成してfitメソッドで訓練させるだけです
+To create a predictive model, just create an instance and train it with the fit method.
 
 [source, python]
 ----
@@ -78,18 +78,18 @@ rf = RandomForestClassifier()
 rf.fit(x_train, y_train)
 ----
 
-先程分割しておいたテストセットを予測します。
+Predict the test set you split up earlier.
 
 [source, python]
 ----
 y_pred = rf.predict(x_test)
 ----
 
-Confusion matrixを作成します。
+Create a Confusion matrix.
 
 .Confusion matrixとは
 ****
-Confusion matrixとはクラス分類の結果をまとめた表です。クラスを正しく分類できているかをわかりやすく視覚化できTP,TNが多くFP,FNが少ないほどよく分類できているということになります。
+Confusion matrix is a table that summarizes the results of class classification. It is possible to visualize clearly whether the class is classified correctly, and as TP and TN are many and FP and FN are small, it is possible to classify better.
 
 |===
 || 2+|Actual class
@@ -123,7 +123,7 @@ confusion_matrix(y_test, y_pred)
 |2
 |===
 
-F1スコアを見てみましょう。
+Let's look at the F1 score.
 
 [source, python]
 ----
@@ -131,26 +131,26 @@ f1_score(y_test, y_pred, pos_label="POS")
 #0.4
 ----
 
-あまりよくないですね。
+It is not very good.
 
-NOTE: train_test_split関数がランダムに訓練セットとテストセット分割するので、Confution matrix,F1スコアの値は実行するたびに変わります。
+NOTE: Because the train_test_split function randomly splits the training set and test set, the value of the confidence matrix, F1 score changes with each execution.
 
-.F1スコアとは
+.With F1 score
 ****
 
-- 正しいと予測されたもののうち本当に正しいものの割合を適合率と呼ぶ precision=TP/(TP+FP)
-- 正しいものが正しいと予測された割合を再現率と呼ぶ recall=TP/(TP+FN)
+- The ratio of what is truly correct among what is predicted to be correct is called accuracy rate precision = TP / (TP + FP)
+- The rate at which the correct thing is predicted to be correct is called the recall rate recall = TP / (TP + FN)
 
-F1スコアは適合率と再現率の調和平均となり
+The F1 score is the harmonic mean of the precision rate and the recall rate
 
+It is calculated by
 F1 = 2 * (precision * recall) / (precision + recall)
 
-で計算されます。
 ****
 
-=== 薬の効き目を予測しよう（回帰問題）
+=== Predict the efficacy of drugs (regression problem)
 
-回帰モデルは最初に説明したとおり、連続値を予測するモデルとなります。今回はRandomForestの回帰モデルを作成して、その精度をR2で評価します。データは分類問題で使ったhERGのアッセイデータを利用することにしましょう。最初に必要なライブラリをインポートします。
+Regression models, as discussed earlier, are models that predict continuous values. This time, create a regression model of RandomForest, and evaluate its accuracy with R2. Let's use the data from hERG's assay data used in classification problems. Import the required libraries first.
 
 [source, python]
 ----
@@ -159,7 +159,7 @@ from sklearn.metrics import r2_score
 from math import log10
 ----
 
-分類問題のときにはラベル化しましたが、今度は連続値を予測したいのでpIC50に変換します。(なぜpIC50にすると都合が良いのかはそのうち補足する)
+We labeled it for classification problems, but now we want to predict continuous values, so we convert it to pIC50. (We will supplement later on why it is convenient to use pIC50)
 
 [source, python]
 ----
@@ -178,14 +178,14 @@ with open("ch09_compounds.txt") as f:
 pIC50s = np.array(pIC50s)
 ----
 
-データセットをトレーニングセットとテストセットの2つに分割します。フィンガープリントは分類モデルのときに作成したものを流用します。
+Divide the data set into two: training set and test set. The fingerprint uses what was created at the time of classification model.
 
 [source, python]
 ----
 x_train, x_test, y_train, y_test = train_test_split(fps, pIC50s)
 ----
 
-訓練します。Scikit-learnの場合はこの手順はどの手法でもほぼ同じメソッドでfitしてpredictです。
+I will train. In the case of Scikit-learn, this procedure is fit and predict with almost the same method in any method.
 
 [source, python]
 ----
@@ -193,14 +193,14 @@ rf = RandomForestRegressor()
 rf.fit(x_train, y_train)
 ----
 
-予測しましょう。
+Let's predict.
 
 [source, python]
 ----
 y_pred = rf.predict(x_test)
 ----
 
-予測精度をR2で出してみます。
+Let's put out the prediction accuracy with R2.
 
 [source, python]
 ----
@@ -208,23 +208,24 @@ r2_score(y_test, y_pred)
 #0.52
 ----
 
-まずまずといったところでしょうか。
+Is there anything like that?
 
-.R2スコアとは
+.With R2 score
+
 ****
-回帰の当てはまりの良さへの1つの評価指標としてよく利用されるものでlink:https://ja.wikipedia.org/wiki/%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0[決定係数]とも呼ばれます。
+It is often used as one of the evaluation indicators for the goodness of fit of regression, also called the link:https://ja.wikipedia.org/wiki/%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0[determination coefficient].
 ****
 
-=== モデルの適用範囲(applicability domain)
+=== Model applicability (applicability domain)
 
-今回紹介した手法は**似たような化合物は似たような生物学的活性を示す**という仮設に基づいて生成されるモデルです。もしトレーニングセットに似ている化合物が含まれなかった場合の予測精度はどうなるのでしょうか？
+The method introduced here is a model generated based on the hypothesis that **similar compounds exhibit similar biological activities**. What is the prediction accuracy if there is no compound that is similar to the training set?
 
-当然その場合は予測された値は信頼できませんよね。つまり、予測値にはその予測が確からしいか？という信頼度が常についてまわります。そのようなモデルが信頼できる、または適用できる範囲をapplicability domainと呼びます。これに関しては明治大学金子先生のlink:https://datachemeng.com/applicabilitydomain/[モデルの適用範囲・モデルの適用領域]が詳しいです。
+Of course, the predicted value is not reliable in that case. In other words, is the prediction likely to be that prediction? The degree of reliability always goes around. The extent to which such models can be trusted or applied is called the applicability domain. In this regard, the link:https://datachemeng.com/applicabilitydomain/[scope of application and model application] scope of Mr. Kaneko, Meiji University are detailed.
 
-==== (おまけコラム)applicability domainはどこまで信頼できるのか？
+==== (Extra column) How reliable can the applicability domain be?
 
-筆者は昔、Hugo Kubinyi先生の**似ている化合物は果たして似た活性を示すのか？**という疑問を、estradiolのOH基をMethoxy基に変換すると活性が消失する例を上げて説明されていたことに感銘を受けたのを覚えています。
+Long time ago, do the similar compounds of Dr. Hugo Kubinyi show similar activities? I remember the question that I was impressed by the fact that converting the estradiol OH group into a Methoxy group gave examples of the loss of activity.
 
-applicability domainはトレーニングセットの類似性からその予測が信頼できるかという確度を測る手法です。ここで類似性が誰のための類似性なのかという問題が出てきます。我々がこの化合物とこの化合物は似ているよねと思うのは我々の勝手ですが、似ているか似ていないかは最終的には蛋白質が判断します。そのため必ずしも類似度から活性が予測できるわけではなく、極めて類似度が高いのに活性が消失してしまうことが多々あります。特にMMPの文脈で説明されたActivity Cliffはこのような事象にそれっぽい名前をつけたものです。
+The applicability domain is a method to measure the accuracy of the prediction from the similarity of the training set. Here comes the question of who the similarity is for. It is our hand that we think this compound and this compound are similar, but it is ultimately determined by the protein whether it is similar or not. Therefore, the activity can not always be predicted from the similarity, and the activity often disappears even if the similarity is extremely high. In particular, Activity Cliff, described in the context of MMP, gives such an event its name.
 
 <<<
