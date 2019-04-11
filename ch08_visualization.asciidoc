@@ -1,20 +1,20 @@
-== 8章: 沢山の化合物を一度にみたい
+== Chapter 8: Want to have lots of compounds at once
 :imagesdir: images
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch08_visualization.ipynb"]
 
-沢山のデータがどのように分布しているのかを見るには適当な空間にマッピングするのが一般的です。特にケモインフォマティクスではケミカルスペースという言葉が使われます。
+In order to see how much data is distributed, it is common to map in an appropriate space. Especially in chemoinformatics the word chemical space is used.
 
-=== Chemical Spaceとは
+=== What is Chemical Space
 
-ケミカルスペースとは化合物を何らかの尺度でn次元の空間に配置したものを指します。一般に、2次元または3次元が使われることが多いです（人間の理解のため）。尺度つまり類似性に関しては色々な手法が提案されていますが、うまく化合物の特徴を表すような距離が定義されるように決められることが多いです。
+Chemical space refers to the arrangement of compounds in an n-dimensional space at some scale. In general, two or three dimensions are often used (for human understanding). Although various methods have been proposed for the scale, ie, similarity, it is often decided that a distance that well characterizes a compound is defined.
 
-今回は睡眠薬のターゲットとして知られているOrexin Receptorのアンタゴニストについて、どの製薬企業がどういった化合物を開発しているのかを視覚化してみます。データのダウンロード方法は4章を参照してください。今回は表の10個の論文のデータを利用しました。
+This time, we will visualize which pharmaceutical company is developing what kind of compound for the antagonist of Orexin Receptor, which is known as a target for sleep medicine. See Chapter 4 for how to download data. This time we used the data of 10 papers in the table.
 
-今回知りたいことは主に以下の２つです。
+There are two main things I want to know this time:
 
-- 似たような化合物を開発していた会社はあったのか？
-- Merckは似たような骨格ばかり最適化していたのか、それとも複数の骨格を最適化したのか？
+- Were there companies that developed similar compounds?
+- Has Merck optimized only similar frameworks, or did it optimize multiple frameworks?
 
 .Orexin Receptor Antagonist
 |===
@@ -32,9 +32,9 @@ image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/
 |===
 
 
-=== ユークリッド距離を用いたマッピング
+=== Mapping using Euclidean distance
 
-描画ライブラリにはggplotを使います。主成分分析(PCA)を利用して、化合物が似ているものは近くになるように分布させて可視化します。まずは必要なライブラリをインポートします
+Use ggplot for the drawing library. Principal component analysis (PCA) is used to distribute and visualize similar compounds close together. At first we import necessary library
 
 [source, python]
 ----
@@ -47,7 +47,7 @@ from sklearn.decomposition import PCA
 import os
 ----
 
-ダウンロードしたsdfを読み込んで、製薬企業とドキュメントIDの対応が取れるようにしてそれぞれの化合物についてフィンガープリントを構築します。もし不明な点があれば6章を確認してください。
+Load the downloaded sdf, and create fingerprints for each compound, enabling correspondence between drug companies and document IDs. If you have any questions please check Chapter 6.
 
 [source, python]
 ----
@@ -77,7 +77,7 @@ companies = np.array(companies)
 docs = np.array(docs)
 ----
 
-フィンガープリントの情報を確認すると10の論文から293化合物のデータが得られていることがわかります。
+If you check the information of the fingerprint, you can see that data of 293 compounds are obtained from 10 articles.
 
 [source, python]
 ----
@@ -85,7 +85,7 @@ fps.shape
 # (293, 2048)
 ----
 
-これで主成分分析の準備完了です。主成分の数はn_componentsで指定できますが今回は二次元散布したいので2にします。
+You are now ready for principal component analysis. The number of principal components can be specified by n_components, but this time, I want to scatter two dimensions, so I set it to 2.
 
 [source, python]
 ----
@@ -93,7 +93,7 @@ pca = PCA(n_components=2)
 x = pca.fit_transform(fps)
 ----
 
-描画します。colorオプションを変えると、それぞれのラベルに応じた色分けがされるので、OMPANYとDOCIDの2つの属性を選んでみました。
+Draw I changed the color option according to each label, so I chose two attributes, COMPANY and DOCID.
 
 [source, python]
 ----
@@ -105,22 +105,23 @@ g = ggplot(aes(x="PCA1", y="PCA2", color="COMPANY"), data=d) + geom_point() + xl
 g
 ----
 
-各製薬会社がどのような化合物を最適化したのかがわかるようになりました。ケミカルスペースの中心部に各社重なる領域があるので、Merck, Acterion, Eisai, Heptaressは似たような化合物を最適化していたと思われます。Acterionはうまく独自性のある方向(左下)に展開できたのか、展開できなくてレッドオーシャン気味の中心部に進出してきたのかは興味深いです。
+You can now see what compounds each pharmaceutical company has optimized. Merck, Acterion, Eisai and Heptaress seem to have optimized similar compounds, as there is an overlapping area in the center of the chemical space. It is interesting to see whether the Acterion has been successfully deployed in a unique direction (lower left) or has not been deployed and has advanced into the red ocean center.
 
-またMerckは色々な骨格を最適化していたようです。同時に最適化したのか先行がこけてバックアップに走ったのかわかりませんが、多数の骨格の最適化が動いていたのは間違いないので、ターゲットとしての魅力が高かったということでしょう。実際link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL1083659/[SUVOREXANT]は上市されましたしね。
+Also, Merck seems to have optimized various frameworks. I don't know if I'm optimizing at the same time or running ahead for backup, but it's no doubt that there were a lot of skeletal optimizations running, so it's probably an attractive target. In fact, link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL1083659/[SUVOREXANT] was launched.
 
 image:ch08/pca01.png[PCA, size=400, pdfwidth=48%] image:ch08/pca02.png[PCA, size=400, pdfwidth=48%]
 
 .patinformatics
 ****
-本章では論文データを利用しましたが、実際の現場でこのような解析をする場合には論文データは使いません。なぜなら企業が論文化するときはそのプロジェクトが終わったこと（成功して臨床に進んだか、失敗して閉じたか）を意味するからです。実際の場面では特許データを利用して解析をします。
+In this chapter, we use dissertation data, but we do not use dissertation data when performing such analysis in a real field. Because when a company disseminates, it means that the project is over (whether it went to clinical or failed and closed). In the actual situation, analysis is performed using patent data.
 
-このような解析とlink:http://rkakamilan.hatenablog.com/entry/2017/12/17/235417[メディシナルケミストの経験と洞察力]をもとに他社状況を推測しながら自分たちの成功を信じてプロジェクトは進んでいきます。
+Based on the analysis and link:http://rkakamilan.hatenablog.com/entry/2017/12/17/235417[experience of Medicinal Chemist] and the insights of these companies, the project will proceed with a belief in their own successes while inferring the situation of other companies.
+
 ****
 
-=== tSNEをつかったマッピング
+=== Mapping using tSNE
 
-PCAよりもtSNEのほうが分離能がよく、メディシナルケミストの感覚により近いと言われています。sklearnではPCAをTSNEに変更するだけです。
+It is said that tSNE has better resolution than PCA and is closer to the sense of medicinal chemist. Sklearn just changes PCA to TSNE.
 
 [source, python]
 ----
@@ -129,7 +130,7 @@ tsne = TSNE(n_components=2, random_state=0)
 tx = tsne.fit_transform(fps)
 ----
 
-描画するとわかりますが、PCAに比べてよく分離されています。
+As you can see when drawing, it is separated better than PCA.
 
 [source, python]
 ----
