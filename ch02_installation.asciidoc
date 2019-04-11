@@ -5,13 +5,13 @@ We will build the environment required for this document.
 
 === About Anaconda
 
-Anaconda is a package to ease preparation for doing machine learning. You can also easily install RDKit, which will be explained later.
+Anaconda is a package for easy environment creation and management for doing machine learning. You can also easily install packages, like RDKit, which will be explained later.
 
 
 ==== Q&A
 
 Why use Anaconda?::
-The programming language Python has a relatively large number of standard libraries, but you need to install the libraries for chemoinformatics yourself. This is not a big deal if you get used to it, but it will be troublesome for beginners. The reason is to reduce this effort.
+The programming language Python has a relatively large number of standard libraries, but you need to install the libraries for chemoinformatics yourself. This is not a big deal if you get used to it, but it will be troublesome for beginners. Anaconda comes into play in order to reduce this effort.
 
 
 There are two major versions of Python: 2.x and 3.x.::
@@ -48,7 +48,8 @@ Do you accept the license terms? [yes|no]
 [no] >>> 
 ----
 
-I am asked where to install, but because there is no problem by default, press Return
+I am asked where to install, but the default location is usually fine.
+Press Return.
 
 [source, bash]
 ----
@@ -60,7 +61,7 @@ Anaconda3 will now be installed into this location:
   - Or specify a different location below
 ----
 
-You will be asked if you want to install more VSCode after installation, so press No.
+You will be asked if you want to install  VSCode after installation as well, so press No.
 
 [source, bash]
 ----
@@ -116,7 +117,7 @@ One of the graph drawing packages is that it can draw rationally with a consiste
 
 ==== Git
 
-It is a version control system. I will not explain Git in this book, but if you do not know Git at all , read even link:https://backlog.com/ja/git-tutorial/[Git Primer], which can be understood by monkeys .
+It is a version control system. I will not explain Git in this book, but if you do not know Git at all , take a look at link:https://backlog.com/ja/git-tutorial/[Git Primer], which can be understood by monkeys.
 
 As explained in "Introduction", all data including pdf will be downloaded by the following command, so please download it as necessary.
 
@@ -128,7 +129,7 @@ $ git clone https://github.com/Mishima-syk/py4chemoinformatics.git
 === Learn more about Conda
 
 Why create a virtual environment::
-Some systems use Python internally to provide various features, so changing the Python version for a particular package can cause problems. Virtual environments solve these problems. Even if the package requires different library versions, you can set up a virtual Python environment and try and error. If it becomes unnecessary, the virtual environment can be easily deleted without causing any problems in the original environment. In this way, by being able to create separate development environments in one system, you will not be bothered by library dependency problems and Python version differences that often occur during development.
+Some systems use Python internally to provide various features, so changing the Python version for a particular package can cause problems. Virtual environments solve these problems. Even if the package requires different library versions, you can set up a virtual Python environment for trial and error. If it becomes unnecessary, the virtual environment can be easily deleted without causing any problems in the original environment. So, by being able to create separate development environments in one system, you will not be bothered by library dependencies problems and Python version differences that often occur during development.
 
 In this document, only one virtual environment is prepared for this document, but in practice many virtual environments are often created and developed. Therefore, I will list the conda subcommands that I use frequently.
 
@@ -138,7 +139,7 @@ $ conda install <package name>　# install package
 $ conda create -n <Name-of-virtual-environment> python = <version>　# Create virtual environment. 
 $ conda info -e  # Display virtual environment list created 
 $ conda remove -n <environment-name> # Virtual environment deletion 
-$ source activate <environment-name> # Using virtual environment (mac / linux) 
+$ source activate <environment-name> # Using virtual environment ( Mac/Linux) 
 $ activate <environment-name> # Using virtual environment (Windows)
 $ source deactivate # leaving virtual environment 
 $ conda list # Display a list of libraries installed in the virtual environment you are using now
