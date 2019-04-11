@@ -1,4 +1,4 @@
-== Chapter 4: Public database for chemorinformatics
+== Chapter 4: Public databases for chemoinformatics
 :imagesdir: images
 
 ////
@@ -31,13 +31,13 @@ link:https://pubchem.ncbi.nlm.nih.gov/[PubChem]はNCBIにより維持管理さ�
 どちらを使うべき?::
 QSARをやりたい場合にはやはりChEMBLのデータを利用することが多いです。IC50のようなデータが得られていることが多いですし、モデルの解釈に元論文をあたることができるというのが大きな理由です。
 ////
-link:https://pubchem.ncbi.nlm.nih.gov/[PubChem] is an open chemistry database of biological activities and molecules which is maintained by NCBI. It has more than 50 million compounds data and more than million of biological assay dataset. Large dataset is one of the feature of pubchem and another feature is that the database grows up by data registration from academia it is big difference point to ChEMBL. 
-You can check more ditails of the data source from current link:https://pubchem.ncbi.nlm.nih.gov/sources/[URL].
+link:https://pubchem.ncbi.nlm.nih.gov/[PubChem] is an open chemistry database of biological activities and molecules which is maintained by NCBI. It has more than 50 million compounds data and more than 1 million of biological assay dataset. Its large dataset is one of the main features of pubchem. Another feature is that the database grows up by data registration from academia, being this the biggest difference point to ChEMBL. 
+You can check more details of the data source from current link:https://pubchem.ncbi.nlm.nih.gov/sources/[URL].
 
 Especially pubchem has large amount of an eary stage screening data, so it will be useful when user would like to analyze or mining it.
 
 Which database should I use ChEMBL or PubChem?::
-We think ChEMBL is preffred for QSAR analysis because ChEMBL provides many data such as IC50 and user can access to original journal for QSAR model interpretation.
+We think ChEMBL is preferred for QSAR analysis because ChEMBL provides many data such as IC50 and user can access to original journal for QSAR model interpretation.
 
 === Search Data which you want in ChEMBL
 
@@ -70,7 +70,7 @@ Mainly ChEMBL has 4 data categories and each data has an unique id and has relat
 Targets::
 The category has assay and reported journal informations of target molecules.
 Compounds::
-The category has basic physico chemical properties of molecules such as Molecular Weight, whether the molecule passes Lipinksy's Rule of 5 or not. And other information about the molecule such as clinical, relatated assays which are stored in ChEMBL and summary of journals.
+The category has basic physicochemical properties of molecules such as Molecular Weight, whether the molecule passes Lipinksy's Rule of 5 or not. And other information about the molecule such as clinical, related assays which are stored in ChEMBL and summary of journals.
 Assays::
 The category has relationship between assay information and original journal and link for the compounds which was assayed.
 Documents::
