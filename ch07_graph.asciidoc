@@ -1,17 +1,17 @@
-== 7章: グラフ構造を利用した類似性の評価
+== Chapter 7: Assessing similarity using graph structures
 :imagesdir: images
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch07_MCS.ipynb"]
 
-グラフとはノード（頂点）群とノード間の連結関係を示すエッジ（枝）群で構成されるデータのことを指します。化学構造はこのグラフで表現できます。つまり原子をノード、結合をエッジとしたグラフ構造で表せます。
+A graph is data consisting of nodes (vertices) and edges (branches) that indicate the connection between nodes. The chemical structure can be represented by this graph. In other words, we can represent atoms in a graph with nodes and bonds as edges.
 
-通常、6章で紹介したようなフィンガープリントを使い分子同士の類似性を評価することが多いですが、グラフ構造を利用して類似性を評価する手法もあります。次に紹介するMCS（Maximum Common Substructure）は対象となる分子集合の共通部分構造のことを指します。共通部分構造が多いほとそれらの分子はより似ていると考えます。
+In general, fingerprints like those introduced in Chapter 6 are often used to evaluate the similarity between molecules, but there is also a method to evaluate similarity using a graph structure. The MCS (Maximum Common Substructure) introduced next refers to the common substructure of the target molecule set. The more common substructures, the more similar their molecules are.
 
-=== 主要な骨格による分類(MCS)
+=== Classification by major skeleton (MCS)
 
-最大共通部分構造Maximum Common Substructure(MCS)とは与えられた化学構造群において共通する最大の部分構造のことです。RDKitではMCS探索のためにrdFMCSというモジュールが用意されています。
+Maximum Common Substructure Maximum Common Substructure (MCS) is the largest common substructure in a given group of chemical structures. RDKit provides a module called rdFMCS for MCS search.
 
-今回はMCS探索のサンプルデータとしてrdkitに用意されているcdk2.sdfというファイルを利用します。RDConfig.RDDocsDirが、サンプルデータのディレクトリを表す変数で、そのディレクトリ以下のBooks/data/にcdk2.sdfというファイルが存在するので、os.path.joinメソッドでファイルパスを設定します。尚、os.path.joinはosのパスの違いを吸収するためのpythonの組み込みモジュールです。
+This time, we will use the file cdk2.sdf provided in rdkit as sample data for MCS search. RDConfig.RDDocsDir is a variable that represents the directory of sample data, and there is a file called cdk2.sdf under the Books/data/ directory, so set the file path with the os.path.join method. Note that os.path.join is a python built-in module for absorbing differences in os paths.
 
 [source, python]
 ----
@@ -29,12 +29,14 @@ Draw.MolsToGridImage(mols[:7], molsPerRow=5)
 
 image::ch07/mcs01.png[compounds]
 
-読み込んだ分子を使ってMCSを取得します。RDKitではMCSの取得方法に複数のオプションが指定できます。
-以下にそれぞれのオプションでの例を示します。
+Acquires MCS using the loaded molecule. With RDKit, you can specify multiple options for how to get MCS. The following shows an example of each option.
 
-. デフォルト
-. 原子がなんであっても良い（構造とボンドの次数があっていれば良い）
-. 結合次数がなんでも良い（例えば、ベンゼンとシクロヘキサンは同じMCSとなる）
+
+
+
+. Default
+. Any atom can be used (as long as there is an order of structure and bond)
+. The bond order may be any (for example, benzene and cyclohexane have the same MCS)
 
 [source, python]
 ----
@@ -69,7 +71,7 @@ print(result3.smartsString)
 
 image::ch07/mcs04.png[MCS03]
 
-RDKitではMCSに基づく類似性を数値化するアルゴリズムのひとつにFraggle Similarityが実装されています。これを利用することでクラスタリングや、類似性に基づいた解析が行なえます。
+In RDKit, Fraggle Similarity is implemented as an algorithm to quantify similarity based on MCS. By using this, clustering and analysis based on similarity can be performed.
 
 [source, python]
 ----
@@ -83,49 +85,50 @@ match_st
 
 image::ch07/mcs05.png[FraggleSimilarity]
 
-このようにFraggleSimilarityは類似性及びマッチした部分構造を返します。ECFPを利用した類似性よりもケミストの感覚に近いことが多いです。詳しくは参考リンクを参照してください。
+Thus, FraggleSimilarity returns similarities and matched substructures. It is often closer to the feeling of a chemist than the similarity using ECFP. Please refer to the reference link for details.
 
-参考リンク
+Reference link
 
 - https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5b00036[Efficient Heuristics for Maximum Common Substructure Search]
 - https://raw.github.com/rdkit/UGM_2013/master/Presentations/Hussain.Fraggle.pdf[Fraggle – A new similarity searching algorithm]
 
-=== Matched Molecular PairとMatched Molecular Series
+=== Matched Molecular Pair and Matched Molecular Series
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch07_MMS.ipynb"]
 
-創薬研究の構造最適化ステージにおいて、起点となる化合物（リード化合物）をどのように構造変換していくかは非常に重要ですが、ステージが進んだ場合どの構造変換が活性や物性に影響を及ぼしたかというレトロスペクティブな解析することもまた非常に大切です。
+At the structural optimization stage of drug discovery research, how to convert the starting compound (lead compound) is very important, but as the stage progresses, which structural conversion affects the activity and physical properties It is also very important to carry out a retrospective analysis of what it has exerted.
 
-TIP: 興味があればlink:https://sar.pharm.or.jp/wp-content/uploads/2018/09/SARNews_19.pdf[https://sar.pharm.or.jp/wp-content/uploads/2018/09/SARNews_19.pdf]を読むとよいです。
+TIP: If you are interested, you may read link:https://sar.pharm.or.jp/wp-content/uploads/2018/09/SARNews_19.pdf[https://sar.pharm.or.jp/wp-content/uploads/2018/09/SARNews_19.pdf].
 
-Matched Molecular Pair(MMP)は、二つの分子のうち一部の部分構造だけが異なりそれ以外は同一な分子のペアのことです。例として、クロロベンゼンとフルオロベンゼンはCl基とF基のみが異なるのでMMPです。このようなペアの特性の変化を大量に解析することで、置換基変換のトレンドを掴むことができます。これをMatched Molecular Pair Analyisis（MMPA)と呼びます。大規模なデータでMMPAを行うことにより、置換基の変化がもたらす特性変化の普遍的なルールを抽出できます。このようなルールを理解していれば構造最適化を効率的に進められることになります。
+Matched Molecular Pair (MMP) is a pair of molecules that differ only in the partial structure of some of the two molecules but are otherwise identical. As an example, chlorobenzene and fluorobenzene are MMPs because they differ only in Cl and F groups. By analyzing a large number of changes in the characteristics of such pairs, you can grasp the trend of substituent conversion. This is called Matched Molecular Pair Analyisis (MMPA). By performing MMPA on large-scale data, it is possible to extract universal rules for property changes caused by substituent changes. If you understand these rules, you will be able to proceed efficiently with structural optimization.
 
-ここではRDKitのContribに提供されているlink:https://github.com/rdkit/rdkit/tree/master/Contrib/mmpa[RDKit/Contrib/MMPA][mmpa]を使ってMMP解析を行います。
+Here, we analyze MMP using link:https://github.com/rdkit/rdkit/tree/master/Contrib/mmpa[RDKit/Contrib/MMPA][mmpa] provided in Contrib of RDKit.
 
-RDKitインストール先の下にあるContrib/mmpaに移動し、pythonスクリプトを順次実行します。
+Move to Contrib/mmpa under the RDKit installation location and execute the python script sequentially.
 
 [source, python]
 ----
-python rfrag.py <MMPAを実施したいFileの名前 >フラグメント化したデータの保存ファイル名
-# 例えば
+python rfrag.py <name of the File you want to implement the MMPA> #save file name of the data that was fragmented
+# For example
 # python rfrag.py <data/sample.smi >data/sample_fragmented.txt
 
-python indexing.py <先のコマンドでできたフラグメントのファイル >MMP_アウトプットファイル.CSV
-# 例えば
+python indexing.py <can be in the previous command Fragment file > MMP_ output file.CSV 
+# eg
 # python index.py <data/sample_fragmented.txt >data/mmp.csv
 ----
 
-以上のコマンドを実行すると分子A, 分子B, 分子AのID, 分子BのID, 変換された構造のSMIRKS, 共通部分構造（context）ががcsvファイルが生成されます。このデータに基づき活性や物性などを紐つけることでMMPAが行えます。
+Executing the above command will generate a csv file of molecule A, molecule B, ID of molecule A, ID of molecule B, SMIRKS of converted structure, and common part structure (context). MMPA can be performed by linking activity and physical properties based on this data.
 
-NOTE: link:http://www.daylight.com/dayhtml/doc/theory/theory.smirks.html[SMIRKS]は分子の変換をSMILESのように文字列表記によって表現する手法です。 
+NOTE: link:http://www.daylight.com/dayhtml/doc/theory/theory.smirks.html[SMIRKS] is a method to express conversion of molecules by string notation like SMILES.
 
-MMPの拡張としてMatched Molecular Series(MMS)という手法も提案されています。MMPは分子のペアですが、このペアを共通構造をもった3つ以上の集団としてリスト化したものがMMSです。
 
-実際にMMSを作ってみます。以下の例ではChEMBLのFactor Xaのデータを使いました。MMSの実装に関してはNoel O'Boyle氏のRDKit UGMでのlink:https://github.com/rdkit/UGM_2014/blob/master/Presentations/OBoyle_MatchedSeries.pdf[プレゼンテーション]のコードを利用しています。
+A method called Matched Molecular Series (MMS) has also been proposed as an extension of MMP. Although MMP is a pair of molecules, MMS is a list of this pair as a group of three or more with common structure.
 
-実際にMMSを作ってみましょう。以下の例ではChEMBLよりFactor Xaのデータをlink:https://www.ebi.ac.uk/chembl/bioactivity/results/1/cmpd_chemblid/asc/tab/display[ダウンロード]し、一例として使いました。MMSの実装に関してはNoel O'Boyle氏のRDKit UGMでのlink:https://github.com/rdkit/UGM_2014/blob/master/Presentations/OBoyle_MatchedSeries.pdf[プレゼンテーション]のコードを利用しています。
+I will actually make MMS. The following example uses data from Factor Xa in ChEMBL. For the implementation of MMS, we use the code of the link:https://github.com/rdkit/UGM_2014/blob/master/Presentations/OBoyle_MatchedSeries.pdf[presentation] by Noel O'Byle's RDKit UGM.
 
-まず利用するライブラリの読み込みと、データの読み込みを行い、SaltRemoverを使い脱塩しています。
+Let's actually make an MMS. In the following example, Factor Xa data was link:https://www.ebi.ac.uk/chembl/bioactivity/results/1/cmpd_chemblid/asc/tab/display[downloaded from ChEMBL] and used as an example. For the implementation of MMS, we use the code of the link:https://github.com/rdkit/UGM_2014/blob/master/Presentations/OBoyle_MatchedSeries.pdf[presentation] by Noel O'Byle's RDKit UGM .
+
+First, loading the library to be used, loading the data, and desalting using SaltRemover.
 
 [source, python]
 ----
@@ -154,7 +157,7 @@ for i, smi in enumerate(df.CANONICAL_SMILES):
         print(smi)
 ----
 
-続いてRDKit contribに登録されているmmpaのrfragをインポートして、分子をフラグメントに分割します。
+Then, import the mmpa rfrag registered in RDKit contrib, and divide the molecule into fragments.
 
 [source, python]
 ----
@@ -168,20 +171,20 @@ for i, smi in enumerate(df.CANONICAL_SMILES):
         print(smi, df.CMPD_CHEMBLID[i])
 ----
 
-MMSを作成する関数を定義します。コードはUGMの資料に記載されているものをほぼそのまま利用しますが、Jupyter上で全ての処理をおこなうため読み込み先をファイルからリストに変更しました。
+Define a function to create an MMS. The code is almost the same as that described in the UGM document, but I changed the reading destination from a file to a list in order to do all processing on Jupyter.
 
-以下MMSの作成プロセスの概要です。
+Here is an overview of the MMS creation process.
 
-. 各分子を一定のルール（回転可能結合で切断など）でカット
-. カットしたフラグメントがkeyの辞書を作成、同じキーを持つ分子のフラグメントを辞書のvalueに格納
+. Cut each molecule according to a certain rule (cut by rotatable bond etc.)
+. Cut fragments create a dictionary of keys, store the fragments of molecules with the same key in the dictionary value
 
-上記の作業を繰り返すとことで共通のスキャフォールドを持つ分子をまとめられます。共通のスキャフォールドでまとまった分子は、スキャフォールド以外の置換基が異なる分子となります。
+By repeating the above process, molecules with common scaffold can be organized. Molecules that are grouped in a common scaffold will be molecules that have different non-scaffold substituents.
 
-.スキャフォールドとは？
+.What is a scaffold?
 ****
-創薬において、前臨床試験の前のステージに構造最適化というステージがあり、そこでは化合物の主要骨格以外の部分をちょこまかと変換して薬にふさわしいバランスの取れたプロパティにします。
+In drug discovery, there is a stage of structural optimization at the stage before preclinical studies, in which the major non-skeleton part of the compound is converted briefly into a balanced property suitable for drugs.
 
-この主要骨格のことをスキャフォールドと呼びます。例えばlink:https://patentscope2.wipo.int/search/ja/detail.jsf?docId=JP232673446[この特許]ではRを除いた部分は固定されておりこの主要骨格をスキャフォールドと呼びます。
+This main skeleton is called a scaffold. For example, link:https://patentscope2.wipo.int/search/ja/detail.jsf?docId=JP232673446[in this patent], the part except R is fixed and this main skeleton is called a scaffold.
 
 image::ch07/scaffold.png[scaffold, width=100, pdfwidth=20%]
 ****
@@ -232,7 +235,7 @@ def getSeries(frags):
         yield series
 ----
 
-MMSを作る準備ができたので実行します。同じスキャフォールドに対して４つ以上置換基の変換があったデータのみを可視化します。
+We are ready to make an MMS. Visualize only data that has four or more substituent conversions for the same scaffold.
 
 [source, python]
 ----
@@ -254,36 +257,37 @@ for s in series[:50]:
 
 image::ch07/mms01.png[MMS]
 
-スキャフォールドに対して5つの置換基のMMSが表示されました。
+Five scaffolds for MMS were displayed for the scaffold.
 
-NOTE: このMMSを利用してlink:https://pubs.acs.org/doi/10.1021/jm500022q[活性予測]を行うこともできます。
+NOTE: link:https://pubs.acs.org/doi/10.1021/jm500022q[Activity prediction] can also be performed using this MMS.
 
-=== Cytoscapeを使ってMMPネットワークを可視化する
+=== Visualize MMP networks using Cytoscape
 
-WARNING: この内容は入門の内容を超えるので興味がなければ飛ばしてください
+WARNING: This content is beyond the content of the introductory, so please skip if you are not interested.
 
-MMPは変換前、変換後の情報をノード、変換ルールをエッジとするグラフ構造と考えることができます。Cytoscapeなどのネットワーク可視化ツールを利用するとこのグラフ構造を直感的に把握できます。
+MMP can be thought of as a graph structure that uses pre-conversion and post-conversion information as nodes and conversion rules as edges. This graph structure can be intuitively understood by using network visualization tools such as Cytoscape.
 
-RDKitには先に紹介したMMPAの他にlink:https://github.com/rdkit/mmpdb[mmpdb]という別プロジェクトがあります。
-こちらはコマンドラインのツール群とデータベースシステムとして提供されているため、長期的な管理がしやすいという特徴があります。本セクションではこのlink:https://github.com/Mishima-syk/12/tree/master/kzfm[mmpdbとCytoscapeを利用したMMPの可視化]を紹介します。
+In addition to the MMPA introduced earlier, RDKit has another project called link:https://github.com/rdkit/mmpdb[mmpdb]. It is provided as a command line tool group and database system, so it has the feature of being easy to manage in the long run. In this section, we introduce the visualization of MMP using link:https://github.com/Mishima-syk/12/tree/master/kzfm[mmpdb and Cytoscape].
+
 
 NOTE: link:https://chemrxiv.org/articles/mmpdb_An_Open_Source_Matched_Molecular_Pair_Platform_for_Large_Multi-Property_Datasets/5999375[mmpdb: An Open Source Matched Molecular Pair Platform for Large Multi-Property Datasets]
 
-==== Cytoscapeのインストール
+==== Cytoscape installation
 
-link:https://cytoscape.org/[Cytoscape]はオープンソースのネットワーク可視化ソフトで色々なシーンで広く使われています。化合物の構造表示用プラグインを使うことで構造のネットワークを表示することができます。
+link:https://cytoscape.org/[Cytoscape] is an open source network visualization software widely used in various scenes. You can display the structure network by using the compound structure display plug-in.
 
-インストールは簡単でlink:https://cytoscape.org/download.html[ダウンロードサイト]から対応するOSのインストーラをダウンロードして指示のとおりにインストールするだけです。
+Installation is as easy as downloading the corresponding OS installer from the link:https://cytoscape.org/download.html[download site] and installing according to the instructions.
 
-インストールが完了したらCytoscapeを起動して化合物構造描画用のChemviz2プラグインをインストールします。手順は簡単でApps->App Managerからchemviz2を選択してインストールします。
+When installation is complete, launch Cytoscape and install the Chemviz2 plug-in for drawing compound structures. The procedure is easy, select chemviz2 from Apps → App Manager and install it.
+
 
 image::ch07/chemviz2.png[AppManager, width=400]
 
-==== mmpdbからgmlファイルを作成する
+==== create a gml file from mmpdb
 
-今回利用するデータはlink:https://www.ebi.ac.uk/chembl/assay/inspect/CHEMBL930273[<Inhibition of recombinant GSK3-beta> J. Med. Chem. (2008) 51:2062-2077]の151化合物です。MMPAを行うにはHTSのような探索データではなくて構造最適化のようにスキャフォールドが決まっているものを使うのが原則です。
+The data to be used this time are 151 compounds of <Inhibition of recombinant GSK3-beta> J. Med. Chem. (2008) 51: 2062-2077 . In principle, MMPA does not use HTS-like search data but scaffolds such as structure optimization.
 
-コマンドの流れを載せておきます。SMILESのtextと活性や物性値のデータは別々にデータベースに登録する必要があります。
+I will put the flow of the command. SMILES text and activity and property data need to be registered separately in the database.
 
 [source, bash]
 ----
@@ -292,29 +296,29 @@ $ mmpdb index CHEMBL930273.fragments -o CHEMBL930273.db   # make db
 $ mmpdb loadprops -p act.txt CHEMBL930273.db              # load properties
 ----
 
-そのあとCytoscapeで読み込むためのgmlファイルを作成しますが、これは本書の範囲を超えるので割愛します。もし興味があるのであればlink:https://github.com/Mishima-syk/12/tree/master/kzfm[コード]を直接読んでもらうといいのですが
-流れは以下のとおりです。
+After that we will create a gml file for reading by Cytoscape, but this is beyond the scope of this document and will be omitted. If you are interested, you may want to read the link:https://github.com/Mishima-syk/12/tree/master/kzfm[code] directly, but the flow is as follows.
 
-. link:https://github.com/Mishima-syk/12/blob/master/kzfm/mmp2gml.py[mmpdbからpython-igraphを使ってgmlファイルを作る]
-. link:https://github.com/Mishima-syk/12/blob/master/kzfm/CHEMBL930273.gml[gmlファイル]をCytoscapeで読み込む
-. Cytoscapeで属性を各パラメータにアサインして視覚的に理解しやすくする
-.. ノードの大きさを物性値に対応
-.. エッジの色を活性差に対応
-.. chemviz2 pluginで構造を描画してノードに貼り付ける
+. link:https://github.com/Mishima-syk/12/blob/master/kzfm/mmp2gml.py[Make a gml file using mmpdb and python-igraph]
+. link:https://github.com/Mishima-syk/12/blob/master/kzfm/CHEMBL930273.gml[Read gml file] by Cytoscape
+. Assign attributes to each parameter in Cytoscape to make it easier to understand visually
+.. Corresponds to the physical value of the node size
+.. Corresponds to the active color of the edge color
+.. Draw a structure with chemviz2 plugin and paste it to a node
 
-==== 解釈する
 
-MMPネットワークを見てみましょう。あまり活性差のないMMPが左上の方に固まっています。右下の方にはエッジが赤い（活性差が大きい）ものが観測されます。このような小さな置換基変化が大きな活性差を生むもMMPをActivity Cliffと呼びます。一般的にActivity Cliffは創薬プロジェクトにおいてブレークスルーとなることが多いため、このような活性変化を見逃さないことは大切です。
+==== Interpretation
+
+Let's look at the MMP network. MMP with little difference in activity is solidified in the upper left. In the lower right, red edges (a large difference in activity) are observed. MMPs are also called Activity Cliffs, even if such small substituent changes produce large activity differences. It is important not to overlook such changes in activity, as Activity Cliff is generally a breakthrough in drug discovery projects.
 
 image:ch07/mmp01.png[MMPN, width=600, pdfwidth=48%] image:ch07/mmp02.png[MMPN, width=600, pdfwidth=48%]
 
-実際にどういう置換が行われたのかを確認すると、OH基がMeO基に置換されることで活性の消失が起こっています。
+It has been found that the substitution of the OH group with the MeO group causes the loss of activity when we actually confirm what substitution has been made.
 
-MMPだけではこのように単純に事実しかわからないので、もう少し深く考察するために類似体の複合体結晶構造を探してみました。するとlink:https://www.rcsb.org/structure/5OY4[PDBID:5OY4]というGSK3βと類似化合物の複合体が見つかりました。
+Since MMP alone can simply know the facts like this, I searched for a complex crystal structure of the analogue in order to consider it a little deeper. Then , a complex of GDB3β and a similar compound was found as link:https://www.rcsb.org/structure/5OY4[PDBID:5OY4].
+
 
 image:ch07/mmp03.png[MMPN, width=600, pdfwidth=48%] image:ch07/mmp04.png[MMPN, width=600, pdfwidth=48%]
 
-OH基をMeO基に置換するとポケットの壁にぶつかりそうですね。つまりこのActivity Cliffはリガンドと蛋白質の立体障害
-により引き起こされたと考えられます。
+If you replace the OH group with the MeO group, it will likely hit the wall of the pocket. In other words, this Activity Cliff is considered to be caused by steric hindrance of ligand and protein.
 
 <<<
