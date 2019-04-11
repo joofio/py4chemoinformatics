@@ -218,7 +218,8 @@ A number of implementations have been published to GitHub since this paper was p
 
 .Was it effective to use the classical method with pixel as it is in image classification?
 ****
-_SIFTが提案されたのは1999年です。link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[原著論文]によると、物体（画像）認識においてピクセルそのものを扱う場合の難しさは、オブジェクトの位置、回転、大きさ（スケール）、光度などが異なるものを扱うところにあるようです。これら、変動する値を普遍的な特徴量に変える方法が種々研究されていたようです。ピクセルそのものを使う方法が全くないわけではなく、私が機械学習を勉強する際に購入したlink:https://www.oreilly.co.jp/books/9784873117980/[pythonではじめる機械学習]には人の顔の画像データを学習して分類する例が載っています。ここではピクセルデータを入力に、主成分分析により顔の特徴を抽出し分類をしています。この問いに関して明確に有効だったという文献を探せていませんが、タスクによっては有効であったと思います。もし詳しい方いたらぜひコメントください。_
+SIFT was proposed in 1999. According to the link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[original paper], the difficulty in dealing with pixels themselves in object (image) recognition seems to be in dealing with objects that differ in position, rotation, size (scale), light intensity, etc. It seems that various methods have been studied to convert these fluctuating values into universal features. There is no way to use the pixels themselves, but the machine learning that I started with link:https://www.oreilly.co.jp/books/9784873117980/[python], which I purchased when studying machine learning , has an example of learning and classifying human face image data. Here, with the pixel data as input, the feature of the face is extracted and classified by principal component analysis. I have not been able to find a document that was clearly valid on this question, but I think it was valid depending on the task. Please comment if you have any details.
+
 ****
 
 [source, python]
