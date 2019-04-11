@@ -1,17 +1,17 @@
-== 11章: ディープラーニングを利用した構造活性相関
+== Chapter 11: Structure-activity relationship using deep learning
 :imagesdir: images
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch11_simple_dnn.ipynb"]
 
-本章ではDNNを利用して構造活性相関解析をします。
+In this chapter, structure activity correlation analysis is performed using DNN.
 
-=== DNNを利用した予測モデル構築
+=== Predictive model construction using DNN
 
-はじめにDNNを利用したシンプルな予測モデルを構築してみます。ここでは9章と同じデータを使います。最初に分類モデルを作成し、Positiveのラベルを[0, 1], Negativeのラベルを[1, 0]の二次元のOneHotベクトルで表します。KerasのModelオブジェクトを利用してモデルを作成した場合、上記の二次元のそれぞれの期待値が得られます。どちらのクラスに属する可能性が高いかを知るにはNumpyのArgmax関数を使えばよいです。
+First, let's build a simple prediction model using DNN. Here we use the same data as in Chapter 9. First, create a classification model and label the Positive label as [0, 1] and the Negative label as a [1, 0] two-dimensional OneHot vector. If you create a model using Keras Model object, you can get the expected value of each of the above two dimensions. You can use Numpy's Argmax function to know which class it is likely to belong to.
 
-NOTE: OneHotベクトルとはある一つの値が1でそれ以外が0になるようなベクトルです。10クラスの分類問題を考えた場合[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]のようにどこかが1で残りの9個が0になるようなベクトルでクラスを表現できます。上の例ではPositive/Negativeの2クラスですので、OneHotベクトルは2次元になっています。
+NOTE: OneHot vector is a vector in which one value is 1 and the other is 0. When considering a classification problem of 10 classes, such as [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], a vector such that somewhere is 1 and the remaining 9 are 0 I can express a class. In the above example, there are two classes of Positive / Negative, so the OneHot vector is two-dimensional.
 
-必要なライブラリをインポートします。
+Import the required libraries.
 
 [source, python]
 ----
@@ -27,10 +27,9 @@ from thensorflow.python.keras.layers import Dropout
 from thensorflow.python.keras.layers import Activation
 from thensorflow.python.keras.Model import Model
 
-
 ----
 
-次にデータを読み込みます。9章では”POS”/”NEG”をlabelsというリストに入れたので一次元表現でしたが、今回はここが二次元になっています。
+Next, read the data. In Chapter 9 we put "POS" / "NEG" in the list of labels, so it was a one-dimensional representation, but this time it is two-dimensional.
 
 [source, python]
 ----
@@ -56,11 +55,11 @@ with open("ch09_compounds.txt") as f:
 labels = np.array(labels)
 ----
 
-続いて分類モデルと回帰モデルを順次作成します。
+Next, create classification models and regression models sequentially.
 
-まずは回帰モデルで、入力は9章と同じECFPを利用しています。DNNの構築には入力データの次元を明示的に指定する必要があるためnBitsという変数を定義しています。 
+The first is a regression model, and the input uses the same ECFP as in Chapter 9. In order to construct DNN, it is necessary to specify the dimension of input data explicitly, so we define the variable nBits.
 
-TIP: train_test_splitにrandom_stateで適当な整数を指定すると毎回同じデータが得られるので検証の際に有用です。
+TIP: Specifying an appropriate integer in random_state for train_test_split is useful for verification because the same data is obtained each time.
 
 [source, python]
 ----
@@ -76,13 +75,13 @@ fps = np.array(fps)
 x_train1, x_test1, y_train1, y_test1 = train_test_split(fps, labels, random_state=794)
 ----
 
-入力が2048次元、300ニューロンの全結合層が三層、最後の出力層が2となるニューラルネットワークを作成します。活性化関数にはReLU, 出力層には二次元の多クラス分類のためにSoftmaxを用いました。
+Create a neural network whose inputs are 2048 dimensions, the total connection layer of 300 neurons is three layers, and the final output layer is two. We used ReLU for the activation function and Softmax for two-dimensional multiclass classification for the output layer.
 
-Dropout層はランダムにニューロンを欠損させることにより過学習を防ぐ役割を果たします。
+The Dropout layer plays a role to prevent overlearning by randomly deleting neurons.
 
-Kerasではモデルを定義した後compile関数を呼ぶことでモデルを構築します。optimizer, lossは目的に応じて変更する必要がありますが、今回は'categorical_crossentropy'を使いましたがlink:https://keras.io/ja/optimizers/[optimzer]はadam以外にも多くあるのでどれが適切かは実際は試行錯誤が必要となるでしょう。
+Keras constructs a model by defining the model and then calling the compile function. Although optimizer and loss need to be changed according to the purpose, in this case 'categorical_crossentropy' was used, but there are many other than link:https://keras.io/ja/optimizers/[adam optimizer] , so it will actually require trial and error which is appropriate.
 
-TIP: link:https://en.wikipedia.org/wiki/Rectifier_(neural_networks)[ReLU]はlink:https://en.wikipedia.org/wiki/Sigmoid_function[Sigmoid]関数の勾配消失の課題を克服できるためよく利用されます。
+TIP: link:https://en.wikipedia.org/wiki/Rectifier_(neural_networks)[ReLU] is often used because it can overcome the problem of gradient disappearance of link:https://en.wikipedia.org/wiki/Sigmoid_function[Sigmoid] function.
 
 [source, python]
 ----
@@ -100,27 +99,29 @@ model1 = Model(inputs=[inputlayer1], outputs=[output1])
 model1.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 ----
 
-NOTE: Kerasにはlink:https://keras.io/ja/models/sequential/[Sequential]モデルが用意されており、これを使うことで上記の例（Functional API）よりもシンプルにネットワークを記述できます。今回Functional APIでモデルを定義したのは、こちらに慣れておくと入力が複数の場合やより複雑なモデルの構築にも対応しやすいからです。もしSequentialの書き方に興味がある方は公式サイトやQiitaを調べてください。
+NOTE: 
+Keras provides a link:https://keras.io/ja/models/sequential/[Sequential] model, which can be used to describe the network more simply than the example above (Functional API). The reason we defined the model in the Functional API is that it is easy to handle multiple inputs and more complex models if you get used to it. If you are interested in writing Sequential please check out the official site and Qiita
 
-NOTE: DNNは初期のランダムに発生させた重みに基づいて予測した予測値と実際の値を比較し、その差（LOSS)を最小化するように重みを更新するBackpropagationという手順を繰り返しながらモデルを最適化します。この繰り返しの回数を指定するのがEpochsです。Epochsを増やすとどんどん賢くなるように思われるかもしれませんが、計算コストがかかることと過学習のリスクもあるので長ければ良いわけではないのでLoss/Accuracyなどを観測して適切なEpoch数を考えましょう。
+NOTE: DNN optimizes the model while iterating the Backpropagation procedure, which compares the actual value with the predicted value predicted based on the initial randomly generated weight, and updates the weight so as to minimize the difference (LOSS). You It is Epochs that specifies the number of repetitions. You may seem to get smarter as you increase Epochs, but there is a risk of computational cost and over-learning, so it is not good if it is long. Observe Loss, Accuracy, etc. and find the appropriate number of Epochs.
 
-.Epochsを増やすとなぜ過学習のリスクがあるのか？
+.Why is there a risk of overlearning when increasing Epochs?
 ****
-トレーニングデータを用いてEpoch毎に正解の値と予測値の誤差を小さくするように重みを調整していきます。十分な量のトレーニングデータを用い学習したとしても繰り返しすぎると、同じトレーニングデータで何度も何度も学習することになるのでモデルの汎化性能が落ちてしまいます。
+Using training data, we will adjust the weight to reduce the error between the correct value and the predicted value for each Epoch. If it is learned using a sufficient amount of training data and it is repeated too much, the generalization performance of the model will be reduced since the same training data will be learned over and over again.
 
-過学習の判断にはEpoch毎、Training set/ Validation setの精度を評価しプロットするとTraining setの精度が向上する一方でValidation setの精度が変化しないまたは悪くなっているかどうかを調べればよいです。Kerasにはlink:https://keras.io/ja/callbacks/[Eary stopping]という機能があり、ある一定回数以上学習を進めてもモデルの性能が変化しなかったらそこで学習を打ち切るといったこともできます。
+To judge overtraining, if you evaluate and plot the accuracy of Training set / Validation set for each Epoch, you can check whether the accuracy of Validation set does not change or deteriorate while accuracy of Training set improves. Keras has a function called link:https://keras.io/ja/callbacks/[Eary] stopping, which allows you to stop learning if the performance of the model does not change even if you have learned a certain number of times.
 
-詳しくはlink:https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[Early stoppingの紹介と参考文献]をご覧ください。
+See the introduction and references of https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[Early stopping] for more information.
+
 ****
 
-モデルを構築したら後はScikit-learnと同じ感覚でfit/predictが行えます。
+After building the model, you can do fit / predict in the same way as Scikit-learn.
 
 [source, python]
 ----
 hist1 = model1.fit(x_train1, y_train1, epochs=epochs)
 ----
 
-最後に結果を可視化してみます。
+Finally, let's visualize the result.
 
 [source, python]
 ----
@@ -132,9 +133,9 @@ plt.plot(range(epochs), hist1.history['loss'], label='loss')
 plt.legend()
 ----
 
-今回の例ではだいたい6Epochくらいでモデルが良い精度になりました。
+In this example, the model has good accuracy around 6Epoch.
 
-次にテストデータで検証します。
+Next, verify with test data.
 
 [source, python]
 ----
@@ -144,9 +145,9 @@ y_test_cls1 =np.argmax(y_test1, axis=1)
 confusion_matrix(y_test_cls1, y_pred_cls1)
 ----
 
-ちょっと微妙でしょうか、、、
+A little subtle ,,,,
 
-回帰モデルも基本的には先ほどの分類問題と同じです。今度は回帰なので最後の出力層は値そのもの、つまり一次元になります。また活性化関数はSigmoidなどでは0-1になってしまうのでLinearとしています。学習データは9章のコードを流用しています。
+The regression model is basically the same as the classification problem above. This time it is a regression, so the last output layer is the value itself, ie one dimensional The activation function is 0-1 in Sigmoid etc., so it is Linear. The training data uses the code of Chapter 9.
 
 [source, python]
 ----
@@ -168,7 +169,7 @@ pIC50s = np.array(pIC50s)
 x_train2, x_test2, y_train2, y_test2 = train_test_split(fps, pIC50s, random_state=794)
 ----
 
-次にモデルを定義します。Lossの部分が先ほどの分類モデルとは異なり、MSEになっていることに注意して下さい。
+Next, define the model. Note that the Loss part is MSE, unlike the classification model above.
 
 [source, python]
 ----
@@ -184,7 +185,7 @@ model2 = Model(inputs=[inputlayer2], outputs=[output2])
 model2.compile(optimizer='adam', loss='mean_squared_error')
 ----
 
-ここまでできたら後は同じです。
+If you can do this, the rest is the same.
 
 [source, python]
 ----
@@ -197,25 +198,25 @@ plt.ylabel('pred')
 plt.plot(np.arange(np.min(y_test2)-0.5, np.max(y_test2)+0.5), np.arange(np.min(y_test2)-0.5, np.max(y_test2)+0.5))
 ----
 
-いかがでしょうか。予測モデルはちょっとUnderEstimate気味ですかね。DNNは重ねるレイヤーの数、ドロップアウトの割合、隠れ層のニューロンの数、活性化関数の種類など数多くのパラメータをチューニングする必要があります。今回の例は決め打ちでしたが、色々パラメータを変えてモデルの性能を比較してみるのも面白いです。
+What do you think. The prediction model looks a bit like UnderEstimate. The DNN needs to tune a number of parameters, such as the number of layers to overlap, the percentage of dropouts, the number of neurons in the hidden layer, and the type of activation function. This example was hard-coded, but it is also interesting to compare the performance of the models by changing various parameters.
 
-=== 記述子を工夫してみる(neural fingerprint)
+=== I will devise a descriptor (neural fingerprint)
 
-さて、ここまで分子のフィンガープリントを入力としてRandomForestやDNNのモデルを作成してきました。DNNが大きく注目を浴びた理由の一つに人が特徴量を抽出しなくてもモデルが特徴量を認識してくれるということが挙げられます。
+So far, we have created models of RandomForest and DNN using molecular fingerprints as input. One of the reasons why DNN has received a great deal of attention is that models can recognize feature quantities even if people do not extract feature quantities.
 
-例えば画像の分類においては、からlink:https://en.wikipedia.org/wiki/Scale-invariant_feature_transform[SIFT]という特徴量を人が定義し、これを入力としたモデルが作られていましたが、現在のDNNにおいては基本的に画像のピクセル情報そのものを利用しています。
+For example, in image classification, a human defined the feature quantity called link:https://en.wikipedia.org/wiki/Scale-invariant_feature_transform[SIFT], and a model was created using this as an input, but the current DNN basically uses the pixel information of the image itself.
 
-ケモインフォマティクスに置き換えてみると、SIFTは分子のフィンガープリントに相当します。ですのでここ(入力)をもっとPrimitiveな表現に変えることでDNNの性能が上がるのではないか？と考えるのは至極当然の流れです。2015年、Harvard大学の, Alan Aspuru-Guzikらのグループは一つのチャレンジとしてlink:https://arxiv.org/pdf/1509.09292.pdf[Neural Finger print/NFP]というものを提唱しました。
+In terms of chemoinformatics, SIFT is equivalent to a molecular fingerprint. So isn't it possible to improve DNN's performance by changing this (input) to a more primitive expression? It is extremely natural to think that. In 2015, Alan Aspuru-Guzik et al's group at Harvard University proposed the link:https://arxiv.org/pdf/1509.09292.pdf[Neural Finger print/NFP] as a challenge.
 
-今まで利用してきたECFPとNFPとの違いを、彼らの論文中の図を引用して示します。
+The differences between ECFP and NFP used so far are shown by citing figures in their papers.
 
 image::ch11/ch11_nfp.png[Neural Finger Print]
 
-ECFP(Circular Fingerprints)は入力の分子それぞれの原子からN近傍（Nは任意）までの原子までの情報をHash関数（この例ではMod）任意の値に変換、で固定長のベクトルに直すといったものでした。ざっくりいうと部分構造の有無を0/1のビット情報に直したものを利用するといったイメージです。一方、今回紹介するNFPはECFPにコンセプトは似ているのですが、Hash関数の部分がSigmoidに、Modで離散化する部分がSoftmaxになっています。従って入力されるデータセットによりECFPよりも柔軟に分子のフィンガープリントを生成することが期待されます。
+ECFP (Circular Fingerprints) converts information from each atom of input molecules to atoms in the vicinity of N (N is arbitrary) into Hash values  (Mod in this example) to arbitrary values, and converts them into vectors of fixed length was. Roughly speaking, it is an image such as using the one where the presence or absence of the partial structure is corrected to the bit information of 0/1. On the other hand, NFP introduced this time is similar in concept to ECFP, but the part of Hash function is Sigmoid, and the part to be discretized with Mod is Softmax. Therefore, it is expected that input datasets will generate molecular fingerprints more flexibly than ECFP.
 
-この論文が発表されて以降、数多くの実装がGitHubに公開されていますが、各実装ごとにKerasでもBackendがTheanoであったり、Keras/Tensorflowであっても、Keras1.xじゃないと動作しなかったりと意外と環境依存のものが多く扱いにくい状況になっています。残念なことに今回構築した環境で動作するものが公開されていませんのでKeras2.x/Python3.6で動作するものをこちらのlink:https://github.com/keiserlab/keras-neural-graph-fingerprint[コード]をベースに作成しました。
+A number of implementations have been published to GitHub since this paper was published, but each implementation does not work with Keras 1.x or Keras / Tensorflow, even if the Backend is Theano or Keras / Tensorflow There are a lot of environment-dependent things that are surprisingly difficult to handle. Unfortunately there is no one that works in the environment we built this time, so I created one that works with Keras 2.x / Python 3.6 based on this code .
 
-.画像分類においてピクセルのまま古典的な手法を使うというアプローチは有効だったのか？
+.Was it effective to use the classical method with pixel as it is in image classification?
 ****
 _SIFTが提案されたのは1999年です。link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[原著論文]によると、物体（画像）認識においてピクセルそのものを扱う場合の難しさは、オブジェクトの位置、回転、大きさ（スケール）、光度などが異なるものを扱うところにあるようです。これら、変動する値を普遍的な特徴量に変える方法が種々研究されていたようです。ピクセルそのものを使う方法が全くないわけではなく、私が機械学習を勉強する際に購入したlink:https://www.oreilly.co.jp/books/9784873117980/[pythonではじめる機械学習]には人の顔の画像データを学習して分類する例が載っています。ここではピクセルデータを入力に、主成分分析により顔の特徴を抽出し分類をしています。この問いに関して明確に有効だったという文献を探せていませんが、タスクによっては有効であったと思います。もし詳しい方いたらぜひコメントください。_
 ****
@@ -225,19 +226,18 @@ _SIFTが提案されたのは1999年です。link:https://www.cs.ubc.ca/~lowe/pa
 git clone https://github.com/iwatobipen/keras-neural-graph-fingerprint.git
 ----
 
-example.pyというファイルのコードを眺めるとなんとなく雰囲気がつかめると思います。分子の表現は、これまでの例はフィンガープリントをRDKitを使い生成していましたが、今回はこのフィンガープリントそのものをDNNが学習します。
+If you look at the code in the example.py file, you will find the atmosphere somehow. In the previous examples, molecule representations were generated using RDKit for this example, but this time the fingerprint itself is learned by DNN.
 
-ということで、分子をグラフとして表現したものが入力になります。Atom_matrixとして(max_atoms, num_atom_features)をEdge_matrixとして(max_atoms, max_degree)をbond_tensorとして(max_atoms, max_degree, num_bond_features)という三つの行列を使います。分子はそれぞれ原子数が異なるためmax_atomsで最大原子数を定義しています。こうすることで分子ごとに同一の行列サイズの入力となりバッチ学習が可能となります。
+So, representing molecules as a graph is the input. As Atom_matrix, (max_atoms, num_atom_features) is used as Edge_matrix, (max_atoms, max_degree) as bond_tensor, and three matrices (max_atoms, max_degree, num_bond_features) are used. Since each molecule has a different number of atoms, max_atoms defines the maximum number of atoms. By doing this, it becomes input of the same matrix size for each numerator and batch learning becomes possible.
 
-Exampleを実行するのであれば下記のコマンドを入力してください。
+If you want to execute Example, please enter the following command.
 
 [source, python]
 ----
 python example.py
 ----
 
-参考リンク
-
+Reference link:
 - link:https://arxiv.org/abs/1509.09292[NGF-paper]
 - link:https://arxiv.org/abs/1611.03199[DeepChem-paper]
 - link:http://www.keiserlab.org/[keiserlab]
@@ -246,7 +246,7 @@ python example.py
 - link:https://github.com/GUR9000/KerasNeuralFingerprint[for keras1.x]
 - link:https://github.com/ericmjl/graph-fingerprint[ericmjl/graph_fp]
 - link:https://github.com/deepchem/deepchem[DeepChem]
-- link:https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[Eary stoppingに関して]
-- link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[SIFT原著論文]
+- link:https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[About Eary stopping]
+- link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[SIFT original Paper]
 
 <<<
