@@ -1,36 +1,39 @@
-== 13章: おわりに
+== Chapter 13: Conclusion
 :imagesdir: images
 
-=== さらに学ぶために
+=== To learn more
 
-NOTE:: どのあたりに興味があって、さらに知りたいというようなリクエストをissueに投げるかtwitterででもreplyしてもらえると。またおすすめの提案も助かります。
+NOTE:: If you are interested in what you are interested in, you can send requests to the issue that you want to know more, or reply with twitter. Also recommended suggestions are saved.
 
-==== 機械学習をさらに学びたい方
 
-link:https://www.microsoft.com/en-us/research/people/cmbishop/#!prml-book[Pattern Recognition and Machine Learning(PRML)]を一通り読めるようになることを目指すといいでしょう。英語のpdfは先のリンクからフリーでダウンロードできますが、日本語はlink:https://www.amazon.co.jp/dp/4621061224/[パターン認識と機械学習 上], link:https://www.amazon.co.jp/dp/4621061240/[下]で販売されています。
+==== Those who want to learn more machine learning
 
-PRMLが手強いという方は「PRMLを読む前に」などで検索するともう少し易しい本が出てくるので自分に合ったものを選ぶとよいと思います。
 
-==== ITよりのChemoinformaticsをさらに学びたい方
+You should aim to be able to read through link:https://www.microsoft.com/en-us/research/people/cmbishop/#!prml-book[Pattern Recognition and Machine Learning(PRML)]. The PDF can be downloaded for free.
 
-本書はAI創薬を念頭においているため、機械学習や解析手法の基本的なところを説明していますが、本来ケモインフォマティクスはバイオインフォマティクスと同じように、分子の表現方法や、データの効率的な格納方法、高速な検索技術をも含んでいます。このような情報学（ITの側面）としてのケモインフォマティクスに興味がある方はlink:https://www.amazon.co.jp/Chemoinformatics-Basic-Concepts-Methods-English-ebook/dp/B07MMWKNSL/[Chemoinformatics: Basic Concepts and Methods]から読み進んで興味のあるトピックを深掘りすることをお薦めします。
+If you find that PRML is tough, you may find it easier to search for "before reading PRML" etc. so you should choose the one that suits you.
 
-==== メディシナルケミストリーとケモインフォマティクスを深く知りたい方
 
-製薬企業やアカデミアの薬物動態や毒性、薬理に属している方で本書の先を知りたい方は是非ともlink:https://www.amazon.co.jp/Drug-Like-Properties-Concepts-Structure-Optimization-ebook/dp/B019OMDRU4/[Drug-Like Properties: Concepts, Structure Design and Methods from ADME to Toxicity Optimization]を一読することをお薦めします。本書は大体製薬企業の合成部門に配属された新入社員が輪読するようなテキストなので、本書を読み終えた方であれば楽しく読めると思います。もし理解が追いつかない部分があれば関連書籍をあたってもいいですし、この本を手がかりにさらに学習しても良いと思います。
+==== Want to learn more about Chemoinformatics from IT
 
-また、薬物動態に携わっている方が本書のQSAR/QSPRを理解できていればlink:https://www.amazon.co.jp/Physiologically-Based-Pharmacokinetic-PBPK-Modeling-Simulations-ebook/dp/B007BGZKWO/[PBPKモデリング]の際に強みとして活かせるはずです。動態プロファイルの最適化は薬品の差別化戦略にとても大きな意味を持つのでQSPR+PBPKに強いというのは非常に重宝されるのではないでしょうか？
+Since this book focuses on AI drug discovery, it explains the basics of machine learning and analysis methods, but chemoinformatics is, like bioinformatics, an efficient way of expressing molecules and data. It also includes storage methods and fast search technology. If you are interested in chemoinformatics as such informatics (IT aspect), it is recommended to read more from link:https://www.amazon.co.jp/Chemoinformatics-Basic-Concepts-Methods-English-ebook/dp/B07MMWKNSL/[Chemoinformatics: Basic Concepts and Methods] and dig deeper on topics of interest.
 
-==== ドラッグデザイナーを目指したい方
+==== For a deeper understanding of medicinal chemistry and chemoinformatics
 
-本書では低分子化合物をもとにしたインフォマティクスの手法を紹介してきましたが、結果の解釈をする場合にはターゲットとなる蛋白質の理解は必須になります。つまり蛋白質の立体構造の理解無しにはドラッグデザインはできないということです。そのためSBDD関連の本を読んで学ぶと良いでしょう。
+If you belong to the pharmacokinetics, toxicity, or pharmacology of a pharmaceutical company or academia and want to know the point of this book by all means , we recommend that you read link:https://www.amazon.co.jp/Drug-Like-Properties-Concepts-Structure-Optimization-ebook/dp/B019OMDRU4/[Drug-Like Properties: Concepts, Structure Design and Methods from ADME to Toxicity Optimization]. You This is a text that is generally read by new employees who are assigned to the synthesis department of a pharmaceutical company, so it would be fun for anyone who has read this book. If there is a part that I can not catch up with, I can go over the related books, and I think it is good to learn further from this book as a clue.
 
-NOTE: 残念ながら私はSBDDを本で勉強したことがないのでだれか良書を教えてください
+In addition, people who are involved in pharmacokinetics should be able to use it as a strength in link:https://www.amazon.co.jp/Physiologically-Based-Pharmacokinetic-PBPK-Modeling-Simulations-ebook/dp/B007BGZKWO/[PBPK modeling] if they can understand QSAR / QSPR in this document . Since optimization of kinetic profiles is very important for drug differentiation strategies, it may be very useful to have strong QSPR + PBPK.
 
-さらにSBDDは蛋白質を扱うことになるので、必然的にchemoinformatics,bioinformaticsと括る必要がなくなります。創薬の枠組みのなかでどちらも理解しているほうがより深い考察ができるようになるので両方できるようになりましょう。そのほうが絶対楽しいです。link:https://www.amazon.co.jp/dp/4780909201/[DRY解析教本]やlink:https://www.amazon.co.jp/dp/4297103192[生命科学データ解析を支える情報技術]もきっとあなたのキャリアの助けになるでしょう。
+==== If you want to be a drug designer
 
-もう一つ、6章で触れましたが、蛋白質とリガンドの相互作用を理解するのに量子化学計算は重要です。特にこれからのSBDDで量子化学に基づいて相互作用を解釈する能力は必須になると断言できます。毛嫌いせずにlink:https://www.amazon.co.jp/dp/4130625047/[基礎量子化学―軌道概念で化学を考える]などを読んでください。もしlink:https://www.msg.chem.iastate.edu/gamess/[Gamess]を使うならlink:https://www.amazon.co.jp/dp/4061543881/[新版 すぐできる 量子化学計算ビギナーズマニュアル]も助けになることでしょう。少なくともenergy decomposition analisysは押さえておきましょう、計算の解釈能力とプロジェクトへの貢献度が上がります。さらにFMOは言うまでもないことですが不可欠のツールですので、link:https://www.jstage.jst.go.jp/article/jccj/advpub/0/advpub_2014-0039/_pdf[各成分]を理解しておくとよりよりドラッグデザインの助けになります
+Although this book has introduced informatics methods based on low molecular weight compounds, understanding of the target protein is essential when interpreting the results. In other words, drug design can not be done without understanding the three-dimensional structure of proteins. Therefore, it is good to read and learn books related to SBDD.
 
-==== 「おわりに」のその先へ
+NOTE: Unfortunately I have not studied SBDD in books, so please tell someone good books
 
-本書より高度な内容を章として追加していただいて構いません。PRしてください。コントリビューターに追加して、authorを章の最初に明記します。
+Furthermore, since SBDD deals with proteins, it is not necessary to concatenate it with chemoinformatics and bioinformatics. If you understand both in the framework of drug discovery, you will be able to think in more depth, so let's be able to do both. That is absolutely fun. link:https://www.amazon.co.jp/dp/4780909201/[DRY analysis books] and link:https://www.amazon.co.jp/dp/4297103192[information technology that supports life science data analysis] will surely help your career.
+
+As mentioned in Chapter 6, quantum chemical calculation is important to understand protein-ligand interactions. In particular, the ability to interpret interactions based on quantum chemistry in future SBDDs can be stated to be essential. Without prejudice think link:https://www.amazon.co.jp/dp/4130625047/[about the chemical in orbit concept] - the basic quantum chemistry please read the like. If you're using link:https://www.msg.chem.iastate.edu/gamess/[Gamess], you'll be able to help the link:https://www.amazon.co.jp/dp/4061543881/[new version of Quantum Chemical Beginners' Manual]. At least save energy decomposition analisys, which will increase your ability to interpret calculations and contribute to your project. Furthermore, FMO is needless to say, but it is an indispensable tool, so understanding link:https://www.jstage.jst.go.jp/article/jccj/advpub/0/advpub_2014-0039/_pdf[each component] will help drug design more than that
+
+==== Beyond the "end"
+
+You can add more advanced content than this manual as a chapter. Please do PR. Add them to the contributor and specify the author at the beginning of the chapter.
