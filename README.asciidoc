@@ -77,3 +77,7 @@ image::python_for_ci.png[py4chemoinformatics, width=250]
 == link:ch12_generativemodels.asciidoc[12 Let the computer think about chemical structure]
 
 - Structure generation using Recurrent Neural Network
+
+== link:ch13_beyond.asciidoc[13 Conclusion]
+
+- Final remarks and further reading
