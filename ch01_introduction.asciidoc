@@ -3,10 +3,11 @@
 
 Chemoinformatics is a methodology that is used to analyze mainly chemical-related data using a computer and solve various problems. The term chemoinformatics was defined in the late 1990s and early 2000s, and in the pharmaceutical industry and pharmaceutical academia, the relationship between drug effects and compound characteristics is analyzed, large amounts of compound information are visualized, and compound similarity It is used in a wide variety of processes, including gender-based clustering.
 
-In recent years, drug discovery applications for deep learning have been explored, but not only in conventional chemoinformatics such as **new design proposals** and **synthetic route proposals**, as well as QSAR (structure-activity relationship) for predicting activity and physical properties. Applied research to areas that were not being conducted is also actively conducted.
+In recent years, drug discovery applications for deep learning have been explored, but not only in conventional chemoinformatics such as **new design proposals** and **synthetic route proposals**, as well as QSAR (Quantitative Structure-Activity Relationship) for predicting activity and physical properties. Applied research to areas that were not being conducted is also actively conducted.
 
 
 Compound design is innovative
+
 ****
 What kind of compound should we make in the first place? And how to synthesize it? The process of thinking about the background is an area where background knowledge and imagination are required, and conventionally it has been recognized that it is a difficult area for people other than to bear, but the advancement of what is also called AI to such areas is here It progressed rapidly in several years (2017-2019).
 ****
@@ -19,7 +20,7 @@ In recent years, as with bioinformatics in chemoinformatics, a lot of informatio
 
 === What is RDKit
 
-warning:: Here is a subsection of @ iwatobipen's hot talk about RDKit. At the draft stage, the words such as "I will say" or "based on" are used as they are, and the self-proclaimed is a "comprehensive" @ iwatobipen-style style of "gozuru" tone.
+warning:: Here is a subsection of @ iwatobipen's talk about RDKit. At the draft stage, the words such as "I will say" or "based on" are used as they are, and the self-proclaimed is a "comprehensive" @ iwatobipen-style style of "gozuru" tone.
 
 My name is @iwatobipen, who writes a part of this book. I'm going to talk hot about RDKit here.
 
