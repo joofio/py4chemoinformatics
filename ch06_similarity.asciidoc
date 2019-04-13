@@ -3,11 +3,11 @@
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch06_similarity.ipynb"]
 
-=== What does it mean that the compounds are similar？
+=== What does it mean that compounds are similar？
 
-Expressions that are somewhat shape is similar are not scientific. In the chemorinformatics, similarity or unsimilarity(distance) is used as quantitative metrics. 
+Expressions that are somewhat shape is similar are not scientific. In the chemoinformatics, similarity or unsimilarity (distance) is used as quantitative metrics. 
 
-In this section, we will introduce two mejor metrics.
+In this section, we will introduce two major metrics.
 
 ==== Descriptor
 
@@ -17,13 +17,13 @@ In this section, we will introduce two mejor metrics.
 NOTE: いくつかの記述子に関しては市販ソフトでないと計算できない場合があります。
 ////
 
-A parameter that represents the overall characteristics of a molecule numerically is called a descriptor. Many descripors are proposed so far such as molecular weight, polar surface area(PSA)  and partition coefficient(logP). It is possible to evaluate a similarity between two molecules with these descriptors. Please note that descriptor represents whole molecular feature as a numeric value and it is not local feature.
+A parameter that represents the overall characteristics of a molecule numerically is called a descriptor. Many descriptors are proposed so far, such as molecular weight, polar surface area (PSA) and partition coefficient (logP). It is possible to evaluate a similarity between two molecules with these descriptors. Please note that descriptor represents whole molecular feature as a numeric value and it is not a local feature.
 
-NOTE: There is a case where it is needed commercial software to calculate some descriptors.
+NOTE: There are cases where commercial software is needed to calculate some descriptors.
 
 ==== Fingerprint
 
-Another is fingerprint. A fingerprint is a binary representation of a partial structure of a molecule as a binary 0, 1, and it corresponds to the presence or absence of a partial structure and on (1) or off (0) of a bit, and represents a set of partial structures Represents the characteristics of the molecule. There are two types of fingerprints, fixed-length FP and variable-length FP. Formerly, MACSKey fixed-length FP (FP whose partial structure and index have been determined in advance) was used, but now ECFP 4 (It is common to use a variable-length FP called Morgan2).
+A fingerprint is another feature, and is a binary representation of a partial structure of a molecule as a binary 0, 1, and it corresponds to the presence or absence of a partial structure and on (1) or off (0) of a bit, and represents a set of partial structures Represents the characteristics of the molecule. There are two types of fingerprints, fixed-length FP and variable-length FP. Formerly, MACSKey fixed-length FP (FP whose partial structure and index have been determined in advance) was used, but now ECFP 4 (It is common to use a variable-length FP called Morgan2).
 
 As for the RDKit fingerprint, please read link:https://www.rdkit.org/UGM/2012/Landrum_RDKit_UGM.Fingerprints.Final.pptx.pdf[Developper of RDKit, Greg's Slide] for details.
 
@@ -34,7 +34,7 @@ Let's do similarity evaluation using this ECFP 4 (Morgan 2) this time.
 SMILES is an ASCII string representation of the structure, and a fingerprint is a binary representation of the presence or absence of a substructure. The difference is that the former is one of the ** structural expressions **, while the latter is one of the ** feature expressions **.
 Since only the presence or absence of partial structures is expressed, information such as the relationship between partial structures (how connected by positional relationship) is lost, and the original structure is not restored.
 
-Some people call it Bag-of-Fragments because it corresponds to Bag-of-Words often used in text mining.
+Some people call it Bag-of-Fragments because it corresponds to Bag-of-Words often used in text-mining.
 ****
 
 === Let's calculate similarity
@@ -56,14 +56,14 @@ mol1 = Chem.MolFromSmiles("Cc1ccccc1")
 mol2 = Chem.MolFromSmiles("Clc1ccccc1")
 ----
 
-Confirmed it by visual observation.
+Confirm it by visual observation.
 
 [source, python]
 ----
 Draw.MolsToGridImage([mol1, mol2])
 ----
 
-Generate radius 2 morgan fingerorint which corresponds ECFP4.
+Generate radius 2 morgan fingerprint which corresponds to ECFP4.
 
 [source, python]
 ----
@@ -89,7 +89,7 @@ The molecular weight of Inavir was about 350, and LogP was about -3. So we selec
 
 NOTE: We described how to download the data in chapter 4.
 
-We can perform shell command on jupyter notebool by starting from !. The following is an example of downloading ZINC data set with wget command on jupyter notebook
+We can perform shell command on jupyter notebook by starting from !. The following is an example of downloading ZINC data set with wget command on jupyter notebook
 
 [source, python]
 ----
@@ -143,7 +143,7 @@ mols = [l[0] for l in similar_mols[:10]]
 ----
 
 Let's draw them.
-
+
 [source, python]
 ----
 Draw.MolsToGridImage(mols, molsPerRow=5)
@@ -151,7 +151,7 @@ Draw.MolsToGridImage(mols, molsPerRow=5)
 
 image::ch06/vs01.png[result]
 
-As you can see if the similarity is confirmed, about 200,000 compounds examined this time can only find a compound with a maximum similarity is 23%. However, ZINC contains 750 million data, so there should be many more similar compounds in it.
+As you can see if the similarity is confirmed, about 200,000 compounds examined this time can only find a compound with a maximum similarity is 23%. However, ZINC contains 750 million entries, so there should be many more similar compounds in it.
 
 === Clustering
 
@@ -159,7 +159,7 @@ For example, when purchasing a commercial compound and creating a library, we wa
 
 Clustering of 5614 hits from link:https://www.ebi.ac.uk/chembl/beta/assay_report_card/CHEMBL1040694/[Novrtis's antimalarial assay]
 
-Import library for clustering and read data.
+Import library for clustering and reading data.
 
 [source, python]
 ----
@@ -181,7 +181,7 @@ for mol in mols:
         valid_mols.append(mol)
 ----
 
-フィンガープリントから距離行列（下三角の距離行列）を生成します。
+Generate a distance matrix (a lower triangular distance matrix) from the fingerprints.
 
 [source, python]
 ----
@@ -247,19 +247,19 @@ DataStructs.TanimotoSimilarity(apx_fp, rvx_fp)
 # 0.40625
 ----
 
-It's about 40% similarity.  In fact, both link:https://www.rcsb.org/structure/2P16[apixaban] and link:https://www.rcsb.org/structure/2W26[rivaroxaban] both have their complex crystal structures solved and were drawn usinglink:https://pymol.org/2/[PyMOL].
+It's about 40% similar.  In fact, both link:https://www.rcsb.org/structure/2P16[apixaban] and link:https://www.rcsb.org/structure/2W26[rivaroxaban]  have their complex crystal structures solved and were drawn using link:https://pymol.org/2/[PyMOL].
 
- NOTE:: It does not explain how to use PyMOL because it exceeds the contents of this document, but if you are interested, Please refer to link:http://www.protein.osaka-u.ac.jp/rcsfp/supracryst/suzuki/jpxtal/Katsutani/index.php[here].
+NOTE:: It does not explain how to use PyMOL because it exceeds the contents of this document, but if you are interested, Please refer to link:http://www.protein.osaka-u.ac.jp/rcsfp/supracryst/suzuki/jpxtal/Katsutani/index.php[here].
 
 image::ch06/apx_rvx_suf.png[APX+RVX, width=600, pdfwidth=60%]
 
 As you can see from the figure, apixaban and rivaroxaban are beautifully overlapping in three dimensions. In particular, methoxyphenyl and chlorothiol are located in a site called S1 pocket and are said to have some kind of strong interaction. As the ligand binding sites (pockets) of proteins become clearer, it becomes easier for the medicinal chemist to develop a strategy for the next modification, and the success rate and progress rate of the project will increase.
 
-An approach that optimizes the structure based on the shape of the protein determined by X-ray or cryoelectric testing is called Structure Based Drug Design (SBDD). Also, if you know the pocket, you can screen for compounds that physically bind to the pocket, which is called structure-based virtual screening (SBVS), and ligand-based virtual screening as you did in the previous chapter. It may be distinguished from (LBVS).
+An approach that optimizes the structure based on the shape of the protein determined by X-ray or cryo-electric testing is called Structure Based Drug Design (SBDD). Also, if you know the pocket, you can screen for compounds that physically bind to the pocket, which is called structure-based virtual screening (SBVS), and ligand-based virtual screening as you did in the previous chapter. It may be distinguished from (LBVS).
 
 .History of Xa inhibitors and the importance of quantum chemistry calculation
 ****
-Although the contents of the chemoinformatics in this book are far apart, it is very useful in molecular design to trace the history of FXa inhibitors and to understand what improvements have been made through generations . In addition, since the interpretation of the S1 pocket interaction is very difficult visually and in classical mechanics, it can be interpreted only by quantum chemical calculation such as Fragment Molecular Orbital Method(FMO), so it is a mistake that quantum chemical calculation becomes essential in future molecular design I think.
+Although the contents of the chemoinformatics in this book are far apart, it is very useful in molecular design to trace the history of FXa inhibitors and to understand what improvements have been made through generations. In addition, since the interpretation of the S1 pocket interaction is very difficult visually and in classical mechanics, it can be interpreted only by quantum chemical calculation such as Fragment Molecular Orbital Method (FMO), so it is a mistake that quantum chemical calculation becomes essential in future molecular design I think.
 ****
 
 
