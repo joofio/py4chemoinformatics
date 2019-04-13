@@ -1,39 +1,45 @@
-== 6章: 化合物の類似性を評価してみる
+== Chapter 6: Try to evaluate the similarity of compounds
 :imagesdir: images
 
 image:jupyter.png[link="https://github.com/Mishima-syk/py4chemoinformatics/blob/master/notebooks/ch06_similarity.ipynb"]
 
-=== 化合物が似ているとはどういうことか？
+=== What does it mean that the compounds are similar？
 
-２つの化合物が似ているとはどういうことでしょうか？なんとなく形が似ている？という表現は科学的ではありません。ケモインフォマティクスでは類似度(一般的に0-100の値を取ります)や非類似度（距離）といった定量的な尺度により似ているかどうかを評価します。
+Expressions that are somewhat shape is similar are not scientific. In the chemorinformatics, similarity or unsimilarity(distance) is used as quantitative metrics. 
 
-ここでは主に２つの代表的な尺度を紹介します。
+In this section, we will introduce two mejor metrics.
 
-==== 記述子
+==== Descriptor
 
+////
 分子の全体的な特徴を数値で表現するものを記述子と呼びます。分子量や極性表面性（PSA）、分配係数(logP)などがあり、現在までに多くの記述子が提案されています。これらの記述子の類似性を評価することで２つの分子がどのくらい似ているかを表現することが可能です。また分子全体の特徴を1つの数字で表現しており局所的な特徴ではないということに注意してください。
 
 NOTE: いくつかの記述子に関しては市販ソフトでないと計算できない場合があります。
+////
 
-==== フィンガープリント
+A parameter that represents the overall characteristics of a molecule numerically is called a descriptor. Many descripors are proposed so far such as molecular weight, polar surface area(PSA)  and partition coefficient(logP). It is possible to evaluate a similarity between two molecules with these descriptors. Please note that descriptor represents whole molecular feature as a numeric value and it is not local feature.
 
-もう一つがフィンガープリントです。フィンガープリントとは分子の部分構造を0,1のバイナリーで表現したもので部分構造の有無とビットのon(1),off(0)を対応させたものになり、部分構造の集合を表現することで分子の特徴を表現しています。フィンガープリントには固定長FPと可変長FPの二種類が存在し、古くはMACSKeyという固定長FP(予め部分構造とインデックスが決められているFP)が使われていましたが、現在ではECFP4(Morgan2)という可変長FPが利用されるのが普通です。
+NOTE: There is a case where it is needed commercial software to calculate some descriptors.
 
-RDKitのフィンガープリントに関してはlink:https://www.rdkit.org/UGM/2012/Landrum_RDKit_UGM.Fingerprints.Final.pptx.pdf[開発者のGregさんのスライド]が詳しいので熟読してください。
+==== Fingerprint
 
-今回はこのECFP4(Morgan2)を利用した類似性評価をしてみましょう。
+Another is fingerprint. A fingerprint is a binary representation of a partial structure of a molecule as a binary 0, 1, and it corresponds to the presence or absence of a partial structure and on (1) or off (0) of a bit, and represents a set of partial structures Represents the characteristics of the molecule. There are two types of fingerprints, fixed-length FP and variable-length FP. Formerly, MACSKey fixed-length FP (FP whose partial structure and index have been determined in advance) was used, but now ECFP 4 (It is common to use a variable-length FP called Morgan2).
 
-.SMILESとフィンガープリントの違い
+As for the RDKit fingerprint, please read link:https://www.rdkit.org/UGM/2012/Landrum_RDKit_UGM.Fingerprints.Final.pptx.pdf[Developper of RDKit, Greg's Slide] for details.
+
+Let's do similarity evaluation using this ECFP 4 (Morgan 2) this time.
+
+.Difference between SMILES and fingerprint
 ****
-SMILESは構造をASCII文字列で表現したものでフィンガープリントは部分構造の有無をバイナリで表現したものです。違いは前者は**構造表現**の一つであるのに対し、後者は**特徴表現**の一つだということです。
-部分構造の有無だけしか表現していないため、部分構造間の関係性（どう位置関係でつながっているのか）といった情報が失われ、もとの構造に戻ることはありません。
+SMILES is an ASCII string representation of the structure, and a fingerprint is a binary representation of the presence or absence of a substructure. The difference is that the former is one of the ** structural expressions **, while the latter is one of the ** feature expressions **.
+Since only the presence or absence of partial structures is expressed, information such as the relationship between partial structures (how connected by positional relationship) is lost, and the original structure is not restored.
 
-テキストマイニングでよく用いられるBag-of-Wordsに対応するのでBag-of-Fragmentsと呼ぶ人もいます。
+Some people call it Bag-of-Fragments because it corresponds to Bag-of-Words often used in text mining.
 ****
 
-=== 類似度を計算する
+=== Let's calculate similarity
 
-簡単な分子としてトルエンとクロロベンゼンの類似性を評価してみましょう。
+Let's evaluate the similarity of toluene and chlorobenzene as simple molecules.
 
 [source, python]
 ----
@@ -42,7 +48,7 @@ from rdkit.Chem import AllChem, Draw
 from rdkit.Chem.Draw import IPythonConsole
 ----
 
-SMILESで分子を読み込みます。
+Read molecule from SMILES.
 
 [source, python]
 ----
@@ -50,14 +56,14 @@ mol1 = Chem.MolFromSmiles("Cc1ccccc1")
 mol2 = Chem.MolFromSmiles("Clc1ccccc1")
 ----
 
-一応目視で確認しておきます。
+Confirmed it by visual observation.
 
 [source, python]
 ----
 Draw.MolsToGridImage([mol1, mol2])
 ----
 
-ECFP4に相当する半径2のモルガンフィンガープリントを生成します。
+Generate radius 2 morgan fingerorint which corresponds ECFP4.
 
 [source, python]
 ----
@@ -65,7 +71,7 @@ fp1 = AllChem.GetMorganFingerprint(mol1, 2)
 fp2 = AllChem.GetMorganFingerprint(mol2, 2)
 ----
 
-類似度の評価にはタニモト係数を使います。
+Tanimoto coefficient is used for similarity evaluation.
 
 [source, python]
 ----
@@ -73,24 +79,24 @@ DataStructs.TanimotoSimilarity(fp1, fp2)
 # 0.5384615384615384
 ----
 
-=== バーチャルスクリーニング
+=== Virtual screening 
 
-ここまでで化合物の類似性の評価方法について説明しました。この類似性の指標を用い多くの化合物の中から特定の化合物群を選び出すことをバーチャルスクリーニングと呼びます。
+So far we have described how to evaluate the similarity of compounds. Using this index of similarity to select a specific group of compounds from a large number of compounds is called virtual screening.
 
-例えば薬になりそうな化合物が特許や論文で発表されたり、自社のアッセイ系で有望そうな化合物が見つかった場合、自社の化合物ライブラリデータベースや市販化合物のデータベースの中に類似の化合物で、より有望そうなものがあるかどうかを探したいことがあります。ここではノイラミニダーゼ阻害薬として知られるインフルエンザ治療薬であるlink:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL466246/[イナビル]の類似体が購入可能であるかをlink:http://zinc15.docking.org/[ZINC]を利用して調べます。
+For example, if a compound that is likely to be a drug is published in a patent or a paper, or a compound that is likely to be promising is found in our assay system, similar compounds in the compound library database of our company or the database of commercially available compounds are more promising I want to find out if there is something like that. Here, it is possible to purchase an analog of influenza drug which is known as a neuraminidase inhibitor link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL466246/[Inavir] link:Find out using http://zinc15.docking.org/[ZINC].
 
-イナビルの分子量が約350,LogPが約-3だったのZINCの分子量350-375,LogP=-1の340万化合物の区画を選択しました。この区画は16のファイルに分かれていますが、最初の1セットだけダウンロードして使ってみます。
+The molecular weight of Inavir was about 350, and LogP was about -3. So we selected the fraction of the molecular weight 350-375 and LogP -1 from ZINC. This section is divided into 16 files, but download and use only the first set.
 
-NOTE: データのダウンロード方法は4章で説明しています。
+NOTE: We described how to download the data in chapter 4.
 
-jupyter notebookでは!で始めるとShellコマンドを実行できます。以下はjupyter notebook上でwgetコマンドでZINCのデータセットをダウンロードする例です
+We can perform shell command on jupyter notebool by starting from !. The following is an example of downloading ZINC data set with wget command on jupyter notebook
 
 [source, python]
 ----
 !wget http://files.docking.org/2D/EA/EAED.smi
 ----
 
-ファイルからSMILESを読み込んでmolオブジェクトにしますが最初の行はヘッダーなので読み飛ばします。また、各行の最終文字は改行文字なのでl[:-1]として除いています。最後に何化合物あるか調べます。
+Read SMILES from file and make it a mol object, but skip the first line because it is a header. Also, the last character of each line is a newline character, so it is excluded as l [:-1]. Finally, find out how many compounds there are.
 
 [source, python]
 ----
@@ -104,7 +110,7 @@ print(len(mols))
 # 195493
 ----
 
-続いてイナビル(LANIMAMIBIR)との類似度を調べるための関数を用意します。
+Next, prepare a function to check the degree of similarity with Inavir (LANIMAMIBIR).
 
 [source, python]
 ----
@@ -117,7 +123,7 @@ def calc_laninamivir_similarity(mol):
     return sim
 ----
 
-調べてみます。
+Check it.
 
 [source, python]
 ----
@@ -128,7 +134,7 @@ for mol in mols:
         similar_mols.append((mol, sim))
 ----
 
-結果を類似度の高い順に並べ替えて最初の10件だけ取り出します。
+Sort the results in descending order of similarity and retrieve only the first ten.
 
 [source, python]
 ----
@@ -136,8 +142,8 @@ similar_mols.sort(key=lambda x: x[1], reverse=True)
 mols = [l[0] for l in similar_mols[:10]]
 ----
 
-描画してみます。
-
+Let's draw them.
+
 [source, python]
 ----
 Draw.MolsToGridImage(mols, molsPerRow=5)
@@ -145,15 +151,15 @@ Draw.MolsToGridImage(mols, molsPerRow=5)
 
 image::ch06/vs01.png[result]
 
-類似度を確認すればわかりますが、今回調べた約20万件の化合物は最高でも23%の類似度の化合物しか見いだせませんでした。しかしZINCは7億5000万件のデータを収録してあるのでその中にはもっと似ている化合物はたくさんあるはずです。
+As you can see if the similarity is confirmed, about 200,000 compounds examined this time can only find a compound with a maximum similarity is 23%. However, ZINC contains 750 million data, so there should be many more similar compounds in it.
 
-=== クラスタリング
+=== Clustering
 
-例えば市販化合物を購入してライブラリを作る場合にはできるだけ多様性をもたせたいので、似ている化合物ばかりが偏らないように類似化合物どうしをまとめ、その中の代表を選びます。このように化合物を構造の類似性でまとめたい場合、クラスタリングという手法を使います。
+For example, when purchasing a commercial compound and creating a library, we want to have as much diversity as possible, so we organize similar compounds and select a representative of them so that only similar compounds are not biased. In this way, if you want to organize compounds by structural similarity, use a method called clustering.
 
-link:https://www.ebi.ac.uk/chembl/beta/assay_report_card/CHEMBL1040694/[Novrtisの抗マラリアアッセイ]の5614件のヒット化合物をクラスタリングします。
+Clustering of 5614 hits from link:https://www.ebi.ac.uk/chembl/beta/assay_report_card/CHEMBL1040694/[Novrtis's antimalarial assay]
 
-クラスタリング用のライブラリをインポートし、データを読み込みます。
+Import library for clustering and read data.
 
 [source, python]
 ----
@@ -161,7 +167,7 @@ from rdkit.ML.Cluster import Butina
 mols = Chem.SDMolSupplier("ch06_nov_hts.sdf")
 ----
 
-何らかの理由でRDKitで分子の読み込みができない場合、molオブジェクトではなくNoneが生成されます。このNoneをGetMorganFingerprintAsBitVectメソッドにわたすとエラーになるので、Noneを除きながらフィンガープリントを生成します。
+If RDKit can not read the molecule for some reason, it will generate None instead of a mol object. Since passing this None to the GetMorganFingerprintAsBitVect method results in an error, so we generate a fingerprint while excluding None.
 
 [source, python]
 ----
@@ -185,14 +191,14 @@ for i, fp in enumerate(fps):
     distance_matrix.extend([1-sim for sim in similarities])
 ----
 
-距離行列を用いて化合物をクラスタリングします。3番目の引数は距離の閾値です。この例では距離0.2つまり80%以上の類似度の化合物でクラスタリングしています。
+Cluster compounds using a distance matrix. The third argument is the distance threshold. In this example, clustering is performed on compounds with a distance of 0.2 or 80% or more.
 
 [source, python]
 ----
 clusters = Butina.ClusterData(distance_matrix, len(fps), 0.2, isDistData=True)
 ----
 
-クラスタ数を確認します。
+Check number of cluster.
 
 [source, python]
 ----
@@ -200,7 +206,7 @@ len(clusters)
 #2492
 ----
 
-最初のクラスタの構造を表示してみます
+Visualize structures of first cluster.
 
 [source, python]
 ----
@@ -210,11 +216,12 @@ Draw.MolsToGridImage(mols_, molsPerRow=5)
 
 image::ch06/cls01.png[clustering result, width=600, pdfwidth=60%]
 
-今回はRDKitに用意されているライブラリでクラスタリングを行いましたが、link:https://scikit-learn.org/stable/modules/clustering.html[Scikit-learn]でも幾つかの手法が利用できますし、実際にはこちらの方を使うことが多いです。
+
+In this case, clustering was performed using the library provided in RDKit, but some methods can be used with link:https://scikit-learn.org/stable/modules/clustering.html[Scikit-learn].  And in practice this method is often used.
 
 === Structure Based Drug Design(SBDD)
 
-ここでは抗凝固薬として上市されているlink:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL231779/[apixaban], link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL198362/[rivaroxaban]の類似性を評価します。
+Here we evaluate the similarity of link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL231779/[apixaban] and link:https://www.ebi.ac.uk/chembl/beta/compound_report_card/CHEMBL198362/[rivaroxaban], which are marketed as anticoagulants.
 
 [source, python]
 ----
@@ -229,7 +236,7 @@ Draw.MolsToGridImage([apx, rvx], legends=["apixaban", "rivaroxaban"])
 
 image::ch06/apx_rvx.png[APX+RVX, width=600, pdfwidth=60%]
 
-構造を見るとわかる通りなんとなく似ていますが、この２つの化合物は両方共FXaというセリンプロテアーゼの同じポケットに同じように結合し、蛋白質の働きを阻害することが知られています。
+The structures are quite similar as you can see, but both of these two compounds are known to bind similarly to the same pocket of the serine protease FXa and to inhibit the function of the protein.
 
 [source, python]
 ----
@@ -240,19 +247,19 @@ DataStructs.TanimotoSimilarity(apx_fp, rvx_fp)
 # 0.40625
 ----
 
-40%くらいの類似度ということになりました。実はlink:https://www.rcsb.org/structure/2P16[apixaban]もlink:https://www.rcsb.org/structure/2W26[rivaroxaban]も複合体結晶構造が解かれており、link:https://pymol.org/2/[PyMOL]を利用して重ねて描画しました。
+It's about 40% similarity.  In fact, both link:https://www.rcsb.org/structure/2P16[apixaban] and link:https://www.rcsb.org/structure/2W26[rivaroxaban] both have their complex crystal structures solved and were drawn usinglink:https://pymol.org/2/[PyMOL].
 
- NOTE:: 本書の内容を超えるので、PyMOLの使い方などについては説明しませんが、興味があればlink:http://www.protein.osaka-u.ac.jp/rcsfp/supracryst/suzuki/jpxtal/Katsutani/index.php[この辺り]を参考にしてください。
+ NOTE:: It does not explain how to use PyMOL because it exceeds the contents of this document, but if you are interested, Please refer to link:http://www.protein.osaka-u.ac.jp/rcsfp/supracryst/suzuki/jpxtal/Katsutani/index.php[here].
 
 image::ch06/apx_rvx_suf.png[APX+RVX, width=600, pdfwidth=60%]
 
-図からわかるように、apixaban,rivaroxabanは立体的に綺麗に重なっています。特にメトキシフェニルとクロロチオールはS1ポケットと呼ばれる部位に位置しており何らかの強い相互作用をしていると言われています。蛋白質のリガンド結合部位（ポケット）が明確になれば、メディシナルケミストが次にどの辺りを修飾するかの戦略が立てやすくなり、プロジェクトの成功確率や進捗速度も上がります。
+As you can see from the figure, apixaban and rivaroxaban are beautifully overlapping in three dimensions. In particular, methoxyphenyl and chlorothiol are located in a site called S1 pocket and are said to have some kind of strong interaction. As the ligand binding sites (pockets) of proteins become clearer, it becomes easier for the medicinal chemist to develop a strategy for the next modification, and the success rate and progress rate of the project will increase.
 
-このように、X線やクライオ電験などにより決められた蛋白質の形状に基づいて構造最適化を行うアプローチをStructure Based Drug Design(SBDD)と呼びます。また、ポケットがわかれば、物理的にポケットに結合するような化合物をスクリーニングすることができ、これを構造ベースのバーチャルスクリーニング(SBVS)と呼び、前の章でやったようなリガンドベースのバーチャルスクリーニング(LBVS)と区別することもあります。
+An approach that optimizes the structure based on the shape of the protein determined by X-ray or cryoelectric testing is called Structure Based Drug Design (SBDD). Also, if you know the pocket, you can screen for compounds that physically bind to the pocket, which is called structure-based virtual screening (SBVS), and ligand-based virtual screening as you did in the previous chapter. It may be distinguished from (LBVS).
 
-.FXa阻害剤の歴史と量子化学計算の重要性
+.History of Xa inhibitors and the importance of quantum chemistry calculation
 ****
-本書のケモインフォマティクスの内容とは大きくかけ離れるのですが、FXa阻害剤の歴史を辿り、世代を経てどのような改良がなされていったのかを理解するのは分子設計をする上でかなり役に立ちます。また、S1ポケットの相互作用の解釈は目視や古典力学では非常に難しく、Fragment Molecular Orbital Methodのような量子化学計算によってのみ解釈できるため、今後の分子設計において量子化学計算は必須になることは間違いないと思います。
+Although the contents of the chemoinformatics in this book are far apart, it is very useful in molecular design to trace the history of FXa inhibitors and to understand what improvements have been made through generations . In addition, since the interpretation of the S1 pocket interaction is very difficult visually and in classical mechanics, it can be interpreted only by quantum chemical calculation such as Fragment Molecular Orbital Method(FMO), so it is a mistake that quantum chemical calculation becomes essential in future molecular design I think.
 ****
 
 
