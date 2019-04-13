@@ -90,23 +90,24 @@ link:https://twitter.com/ReLuTropy[@ReLuTropy],
 link:https://twitter.com/ski_nanko[@ski_nanko],
 link:https://twitter.com/torusengoku[@torusengoku],
 link:https://twitter.com/yamasaKit_[@yamasaKit_]
-
+link:https://twitter.com/4Elemento[@4Elemento],
+@4Elemento, thanks a lot for tranlation task!!!! (from @iwatobipen)
 
 From here onwards I wrote while listening to Nujabes-reflection eternal by @fmkz___ 20/03/20
 
-まず、本書を書くきっかけとなったlink:https://twitter.com/bonohu[@bonohu]に感謝したいと思います。@bonohuのlink:https://www.amazon.co.jp/dp/4895929019[Dr. Bonoの生命科学データ解析]の出版後のMishima.sykのミーティングで「Bono本のChemoinformatics版あったらいいよね」という話がどこからともなくでた際に、「書けばええんちゃう、むしろなんで書かんの？」と言ってくれたことが本書を執筆するきっかけであることは間違いありません。またlink:https://twitter.com/souyakuchan[@souyakuchan]のlink:https://adventar.org/calendars/3041[創薬 Advent Calendar 2018]も執筆のいい刺激になりました。というより、ここで章立てしなかったら具体的に動き出さなかったと思います。
+First of all, I would like to thank the link:https://twitter.com/bonohu[@bonohu] which triggered me to write this book. @Bonohu's link:https://www.amazon.co.jp/dp/4895929019[Dr. Bono's analysis of life science data]. At athe meeting of Mishima.syk we talked that "The Bono book Chemoinformatics version" would be nice. There is no doubt that what triggered me to write this book is, "Well, if yes, why not write?" Also, link: https://twitter.com/souyakuchan[@souyakuchan] link:https://adventar.org/calendars/3041[Drug Advent Calendar 2018, written in Japanese] has also become a good stimulus for writing. In other words, I think that I did not start to move specifically if I did not make a chapter here.
 
-また、忘れてはいけないのはy-samaの存在です。link:http://mishima-syk.github.io/[Mishima.syk]を初期から盛り上げてきたy-samaは2019/01/06に永眠しました。彼はlink:https://qiita.com/y\__sama/items/5b62d31cb7e6ed50f02c[データサイエンティストを目指す人のpython環境構築 2016]やlink:https://medium.com/@y__sama/druglikeness%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%82%88%E3%82%82%E3%82%84%E3%81%BE%E8%A9%B1-8310cec5ffc6[Druglikenessについてのよもやま話]といった素晴らしいエントリを残しました。彼が存命であればきっと3人で執筆していたし、内容ももっと充実していたことでしょう。この出来事も我々に執筆しようという強い動機を与えました。
+Also, it is the existence of y-sama that should not be forgotten. link:http://mishima-syk.github.io/[Mishima.syk] y-sama has been away at the beginning and has fallen forever on 2019/01/06. He wrote wonderful post such as link:https://qiita.com/y\__sama/items/5b62d31cb7e6ed50f02c[Python environment construction of the person who aims at the data scientist 2016] and link:https://medium.com/@y__sama/druglikeness%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%82%88%E3%82%82%E3%82%84%E3%81%BE%E8%A9%B1-8310cec5ffc6[Small talk about drug likeness: written in Japanese]. If he was alive, we would probably write by three people and the content would have been more complete. This event also gave us a strong motivation to write.
 
-最後にMishima.sykに参加して美味しいワインやビールを飲みなから毎度熱い議論を交わしていただいた参加者の方々にも感謝します。いくつかのコンテンツはMishima.sykでの発表をもとにしており、みなさんのフィードバックをもとに加筆訂正してあります。
+Finally, I would like to thank the participants who participated in Mishima.syk for drinking good wine and beer and having a hot discussion every time. Some content is based on the presentation at Mishima.syk, and has been revised based on your feedback.
 
-もし、本書を読んで、ケモインフォマティクスって面白いなと感じたり、創薬やってみたいなと感じる方がいたら、是非Mishima.sykに参加してみてください。きっと楽しいと思います。今後の創薬研究では所属を超えてお互いにプッシュしあって自身のスキルを高めていくことが重要になるでしょう。というより、既にそういう社会になっているのだと思います。本書が皆さんの楽しい研究生活を送る役に立てば幸いです。
+If you have read this book, and if you feel that chemoinformatics is interesting or you want to do drug discovery, please join Mishima.syk. I think it will be fun. In future drug discovery research, it will be important to push each other across affiliations and improve their skills. In fact, I think it is already such a society. I hope this book will help you have a pleasant research life.
 
 [quote, y__sama]
-やりたいことをやって生きてきて 私自身は自分の人生に後悔はありません
-人生は楽しんだもの勝ち
-皆さんも嫌なことは嫌だと言って自分の喜びを最大限に追い求めて人生を満喫した方が楽しいと思いますよ
-皆様の人生に幸多い事を願っています
+I do what I want to do I live myself, I have no regrets in my life.
+Life enjoys winning.
+I think it would be fun to enjoy your life by chasing your joy to the fullest by saying that you hate something you hate.
+I wish you all the best in your life.
 
 === License
 
