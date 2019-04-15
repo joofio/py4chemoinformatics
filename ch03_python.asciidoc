@@ -57,10 +57,10 @@ Qiita is a community for Japanese. All documents are written in Japanese
 ////
 
 https://stackoverflow.com/[stackoverflow]::
-Stack Overflow is good community. You should search in SOF at first and ask the community.
+Stack Overflow is good community. You should search in SOF first and then ask the community.
 
 http://mishima-syk.github.io/[Mishima.syk]::
-Mishima.syk is the community where people who write the book gathered. Topics are not limited to python but there are many presentations about python now. Discussion level is high but the community is also beginner friendly. We have planned hands-on sessions and they have an established reputation. The community members should be able to answer your questions. 
+Mishima.syk is the community where people who write the book gather. Topics are not limited to python but there are many presentations about python now. Discussion level is high but the community is also beginner friendly. We have planned hands-on sessions and they have an established reputation. The community members should be able to answer your questions. 
 ////
 本書を書いている人たちが集まるコミュニティです。特に話題をPythonに限定していませんが、Pythonを使ったネタが多めです。かなりガチですが、初心者対応も万全でハンズオンに定評があります。質問されれば大体答えられます。
 ////
@@ -92,7 +92,7 @@ After type the command above, Jupyter Notebook will be launched. In this book, a
 
 === For machine learning with Python
 
-**Machine learning** is a must for learning informatics not only chemoinformatics. Some background knowledge of machine learning is required in the following sessions. link:https://scikit-learn.org/stable/[Scikit-learn] is used for machine learning with python. Scikit-kearn is de facto standard for machine learning library for python. We use the package without any descriptions but we would like to share some links for beginners.
+**Machine learning** is a must for learning informatics not only chemoinformatics. Some background knowledge of machine learning is required in the following sessions. link:https://scikit-learn.org/stable/[Scikit-learn] is used for machine learning with python. Scikit-learn is de facto standard for machine learning library for python. We use the package without any descriptions but we would like to share some links for beginners.
 
 link:http://shop.oreilly.com/product/0636920030515.do[Introduction to Machine Learning with Python]::
 You can learn basics of machine learning with python. It is easy to read because there is less mathematical representations. 
