@@ -255,7 +255,7 @@ image::ch06/apx_rvx_suf.png[APX+RVX, width=600, pdfwidth=60%]
 
 As you can see from the figure, apixaban and rivaroxaban are beautifully overlapping in three dimensions. In particular, methoxyphenyl and chlorothiol are located in a site called S1 pocket and are said to have some kind of strong interaction. As the ligand binding sites (pockets) of proteins become clearer, it becomes easier for the medicinal chemist to develop a strategy for the next modification, and the success rate and progress rate of the project will increase.
 
-An approach that optimizes the structure based on the shape of the protein determined by X-ray or cryo-electric testing is called Structure Based Drug Design (SBDD). Also, if you know the pocket, you can screen for compounds that physically bind to the pocket, which is called structure-based virtual screening (SBVS), and ligand-based virtual screening as you did in the previous chapter. It may be distinguished from (LBVS).
+An approach that optimizes the structure based on the shape of the protein determined by X-ray or cryo-electric testing is called Structure Based Drug Design (SBDD). Also, if you know the pocket, you can screen for compounds that physically bind to the pocket, which is called structure-based virtual screening (SBVS), and ligand-based virtual screening as you did in the previous chapter. It may be distinguished from ligand-based virtual screenig(LBVS).
 
 .History of Xa inhibitors and the importance of quantum chemistry calculation
 ****

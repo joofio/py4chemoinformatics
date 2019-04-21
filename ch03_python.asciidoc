@@ -11,10 +11,10 @@ If you have something that is not understood in the following chapter, these inf
 
 ==== Would like to learn Python from books
 
-https://www.amazon.co.jp/dp/4774196436/[Pythonスタートブック増補改訂版]::
+https://www.amazon.co.jp/dp/4774196436/[Pythonスタートブック増補改訂版:Python start book]::
 We recommend the book if you are beginner of programming.
 
-https://www.amazon.co.jp/dp/B01NCOIC2P/[みんなのPython 第4版]::
+https://www.amazon.co.jp/dp/B01NCOIC2P/[みんなのPython 第4版:Python for everyone]::
 If you have any experience in programming such as Javascript and/or Java, and would like to learn python now, this book is recommended.
 ////
 JavascriptやJavaなどのなにかプログラミングを少しかじっていて、これからPythonを覚えたいのであればこちらの本をおすすめします。

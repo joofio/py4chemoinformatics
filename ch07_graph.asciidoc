@@ -9,7 +9,7 @@ In general, fingerprints like those introduced in Chapter 6 are often used to ev
 
 === Classification by major skeleton (MCS)
 
-Maximum Common Substructure Maximum Common Substructure (MCS) is the largest common substructure in a given group of chemical structures. RDKit provides a module called rdFMCS for MCS search.
+Maximum Common Substructure (MCS) is the largest common substructure in a given group of chemical structures. RDKit provides a module called rdFMCS for MCS search.
 
 This time, we will use the file cdk2.sdf provided in rdkit as sample data for MCS search. RDConfig.RDDocsDir is a variable that represents the directory of sample data, and there is a file called cdk2.sdf under the Books/data/ directory, so set the file path with the os.path.join method. Note that os.path.join is a python built-in module for absorbing differences in os paths.
 
