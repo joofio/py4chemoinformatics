@@ -93,7 +93,7 @@ pca = PCA(n_components=2)
 x = pca.fit_transform(fps)
 ----
 
-Draw I changed the color option according to each label, so I chose two attributes, COMPANY and DOCID.
+Draw. I changed the color option according to each label, so I chose two attributes, COMPANY and DOCID.
 
 [source, python]
 ----

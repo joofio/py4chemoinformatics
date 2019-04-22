@@ -12,7 +12,7 @@ Compound design is innovative
 What kind of compound should we make in the first place? And how to synthesize it? The process of thinking about the background is an area where background knowledge and imagination are required, and conventionally it has been recognized that it is a difficult area for people other than to bear, but the advancement of what is also called AI to such areas is here It progressed rapidly in several years (2017-2019).
 ****
 
-Cheminformatics has already been used in various situations, but there was not much relevant information. There are several possible reasons for this, but there is no doubt that the two main reasons are that there were no open source toolkits and no public databases. However, with the advent of RDKit, an open source chemoinformatics toolkit called ChKit and a public database called ChEMBL, this has been resolved.
+Cheminformatics has already been used in various situations, but there was not much relevant information. There are several possible reasons for this, but there is no doubt that the two main reasons are that there were no open source toolkits and no public databases. However, with the advent of RDKit, an open source chemoinformatics toolkit called RDKit and a public database called ChEMBL, this has been resolved.
 
 In recent years, as with bioinformatics in chemoinformatics, a lot of information can be obtained immediately by searching on the web, and it is possible to learn by yourself, but as a set of information to take a first step, We decided to prepare "the content that could learn the basics of chemoinformatics and apply them". Considering the recent AI drug discovery boom, the latter chapter contains chapters on compound activity prediction and compound proposal using deep learning used in the context of “AI drug discovery”, so one-stop learning So you should be able to keep up with the recent trends.
 
@@ -25,7 +25,7 @@ warning:: Here is a subsection of @ iwatobipen's talk about RDKit. At the draft 
 My name is @iwatobipen, who writes a part of this book. I'm going to talk hot about RDKit here.
 
 What is the RD of RDKit? Actually, it is an abbreviation of **Rational Discovery** , and a framework that is the predecessor of the current open source was developed in 2000. It's so old and old. Then, in 2006, the code became open source and was released from sourceforge. Readers who think that Python's chemoinformatics toolkit includes OpenBabel besides RDKit will also be welcome. OpenBabel was first released in 2005. All come with a toolkit that has more than 10 years of history. I remember that OpenBabel was the major in around 2012, when the deaf people began to be interested in this area. At that time, there were almost no articles in Japanese, and the person who wrote this link:https://kzfm.hatenablog.com/archive[book] was a trial and error writing the code of RDKit referring to the link:https://kzfm.hatenablog.com/archive[chemo info] cookbook of @fmkz___ who is a co-
-author of this book and a pioneer in the industry Oh. If you want to keep track of chemiinfo related history, you should read this link:http://blog.kzfmix.com/entry/1542711744[article].
+author of this book and a pioneer in the industry Oh. If you want to keep track of chemoinfo related history, you should read this link:http://blog.kzfmix.com/entry/1542711744[article].
 
 
 Developer Greg Landorum says
@@ -33,7 +33,7 @@ Developer Greg Landorum says
 [quote, Greg Landorum]
 RDKit is the Swiss Army Knife in chemoinformatics and is a collection of various functional pieces
 
-This is exactly the expression which got the target. As you can see if you look at the link:link:https://www.rdkit.org/docs/[official document] , it already has various features. Starting with reading and writing of compound information, drawing of structure, 3D structure conformation generation, R group decomposition, descriptor, fingerprint calculation, pharmacophore calculation etc. Oh. It can cover a wide range from analysis to visualization. Furthermore, the tools developed by Contributor and others using RDKit are packed in the link:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib] folder along with their hot feelings . How do you want to use it? . The deaf people are getting tired of touching RDKit as soon as possible.
+This is exactly the expression which got the target. As you can see if you look at the link:link:https://www.rdkit.org/docs/[official document] , it already has various features. Starting with reading and writing of compound information, drawing of structure, 3D structure conformation generation, R group decomposition, descriptor, fingerprint calculation, pharmacophore calculation etc. Oh. It can cover a wide range from analysis to visualization. Furthermore, the tools developed by Contributor and others using RDKit are packed in the link:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib] folder along with their hot feelings . How do you want to use it? Now I want to write code with RDKit as soon as possible, I cant't wait ;)
 
 NOTE: @iwatobipen is, of course, one of the contributors, and provides code to quickly cluster a large number of compound libraries called link:https://github.com/rdkit/rdkit/tree/master/Contrib/Fastcluster[Fastcluster] . (by @fmkz___)
 
@@ -44,8 +44,8 @@ In addition, link:http://rdkit-users.jp/[RDKit-users-jp] by volunteers has also 
 ==== Main Japanese Commentary Site
 
 - link:http://rdkit-users.jp/[rdkit-users.jp]
-- link:https://magattaca.github.io/RDKit_unofficial_translation_JP/[RDKitドキュメンテーション非公式日本語版サイト]
-- link:https://future-chem.com/[化学の新しいカタチ]
+- link:https://magattaca.github.io/RDKit_unofficial_translation_JP/[RDKitドキュメンテーション非公式日本語版サイト:Unofficail site of rdkit documentation]
+- link:https://future-chem.com/[化学の新しいカタチ:The shape of new chemistry]
 
 === Target audience
 

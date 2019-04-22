@@ -87,7 +87,7 @@ y_pred = rf.predict(x_test)
 
 Create a Confusion matrix.
 
-.Confusion matrixとは
+.What is confusion matrix?
 ****
 Confusion matrix is a table that summarizes the results of class classification. It is possible to visualize clearly whether the class is classified correctly, and as TP and TN are many and FP and FN are small, it is possible to classify better.
 
@@ -220,7 +220,7 @@ It is often used as one of the evaluation indicators for the goodness of fit of 
 
 The method introduced here is a model generated based on the hypothesis that **similar compounds exhibit similar biological activities**. What is the prediction accuracy if there is no compound that is similar to the training set?
 
-Of course, the predicted value is not reliable in that case. In other words, is the prediction likely to be that prediction? The degree of reliability always goes around. The extent to which such models can be trusted or applied is called the applicability domain. In this regard, the link:https://datachemeng.com/applicabilitydomain/[scope of application and model application] scope of Mr. Kaneko, Meiji University are detailed.
+Of course, the predicted value is not reliable in that case. In other words, is the prediction likely to be that prediction? The degree of reliability always goes around. The extent to which such models can be trusted or applied is called the applicability domain. In this regard, the link:https://datachemeng.com/applicabilitydomain/[scope of application and model application] Mr. Kaneko, Meiji University are detailed.
 
 ==== (Extra column) How reliable can the applicability domain be?
 
