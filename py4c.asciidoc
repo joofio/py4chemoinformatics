@@ -1,17 +1,18 @@
-= AI創薬のための ケモインフォマティクス入門
-@fmkz___, @iwatobipen
-v0.40002(Draft) 2019/03/20
+= Introduction to chemoinformatics for AI drug discovery
+@fmkz___, @iwatobipen, @4elemento
+v1.101 2019/12/31
+
 :toc:
-:toc-title: 目次
-:lang: ja
+:toc-title: Table of Contents
+:lang: en
 :doctype: book
-:docname: AI創薬のためのケモインフォマティクス入門
+:docname: Introduction to Chemoinformatics for AI Drug Discovery
 :imagesdir: ./images
 :pdf-fontsdir: fonts
 :pdf-style: py4c-theme.yml
 :source-highlighter: coderay
 :title-logo-image: image::souyakuchan.png[mishima.syk]
-== 1章: はじめに
+== Chapter 1: Introduction
 :imagesdir: ./images
 
 ケモインフォマティクス(Chemoinformatics)とは、主に化学に関連するデータをコンピュータを用いて解析し、様々な課題を解くために用いる方法論のことです。ケモインフォマティクスという言葉は1990年代終わりから2000年代はじめに定義され、現在では製薬業界や薬学系のアカデミアにおいて、薬剤の効果と化合物特性の関連性を解析したり、大量の化合物情報の可視化、化合物の類似性に基づいたクラスタリングなど、多岐にわたるプロセスで利用されています。

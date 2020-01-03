@@ -21,11 +21,11 @@ from rdkit.Chem.Draw import IPythonConsole
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score
-from thensorflow.python.keras.layers import Iput
-from thensorflow.python.keras.layers import Dense
-from thensorflow.python.keras.layers import Dropout
-from thensorflow.python.keras.layers import Activation
-from thensorflow.python.keras.Model import Model
+from tensorflow.python.keras.layers import Iput
+from tensorflow.python.keras.layers import Dense
+from tensorflow.python.keras.layers import Dropout
+from tensorflow.python.keras.layers import Activation
+from tensorflow.python.keras.Model import Model
 
 ----
 
@@ -79,7 +79,8 @@ Create a neural network whose inputs are 2048 dimensions, the total connection l
 
 The Dropout layer plays a role to prevent overlearning by randomly deleting neurons.
 
-Keras constructs a model by defining the model and then calling the compile function. Although optimizer and loss need to be changed according to the purpose, in this case 'categorical_crossentropy' was used, but there are many other than link:https://keras.io/ja/optimizers/[adam optimizer] , so it will actually require trial and error which is appropriate.
+In Keras, a model is built by calling the compile function after defining the model. The optimizer and loss need to be changed according to the purpose. This time, I used 'categorical_crossentropy' as loss and 'adam' as optimizer, but there are  many other than links:https://keras.io/ja/optimizers/[adam optimzer], so it is actually a trial and error case to determine which is appropriate.
+
 
 TIP: link:https://en.wikipedia.org/wiki/Rectifier_(neural_networks)[ReLU] is often used because it can overcome the problem of gradient disappearance of link:https://en.wikipedia.org/wiki/Sigmoid_function[Sigmoid] function.
 
@@ -104,11 +105,13 @@ Keras provides a link:https://keras.io/ja/models/sequential/[Sequential] model, 
 
 NOTE: DNN optimizes the model while iterating the Backpropagation procedure, which compares the actual value with the predicted value predicted based on the initial randomly generated weight, and updates the weight so as to minimize the difference (LOSS). You It is Epochs that specifies the number of repetitions. You may seem to get smarter as you increase Epochs, but there is a risk of computational cost and over-learning, so it is not good if it is long. Observe Loss, Accuracy, etc. and find the appropriate number of Epochs.
 
-.Why is there a risk of overlearning when increasing Epochs?
+.Why is there a risk of overfitting when increasing Epochs?
 ****
 Using training data, we will adjust the weight to reduce the error between the correct value and the predicted value for each Epoch. If it is learned using a sufficient amount of training data and it is repeated too much, the generalization performance of the model will be reduced since the same training data will be learned over and over again.
 
-To judge overtraining, if you evaluate and plot the accuracy of Training set / Validation set for each Epoch, you can check whether the accuracy of Validation set does not change or deteriorate while accuracy of Training set improves. Keras has a function called link:https://keras.io/ja/callbacks/[Eary] stopping, which allows you to stop learning if the performance of the model does not change even if you have learned a certain number of times.
+
+
+To evaluate overfiting, you can evaluate the accuracy of the training set / validation set for each Epoch and plot to improve the accuracy of the training set while checking whether the accuracy of the validation set does not change or becomes worse. Keras has a function of link:https://keras.io/ja/callbacks/[Early stopping], and even if learning continues for a certain number of times, if the performance of the model does not change, learning can be stopped there.
 
 See the introduction and references of https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[Early stopping] for more information.
 
@@ -206,7 +209,7 @@ So far, we have created models of RandomForest and DNN using molecular fingerpri
 
 For example, in image classification, a human defined the feature quantity called link:https://en.wikipedia.org/wiki/Scale-invariant_feature_transform[SIFT], and a model was created using this as an input, but the current DNN basically uses the pixel information of the image itself.
 
-In terms of chemoinformatics, SIFT is equivalent to a molecular fingerprint. So isn't it possible to improve DNN's performance by changing this (input) to a more primitive expression? It is extremely natural to think that. In 2015, Alan Aspuru-Guzik et al's group at Harvard University proposed the link:https://arxiv.org/pdf/1509.09292.pdf[Neural Finger print/NFP] as a challenge.
+In terms of chemoinformatics, SIFT is equivalent to a molecular fingerprint. So isn't it possible to improve DNN's performance by changing this (input) to a more primitive expression? It is extremely natural to think that. In 2015, Alan Aspuru-Guzik et al's group at Harvard University proposed the link:https://arxiv.org/pdf/1509.09292.pdf[Neural Fingerprint/NFP] as a challenge.
 
 The differences between ECFP and NFP used so far are shown by citing figures in their papers.
 
@@ -238,7 +241,7 @@ If you want to execute Example, please enter the following command.
 python example.py
 ----
 
-Reference link:
+Reference links:
 - link:https://arxiv.org/abs/1509.09292[NGF-paper]
 - link:https://arxiv.org/abs/1611.03199[DeepChem-paper]
 - link:http://www.keiserlab.org/[keiserlab]
@@ -247,7 +250,8 @@ Reference link:
 - link:https://github.com/GUR9000/KerasNeuralFingerprint[for keras1.x]
 - link:https://github.com/ericmjl/graph-fingerprint[ericmjl/graph_fp]
 - link:https://github.com/deepchem/deepchem[DeepChem]
-- link:https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[About Eary stopping]
 - link:https://www.cs.ubc.ca/~lowe/papers/iccv99.pdf[SIFT original Paper]
+- link:https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/[Early stopping]
+
 
 <<<

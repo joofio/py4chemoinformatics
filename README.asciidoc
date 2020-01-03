@@ -7,7 +7,6 @@
 
 - https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#formatted-text[AsciiDoc Syntax Quick Reference]
 
-image::python_for_ci.png[py4chemoinformatics, width=250]
 
 == link:ch01_introduction.asciidoc[01 Introduction]
 
@@ -90,3 +89,11 @@ image::python_for_ci.png[py4chemoinformatics, width=250]
 == link:ch13_beyond.asciidoc[13 Conclusion]
 
 - Final remarks and further reading
+
+== License
+
+This document is copyright (C) 2019 by @fmkz___ and @iwatobipen
+
+This document is link:https://github.com/Mishima-syk/py4chemoinformatics/blob/master/LICENSE[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License].
+
+image::by-nc-sa.png[CC-BY-NC-SA, width=100]
