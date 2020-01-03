@@ -3,7 +3,7 @@
 
 *Update 03_2019:* forked and tried to translate to english. Corrections are welcome.
 
-I added a little (2018.12.12). Since the web interface is likely to be beyond the scope of introductory, I will consider how to do it.
+*Update 01_2020:* updating the information to mimic original.
 
 - https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#formatted-text[AsciiDoc Syntax Quick Reference]
 
@@ -11,45 +11,53 @@ image::python_for_ci.png[py4chemoinformatics, width=250]
 
 == link:ch01_introduction.asciidoc[01 Introduction]
 
-- What is chemoinformatics?
 - What is RDKit?
 - Target audience
-- Acknowledgment
+- About the code in this book
+- Acknowledgments
+- bonus
 - License
 
-== link:ch02_installation.asciidoc[02 Let's prepare the environment for chemoinformatics]
+== link:ch02_installation.asciidoc[02 Create an environment for chemoinformatics]
 
-- Anaconda(Python, Jupyter, scikit-learn)
-- RDKit
+- About Anaconda
+- How to install Anaconda
+- Build virtual environment and install packages
+- Description of the installed package
+- More about Conda
 
 == link:ch03_python.asciidoc[03 Basics of Python programming]
 
 - Python basics
-- Let's use it conveniently with Jupyter notebook
-- To do machine learning with Python
+- Use it conveniently with the Jupyter notebook
+- Machine learning with Python
 
 == link:ch04_database.asciidoc[04 Public database for chemoinformatics]
 
 - ChEMBL
 - PubChem
-- Search for the information you want on ChEMBL
+- Search for desired information with ChEMBL
+- Other useful databases
 
 == link:ch05_rdkit.asciidoc[05 Handling Structural Information with RDKit]
 
 - What is SMILES?
 - Let's draw the structure
 - How to handle multiple compounds at once?
+- Try hetero shuffling
 
-== link:ch06_similarity.asciidoc[06 Try to evaluate the similarity of compounds]
+== link:ch06_similarity.asciidoc[06 Evaluating the similarity of compounds]
 
-- Descriptor, fingerprint
+- What does it mean that compounds are similar?
 - Calculate similarity
 - Virtual screening
+- Clustering
+- Structure Based Drug Design (SBDD)
 
-== link:ch07_graph.asciidoc[07 valuation of similarity using graph structure]
+== link:ch07_graph.asciidoc[07 Evaluation of similarity using graph structure]
 
 - Classification by major skeleton (MCS)
-- Compound Network by Matched Molecular Pair
+- Matched Molecular Pair and Matched Molecular Series
 - Visualize MMP networks using Cytoscape
 
 == link:ch08_visualization.asciidoc[08 I want to have many compounds at once]
@@ -72,11 +80,12 @@ image::python_for_ci.png[py4chemoinformatics, width=250]
 == link:ch11_dlqsar.asciidoc[11 Structure-activity relationship using deep-learning]
 
 - Predictive model construction using DNN
-- I will devise a descriptor (neural fingerprint)
+- Devising a descriptor (neural fingerprint)
 
 == link:ch12_generativemodels.asciidoc[12 Let the computer think about chemical structure]
 
-- Structure generation using Recurrent Neural Network
+- Preparation
+- Illustration
 
 == link:ch13_beyond.asciidoc[13 Conclusion]
 

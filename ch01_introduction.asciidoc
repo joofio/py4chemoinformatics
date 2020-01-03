@@ -12,9 +12,9 @@ Compound design is innovative
 What kind of compound should we make in the first place? And how to synthesize it? The process of thinking about the background is an area where background knowledge and imagination are required, and conventionally it has been recognized that it is a difficult area for people other than to bear, but the advancement of what is also called AI to such areas is here It progressed rapidly in several years (2017-2019).
 ****
 
-Cheminformatics has already been used in various situations, but there was not much relevant information. There are several possible reasons for this, but there is no doubt that the two main reasons are that there were no open source toolkits and no public databases. However, with the advent of RDKit, an open source chemoinformatics toolkit called RDKit and a public database called ChEMBL, this has been resolved.
+Cheminformatics has already been used in various situations, but there is not much related information. There are several possible reasons for this, but there is no doubt that the two main reasons are the lack of open source toolkits and the unavailability of public databases. However, with the advent of RDKit, an open source chemoinformatics toolkit and a public database called ChEMBL, this has been somewhat resolved.
 
-In recent years, as with bioinformatics in chemoinformatics, a lot of information can be obtained immediately by searching on the web, and it is possible to learn by yourself, but as a set of information to take a first step, We decided to prepare "the content that could learn the basics of chemoinformatics and apply them". Considering the recent AI drug discovery boom, the latter chapter contains chapters on compound activity prediction and compound proposal using deep learning used in the context of “AI drug discovery”, so one-stop learning So you should be able to keep up with the recent trends.
+In recent years, similar to bioinformatics, a lot of information can be quickly obtained about chemoinformatics by searching on the web, and it is possible to learn by yourself. Nevertheless, the ammount of information required to take a first step can be overwhelming and so we decided to prepare "the content that could learn the basics of chemoinformatics and apply them". Considering the recent AI drug discovery boom, the latter chapter contains chapters on compound activity prediction and compound proposal using deep learning used in the context of “AI drug discovery”, so learn it as a whole and you should be able to keep up with recent trends.
 
 <<<
 
@@ -24,38 +24,44 @@ warning:: Here is a subsection of @ iwatobipen's talk about RDKit. At the draft 
 
 My name is @iwatobipen, who writes a part of this book. I'm going to talk hot about RDKit here.
 
-What is the RD of RDKit? Actually, it is an abbreviation of **Rational Discovery** , and a framework that is the predecessor of the current open source was developed in 2000. It's so old and old. Then, in 2006, the code became open source and was released from sourceforge. Readers who think that Python's chemoinformatics toolkit includes OpenBabel besides RDKit will also be welcome. OpenBabel was first released in 2005. All come with a toolkit that has more than 10 years of history. I remember that OpenBabel was the major in around 2012, when the deaf people began to be interested in this area. At that time, there were almost no articles in Japanese, and the person who wrote this link:https://kzfm.hatenablog.com/archive[book] was a trial and error writing the code of RDKit referring to the link:https://kzfm.hatenablog.com/archive[chemo info] cookbook of @fmkz___ who is a co-
-author of this book and a pioneer in the industry Oh. If you want to keep track of chemoinfo related history, you should read this link:http://blog.kzfmix.com/entry/1542711744[article].
+What is the RD of RDKit? Actually, it is an abbreviation of **Rational Discovery** . Its  non-open source predecessor was developed in 2000, so it is very old. Then, in 2006, the code became open source and was released from sourceforge. Some readers think of OpenBabel in addition to RDKit as a chemoinformatics toolkit for Python. OpenBabel was first released in 2005. Both are toolkits that have been around for over 10 years. When I started to get interested in this area in 2012, I remember that OpenBabel was bigger. At that time, there were almost no articles in Japanese, and the person who wrote this link:https://kzfm.hatenablog.com/archive[book] was a trial and error writing the code of RDKit referring to the link:https://kzfm.hatenablog.com/archive[chemo info] cookbook of @fmkz___ who is a co-author of this book and a pioneer in the industry Oh. If you want to check chemoinfo related history, you should read this link:http://blog.kzfmix.com/entry/1542711744[article].
+
+Oops, the story has diverted. Let's return to the main subject.
+
 
 
 Developer Greg Landorum says
-
 [quote, Greg Landorum]
-RDKit is the Swiss Army Knife in chemoinformatics and is a collection of various functional pieces
+RDKit is the Swiss Army Knife in chemoinformatics, a collection of various functional pieces
 
-This is exactly the expression which got the target. As you can see if you look at the link:link:https://www.rdkit.org/docs/[official document] , it already has various features. Starting with reading and writing of compound information, drawing of structure, 3D structure conformation generation, R group decomposition, descriptor, fingerprint calculation, pharmacophore calculation etc. Oh. It can cover a wide range from analysis to visualization. Furthermore, the tools developed by Contributor and others using RDKit are packed in the link:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib] folder along with their hot feelings . How do you want to use it? Now I want to write code with RDKit as soon as possible, I cant't wait ;)
+
+This is precisely the point. As you can see if you look at the link:https://www.rdkit.org/docs/[official documentation], it already has various features. Starting with reading and writing of compound information, drawing of structure, 3D structure conformation generation, R group decomposition, descriptors, fingerprint calculations, pharmacophore calculations etc. It can cover a wide range of features from analysis to visualization. Furthermore, the tools developed by Contributers and others using RDKit are packed in the link:https://github.com/rdkit/rdkit/tree/master/Contrib[Contrib] folder. How do you want to use it? Now I want to write code with RDKit as soon as possible, I cant't wait ;)
 
 NOTE: @iwatobipen is, of course, one of the contributors, and provides code to quickly cluster a large number of compound libraries called link:https://github.com/rdkit/rdkit/tree/master/Contrib/Fastcluster[Fastcluster] . (by @fmkz___)
 
-RDKit is also active in the development and user community, with more features being added. The style in which talented researchers from all over the world build up and develop as a whole is the strength and attraction of open source. If you have a chance, consider joining the annual RDKit User Group Meeting. It is hard to replace anything with Face2Face that users can discuss each other. In addition, I said that there was almost no information on Japanese at the time when the deaf began to use it, but in recent years there have been a lot of very good Japanese articles. Here are a few examples: There are many articles posted on Qiita.
+RDKit is also active in the development and user community, with more features being added. The style in which talented researchers from all over the world build up and develop as a whole is the strength and attraction of open source. If you have a chance, consider joining the annual RDKit User Group Meeting. It is hard to replace anything with Face2Face that users can discuss each other. Also, I said that when I started using it, there was almost no information on Japanese, but in recent years there have been a lot of very good Japanese articles. Some examples are given below. There are many articles on Qiita.
 
-In addition, link:http://rdkit-users.jp/[RDKit-users-jp] by volunteers has also been launched. If your question in English seems to be a bit ..., I would like to ask a question here. Also, Japanese documents are merged into the latest version of RDKit's repository. This will also be helpful. This document only uses some of RDKit's features. You should still feel that you can do a lot of things. Once you have taken the first step of interest, you should go ahead with your own interest and motivation. If you do not understand something, ask the above community and post it to the repository of this book as an issue. **Well then let's get started!**
+In addition, link:http://rdkit-users.jp/[RDKit-users-jp]  has also been launched by volunteers. If your question in English seems to be a bit ..., I would like to ask a question here. Also, Japanese documents are merged into the latest version of RDKit's repository. This will also be helpful. This document only uses some of RDKit's features. You should still feel that you can do a lot of things. Once you have taken the first step of interest, you should go ahead with your own interest and motivation. If you do not understand something, ask the above community and post it to the repository of this book as an issue. **Well then let's get started!**
 
 ==== Main Japanese Commentary Site
 
 - link:http://rdkit-users.jp/[rdkit-users.jp]
-- link:https://magattaca.github.io/RDKit_unofficial_translation_JP/[RDKitドキュメンテーション非公式日本語版サイト:Unofficail site of rdkit documentation]
-- link:https://future-chem.com/[化学の新しいカタチ:The shape of new chemistry]
+- link:https://magattaca.github.io/RDKit_unofficial_translation_JP/[RDKit Documentation Unofficial Japanese Version Site]
+- link:https://future-chem.com/[A new form of chemistry]
 
 === Target audience
 
 The following people are assumed as readers.
 
-- Postdoctoral student who wants to do data analysis of graduate students in pharmacy and medicine and pharmacy
-- Pharmacist at a pharmaceutical company who wants to analyze his own data
-- Those who feel the need for chemoinformatics in drug discovery chemists and those who are assigned suddenly due to the power of mystery
-- Bioinformaticians who are thinking of learning chemoinformatics
-- People who are interested in AI drug discovery but do not know what to start with
+- Graduate students in medical and pharmaceutical sciences and postdocs who want to analyze data in pharmaceutical sciences
+
+- Pharmaceutical researchers at pharmaceutical companies who want to analyze their own data
+
+- Drug chemist who feels the need for chemoinformatics
+
+- Bioinformatics thinking about learning chemoinformatics
+
+- People who are interested in AI drug discovery but do not know what to start
 
 === About the code of this book
 
@@ -65,7 +71,7 @@ The installation of Chapter 2 will enable you to use git commands, so you can do
 
 [source, bash]
 ----
-$ git clone https://github.com/Mishima-syk/py4chemoinformatics.git
+$ git clone https://github.com/joofio/py4chemoinformatics.git
 ----
 
 === bonus
@@ -90,31 +96,28 @@ link:https://twitter.com/ReLuTropy[@ReLuTropy],
 link:https://twitter.com/ski_nanko[@ski_nanko],
 link:https://twitter.com/torusengoku[@torusengoku],
 link:https://twitter.com/yamasaKit_[@yamasaKit_]
-link:https://twitter.com/4Elemento[@4Elemento],
-@4Elemento, thanks a lot for tranlation task!!!! (from @iwatobipen)
 
-From here onwards I wrote while listening to Nujabes-reflection eternal by @fmkz___ 20/03/20
 
-First of all, I would like to thank the link:https://twitter.com/bonohu[@bonohu] which triggered me to write this book. @Bonohu's link:https://www.amazon.co.jp/dp/4895929019[Dr. Bono's analysis of life science data]. At athe meeting of Mishima.syk we talked that "The Bono book Chemoinformatics version" would be nice. There is no doubt that what triggered me to write this book is, "Well, if yes, why not write?" Also, link: https://twitter.com/souyakuchan[@souyakuchan] link:https://adventar.org/calendars/3041[Drug Advent Calendar 2018, written in Japanese] has also become a good stimulus for writing. In other words, I think that I did not start to move specifically if I did not make a chapter here.
+From here on, I wrote it while listening to Nujabes-reflection eternal by @fmkz___ 03/03/2019
 
-Also, it is the existence of y-sama that should not be forgotten. link:http://mishima-syk.github.io/[Mishima.syk] y-sama has been away at the beginning and has fallen forever on 2019/01/06. He wrote wonderful post such as link:https://qiita.com/y\__sama/items/5b62d31cb7e6ed50f02c[Python environment construction of the person who aims at the data scientist 2016] and link:https://medium.com/@y__sama/druglikeness%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%82%88%E3%82%82%E3%82%84%E3%81%BE%E8%A9%B1-8310cec5ffc6[Small talk about drug likeness: written in Japanese]. If he was alive, we would probably write by three people and the content would have been more complete. This event also gave us a strong motivation to write.
+
+First of all, I would like to thank the link:https://twitter.com/bonohu[@bonohu] for starting this book. @Bonohu's link:https://www.amazon.co.jp/dp/4895929019[Dr. Bono's analysis of life science data]. At he meeting of Mishima.syk we talked that "The Bono book Chemoinformatics version" would be nice. There is no doubt that what triggered me to write this book is, "Well, if yes, why not write?" Also, link: https://twitter.com/souyakuchan[@souyakuchan] link:https://adventar.org/calendars/3041[Drug Advent Calendar 2018, written in Japanese] has also become a good stimulus for writing. In other words, I think that I did not start to move specifically if I did not make a chapter here.
+
+Also, don't forget the existence of y-sama. Y-sama who has been excited about link:http://mishima-syk.github.io/[Mishima.syk] from the beginning died on January 6, 2019. He wrote wonderful post such as link:https://qiita.com/y\__sama/items/5b62d31cb7e6ed50f02c[Python environment construction of the person who aims at the data scientist 2016] and link:https://medium.com/@y__sama/druglikeness%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AE%E3%82%88%E3%82%82%E3%82%84%E3%81%BE%E8%A9%B1-8310cec5ffc6[Small talk about drug likeness: written in Japanese]. If he was alive, we would probably write by three people and the content would have been more complete. This event also gave us a strong motivation to write.
 
 Finally, I would like to thank the participants who participated in Mishima.syk for drinking good wine and beer and having a hot discussion every time. Some content is based on the presentation at Mishima.syk, and has been revised based on your feedback.
 
 If you have read this book, and if you feel that chemoinformatics is interesting or you want to do drug discovery, please join Mishima.syk. I think it will be fun. In future drug discovery research, it will be important to push each other across affiliations and improve their skills. In fact, I think it is already such a society. I hope this book will help you have a pleasant research life.
 
 [quote, y__sama]
-I do what I want to do I live myself, I have no regrets in my life.
-Life enjoys winning.
-I think it would be fun to enjoy your life by chasing your joy to the fullest by saying that you hate something you hate.
-I wish you all the best in your life.
+I have done what I want to do and I have no regrets in my life 
+I enjoyed life but I won't hate what I do and it's better to pursue my joy as much as possible and enjoy life I hope it's fun
 
 === License
 
 This document is copyright (C) 2019 by @fmkz___ and @iwatobipen
 
-This document is link:https://github.com/Mishima-syk/py4chemoinformatics/blob/master/LICENSE[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
-Public License].
+This document is link:https://github.com/Mishima-syk/py4chemoinformatics/blob/master/LICENSE[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License].
 
 image::by-nc-sa.png[CC-BY-NC-SA, width=100]
 
