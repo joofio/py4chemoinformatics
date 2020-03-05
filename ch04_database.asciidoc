@@ -168,7 +168,7 @@ ZINCは購入可能な試薬をコレクションしたデータベースです�
 データのダウンロード方法は上部のTranchesタブをクリックすると次の画面に縦軸にLogP横軸に分子量の大きさで分類されそれぞれの区画にいくつの化合物が収載されているかの表が表示されます。
 ////
 ZINC is a database which collected commercial available reagents. Current version is 15 and about 750 million comounds are recorded.
-User can download 3D molecular structure data because originally the data base is developed for assuming docking simulation. I think that conduct virtual screening with data from ZINC, purchase hit comounds and assay these compounds is the main usage.
+User can download 3D molecular structure data because originally the data base is developed for assuming docking simulation. I think that conduct virtual screening with data from ZINC, purchase hit compounds and assay these compounds is the main usage.
 
 How to download data?
 Click Tranches tab, then you can see on the next screen, the table which is devided the vertical axis shows LogP the horizontal axis shows molecular weight display a table of how many compounds are listed.
