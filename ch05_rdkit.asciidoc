@@ -276,7 +276,7 @@ image::ch05/ch05_05.png[query]
 
 [source, python]
 ----
-ht=HeteroSuffle(mol1, core1)
+ht=HeteroShuffle(mol1, core1)
 res=ht.generate_mols()
 print(len(res))
 Draw.MolsToGridImage(res, molsPerRow=5)
@@ -290,7 +290,7 @@ image::ch05/ch05_06.png[res1]
 
 [source, python]
 ----
-ht=HeteroSuffle(mol2, core2)
+ht=HeteroShuffle(mol2, core2)
 res=ht.generate_mols()
 print(len(res))
 Draw.MolsToGridImage(res, molsPerRow=5)
